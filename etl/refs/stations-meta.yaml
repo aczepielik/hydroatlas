@@ -1,0 +1,88 @@
+# Curated Wisła-basin station set and hand-maintained metadata for the
+# Atlas of Polish Rivers v1. Section-1 fields (catchment area, regime, ...)
+# are intentionally null until verified against a reference publication;
+# null renders as an omitted row on the station page.
+#
+# `name`/`river` override data-derived values when set; otherwise the
+# registry uses the IMGW snapshot (active stations) or the archive/list
+# spelling (historical ones).
+basin: Wisła
+stations:
+  # --- Wisła main stem, downstream order ---
+  - id: "149180140"
+    name: Wisła   # source station
+    river: Wisła
+    river_key: wisla
+  - id: "149180100"
+    name: Skoczów
+    river: Wisła
+    river_key: wisla
+  - id: "150190340"
+    name: Kraków-Bielany
+    river: Wisła
+    river_key: wisla
+  - id: "150210170"
+    name: Sandomierz
+    river: Wisła
+    river_key: wisla
+  - id: "152210010"
+    name: Warszawa   # the station mocked in mocks/single.html
+    river: Wisła
+    river_key: wisla
+  - id: "152200110"
+    name: Modlin   # Narew confluence junction
+    river: Wisła
+    river_key: wisla
+  - id: "152199995"
+    name: Płock
+    river: Wisła
+    river_key: wisla
+  - id: "153180090"
+    name: Toruń
+    river: Wisła
+    river_key: wisla
+  - id: "154180220"
+    name: Gdańska Głowa   # downstream end of the main line
+    river: Wisła
+    river_key: wisla
+  # --- major tributaries ---
+  - id: "152219999"
+    name: Zegrze   # Narew
+    river: Narew
+    river_key: narew
+  - id: "152210090"
+    name: Wyszków   # Bug (joins Narew)
+    river: Bug
+    river_key: bug
+  - id: "150220100"
+    name: Jarosław   # San
+    river: San
+    river_key: san
+  - id: "149200280"
+    name: Zgłobice   # Dunajec
+    river: Dunajec
+    river_key: dunajec
+  - id: "150219996"
+    name: Mielec   # Wisłoka
+    river: Wisłoka
+    river_key: wisloka
+  - id: "150190160"
+    name: Oświęcim   # Soła
+    river: Soła
+    river_key: sola
+  - id: "149190170"
+    name: Zator   # Skawa
+    river: Skawa
+    river_key: skawa
+
+# Optional per-station physical metadata (section 1 of the station page).
+metadata:
+  "152210010":
+    catchment_km2: null
+    regime: null
+    station_class: null
+    unit_runoff_dm3s_km2: null
+    runoff_mm: null
+    network_density_km_km2: null
+    river_length_km: null
+    annual_precip_mm: null
