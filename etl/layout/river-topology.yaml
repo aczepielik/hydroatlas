@@ -1,0 +1,72 @@
+# Hand-tuned transit-map layout for the curated Wisła-basin station set.
+# Schematic, not geographic: the main stem is a vertical line (mouth at the
+# top, source at the bottom); tributaries enter from the east at 45 degrees.
+# Rendered by hydroatlas.topology -> site/static/img/index-map.svg.
+canvas: { width: 700, height: 820 }
+
+edges:
+  - id: wisla
+    kind: main
+    label: Wisła
+    label_pos: { x: 200, y: 28, anchor: middle }
+    points: [[200, 40], [200, 800]]
+
+  - id: narew
+    kind: trib
+    label: Narew
+    label_pos: { x: 510, y: 262, anchor: middle }
+    points: [[200, 330], [260, 270], [575, 270]]
+
+  - id: bug
+    kind: trib
+    label: Bug
+    label_pos: { x: 552, y: 385, anchor: start }
+    points: [[575, 415], [430, 270]]
+
+  - id: san
+    kind: trib
+    label: San
+    label_pos: { x: 510, y: 552, anchor: middle }
+    points: [[565, 560], [275, 560], [200, 485]]
+
+  - id: wisloka
+    kind: trib
+    label: Wisłoka
+    label_pos: { x: 458, y: 642, anchor: middle }
+    points: [[500, 650], [275, 650], [200, 575]]
+
+  - id: dunajec
+    kind: trib
+    label: Dunajec
+    label_pos: { x: 500, y: 682, anchor: middle }
+    points: [[540, 690], [295, 690], [200, 595]]
+
+  - id: sola
+    kind: trib
+    label: Soła
+    label_pos: { x: 405, y: 707, anchor: middle }
+    points: [[430, 715], [265, 715], [200, 650]]
+
+  - id: skawa
+    kind: trib
+    label: Skawa
+    label_pos: { x: 350, y: 752, anchor: middle }
+    points: [[450, 760], [295, 760], [200, 665]]
+
+stations:
+  - { id: "154180220", x: 200, y: 60,   label: left }   # Gdańska Głowa
+  - { id: "153180090", x: 200, y: 150,  label: left }   # Toruń
+  - { id: "152199995", x: 200, y: 250,  label: left }   # Płock
+  - { id: "152200110", x: 200, y: 330,  label: left, interchange: true }  # Modlin (ujście Narewu)
+  - { id: "152219999", x: 430, y: 270,  label: above, interchange: true } # Zegrze (ujście Bugu)
+  - { id: "152210090", x: 500, y: 340,  label: above }  # Wyszków (Bug)
+  - { id: "152210010", x: 200, y: 420,  label: left }   # Warszawa
+  - { id: "150220100", x: 400, y: 560,  label: above }  # Jarosław (San)
+  - { id: "150210170", x: 200, y: 520,  label: left }   # Sandomierz
+  - { id: "150219996", x: 390, y: 650,  label: above }  # Mielec (Wisłoka)
+  - { id: "149200280", x: 430, y: 690,  label: above }  # Zgłobice (Dunajec)
+  - { id: "150190340", x: 200, y: 620,  label: left }   # Kraków-Bielany
+  - { id: "150190160", x: 350, y: 715,  label: above }  # Oświęcim (Soła)
+  - { id: "149190170", x: 450, y: 760,  label: right }  # Zator (Skawa)
+  - { id: "149180100", x: 200, y: 700,  label: left }   # Skoczów
+  - { id: "149180140", x: 200, y: 770,  label: left }   # Wisła (źródło)
