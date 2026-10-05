@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Stacja hydrologiczna – Wisła Warszawa</title>
+<link rel="stylesheet" href="styles1.css">
+</head>
+
+<body>
+
+<header class="site-header">
+<div class="container header-content">
+<h1>Wisła – Warszawa</h1>
+<div class="quick-meta">
+  <span><strong>ID:</strong> 152210010</span> | <span><strong>Okres:</strong> 1951–2020</span>
+</div>
+</div>
+</header>
+
+<main class="container">
+
+<section class="hydrological-regime">
+  <h2>Profil stacji i charakterystyka zlewni</h2>
+  <div class="semantic-grid">
+    <table class="info-table">
+      <tr><td>Rzeka</td><td>Wisła</td></tr>
+      <tr><td>Zlewnia</td><td>84 857 km²</td></tr>
+      <tr><td>Reżim</td><td>śnieżno-deszczowy</td></tr>
+      <tr><td>Typ stacji</td><td>I rzędu</td></tr>
+    </table>
+    <table class="info-table">
+      <tr><td>Odpływ jednostkowy (q)</td><td>12.2 dm³/s·km²</td></tr>
+      <tr><td>Wskaźnik odpływu (H)</td><td>386 mm</td></tr>
+      <tr><td>Gęstość sieci rzecznej</td><td>0.52 km/km²</td></tr>
+      <tr><td>Długość rzeki</td><td>1047 km</td></tr>
+    </table>
+  </div>
+</section>
+
+<section class="hydrological-stats">
+  <h2>Macierz przepływów i statystyki</h2>
+  <div class="semantic-grid">
+    <div class="flow-matrix">
+      <div class="matrix-cell header-row"></div>
+      <div class="matrix-cell header-row">NQ</div>
+      <div class="matrix-cell header-row">SQ</div>
+      <div class="matrix-cell header-row">WQ</div>
+      <div class="matrix-cell header-col">N</div>
+      <div class="matrix-cell">120</div>
+      <div class="matrix-cell">540</div>
+      <div class="matrix-cell">1850</div>
+      <div class="matrix-cell header-col">S</div>
+      <div class="matrix-cell">280</div>
+      <div class="matrix-cell">1040</div>
+      <div class="matrix-cell">3450</div>
+      <div class="matrix-cell header-col">W</div>
+      <div class="matrix-cell">410</div>
+      <div class="matrix-cell">1620</div>
+      <div class="matrix-cell">6890</div>
+    </div>
+    <table class="info-table">
+      <tr><td>Baseflow Index (BFI)</td><td>0.64</td></tr>
+      <tr><td>Autokorelacja (lag-1)</td><td>0.92</td></tr>
+      <tr><td>Wskaźnik Flashiness</td><td>0.12</td></tr>
+      <tr><td>Współczynnik zmienności (CV)</td><td>0.38</td></tr>
+      <tr><td>Współczynnik odpływu (Q/P)</td><td>0.42</td></tr>
+      <tr><td>Colwell (P / C / M)</td><td>0.65 / 0.42 / 0.23</td></tr>
+    </table>
+  </div>
+</section>
+
+<section class="ecological-health">
+  <h2>Wskaźniki ekohydrologiczne (IHA - 33)</h2>
+  <div class="semantic-grid">
+    <div>
+      <h3>Przepływy miesięczne (średnie)</h3>
+      <table class="info-table iha-table">
+        <tr><td>Sty</td><td>840</td><td>Lip</td><td>1050</td></tr>
+        <tr><td>Lut</td><td>920</td><td>Sie</td><td>760</td></tr>
+        <tr><td>Mar</td><td>1450</td><td>Wrz</td><td>720</td></tr>
+        <tr><td>Kwi</td><td>1680</td><td>Paź</td><td>780</td></tr>
+        <tr><td>Maj</td><td>1120</td><td>Lis</td><td>820</td></tr>
+        <tr><td>Cze</td><td>980</td><td>Gru</td><td>890</td></tr>
+      </table>
+    </div>
+    <div class="iha-right-col">
+      <div>
+        <h3>Ekstrema roczne</h3>
+        <table class="info-table iha-table">
+          <tr><td>1-d min/max</td><td>145 / 5400</td><td>30-d min/max</td><td>185 / 3900</td></tr>
+          <tr><td>3-d min/max</td><td>152 / 5120</td><td>90-d min/max</td><td>210 / 2800</td></tr>
+          <tr><td>7-d min/max</td><td>160 / 4850</td><td>Zero-flow</td><td>0</td></tr>
+        </table>
+      </div>
+      <div>
+        <h3>Dynamika i impulsy</h3>
+        <table class="info-table iha-table">
+          <tr><td>Min/Max dz</td><td>245 / 102</td><td>Rise/Fall</td><td>12.5 / -8.2</td></tr>
+          <tr><td>High/Low pul</td><td>4 / 2</td><td>Reversals</td><td>94</td></tr>
+          <tr><td>High/Low dur</td><td>12 / 45</td><td>Baseflow</td><td>0.28</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="data-visualization">
+  <h2>Wizualizacja reżimu</h2>
+  <div class="charts-grid-2">
+    <figure class="chart"><div class="chart-placeholder">Raster Hydrograph</div><figcaption>2D Hydrogram</figcaption></figure>
+    <figure class="chart"><div class="chart-placeholder">FDC</div><figcaption>Krzywa czasu trwania</figcaption></figure>
+    <figure class="chart"><div class="chart-placeholder">Pardé</div><figcaption>Wsp. Pardégo</figcaption></figure>
+    <figure class="chart"><div class="chart-placeholder">Spectrogram</div><figcaption>Analiza okresowości</figcaption></figure>
+    <figure class="chart"><div class="chart-placeholder">Timing</div><figcaption>Terminy ekstremów</figcaption></figure>
+    <figure class="chart"><div class="chart-placeholder">Boxplots</div><figcaption>Miesięczna zmienność</figcaption></figure>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+<div class="container">Źródło: IMGW. Analiza hydrologiczna na podstawie danych empirycznych.</div>
+</footer>
+
+</body>
+</html>
