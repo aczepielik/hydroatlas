@@ -1,0 +1,13 @@
+{{- /* One row-pair table of monthly means: values is a 12-element list. */ -}}
+{{- $values := .values -}}
+{{- $months := slice "Sty" "Lut" "Mar" "Kwi" "Maj" "Cze" "Lip" "Sie" "Wrz" "Paź" "Lis" "Gru" -}}
+<table class="info-table iha-table">
+  {{- range $i := seq 6 }}
+  <tr>
+    <td>{{ index $months (sub $i 1) }}</td>
+    <td>{{ partial "fmt-num" (index $values (sub $i 1)) }}</td>
+    <td>{{ index $months (add $i 5) }}</td>
+    <td>{{ partial "fmt-num" (index $values (add $i 5)) }}</td>
+  </tr>
+  {{- end }}
+</table>

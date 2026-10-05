@@ -1,0 +1,3 @@
+locale = "pl"
+title = "Atlas Rzek Polski"
+disableKinds = ["taxonomy", "term", "RSS"]

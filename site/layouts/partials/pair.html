@@ -1,0 +1,8 @@
+{{- /* Renders "a / b" with Polish number formatting; "—" when both are nil. */ -}}
+{{- $a := printf "%v" .a -}}
+{{- $b := printf "%v" .b -}}
+{{- if and (eq $a "<nil>") (eq $b "<nil>") -}}
+—
+{{- else -}}
+{{ partial "fmt-num" .a }} / {{ partial "fmt-num" .b }}
+{{- end -}}

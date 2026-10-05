@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ block "title" . }}{{ .Site.Title }}{{ end }}</title>
+<link rel="stylesheet" href="{{ "css/styles.css" | relURL }}">
+</head>
+<body>
+
+<header class="site-header">
+<div class="container header-content">
+<h1>{{ block "header-title" . }}{{ .Site.Title }}{{ end }}</h1>
+<div class="quick-meta">{{ block "header-meta" . }}{{ end }}</div>
+</div>
+</header>
+
+<main class="container">
+{{ block "main" . }}{{ end }}
+</main>
+
+<footer class="site-footer">
+<div class="container">Źródło: IMGW. Analiza hydrologiczna na podstawie danych empirycznych.</div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+{{- /* Formats a number in Polish style: grouped thousands, decimal comma,
+     trailing zeros stripped (94.0 -> 94, 0.64 -> 0,64).
+     nil renders as "—". Input: number or nil. Output: string. */ -}}
+{{- $s := printf "%v" . -}}
+{{- if eq $s "<nil>" -}}
+—
+{{- else -}}
+{{- $sign := "" -}}
+{{- if hasPrefix $s "-" -}}
+{{- $sign = "−" -}}
+{{- $s = strings.TrimPrefix "-" $s -}}
+{{- end -}}
+{{- $parts := split $s "." -}}
+{{- $out := partial "group-int" (index $parts 0) -}}
+{{- if gt (len $parts) 1 -}}
+{{- $frac := replaceRE "0+$" "" (index $parts 1) -}}
+{{- if $frac -}}
+{{- $out = printf "%s,%s" $out $frac -}}
+{{- end -}}
+{{- end -}}
+{{- printf "%s%s" $sign $out -}}
+{{- end -}}

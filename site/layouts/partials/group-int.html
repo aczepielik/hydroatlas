@@ -1,0 +1,21 @@
+{{- /* Groups an integer string into 3-digit chunks with spaces.
+     e.g. "84857" -> "84 857". Input: digit string. Output: grouped string. */ -}}
+{{- $s := printf "%v" . -}}
+{{- if le (len $s) 3 -}}
+{{- $s -}}
+{{- else -}}
+{{- $m := mod (len $s) 3 -}}
+{{- $pad := 0 -}}
+{{- if gt $m 0 -}}{{- $pad = sub 3 $m -}}{{- end -}}
+{{- $z := "" -}}
+{{- if gt $pad 0 -}}{{- $z = strings.Substr "000" 0 $pad -}}{{- end -}}
+{{- $chunks := findRE "[0-9]{3}" (printf "%s%s" $z $s) -}}
+{{- $first := replaceRE "^0+" "" (index $chunks 0) -}}
+{{- $tail := after 1 $chunks -}}
+{{- $out := "" -}}
+{{- if $first -}}{{- $out = $first -}}{{- end -}}
+{{- range $tail -}}
+{{- if $out -}}{{- $out = printf "%s %s" $out . -}}{{- else -}}{{- $out = . -}}{{- end -}}
+{{- end -}}
+{{- $out -}}
+{{- end -}}

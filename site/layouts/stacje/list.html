@@ -1,0 +1,8 @@
+{{ define "main" }}
+<h2 style="margin-top:30px;">Stacje</h2>
+<ul>
+  {{- range where .Site.RegularPages "Section" "stacje" }}
+  <li><a href="{{ .RelPermalink }}">{{ .Params.river }} – {{ .Params.name }}</a> ({{ .File.ContentBaseName }})</li>
+  {{- end }}
+</ul>
+{{ end }}

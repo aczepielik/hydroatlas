@@ -1,0 +1,225 @@
+{{ define "title" }}{{ .Params.river }} – {{ .Params.name }} – {{ .Site.Title }}{{ end }}
+{{ define "header-title" }}{{ .Params.river }} – {{ .Params.name }}{{ end }}
+
+{{ define "header-meta" }}
+{{- $id := .File.ContentBaseName -}}
+{{- $sts := where hugo.Data.stations "id" $id -}}
+{{- $st := dict -}}
+{{- with $sts }}{{ $st = index . 0 }}{{ end -}}
+<span><strong>ID:</strong> {{ $id }}</span>
+{{- with $st.data }}
+  {{- with .discharge }} | <span><strong>Q:</strong> {{ .start }}–{{ .end }}</span>{{ end }}
+  {{- with .stage }} | <span><strong>H:</strong> {{ .start }}–{{ .end }}</span>{{ end }}
+{{- else }} | <span>brak danych</span>
+{{- end }}
+{{ end }}
+
+{{ define "main" }}
+{{- $id := .File.ContentBaseName -}}
+{{- $sts := where hugo.Data.stations "id" $id -}}
+{{- $st := dict -}}
+{{- with $sts }}{{ $st = index . 0 }}{{ end -}}
+{{- $all := hugo.Data.aggregates | default dict -}}
+{{- $agg := index $all $id | default dict -}}
+{{- $months := slice "Sty" "Lut" "Mar" "Kwi" "Maj" "Cze" "Lip" "Sie" "Wrz" "Paź" "Lis" "Gru" -}}
+{{- $isQ := false -}}
+{{- if $agg.stats -}}{{- $isQ = true -}}{{- end -}}
+
+{{- /* Section 1: profile, catchment characteristics, data availability */ -}}
+<section class="hydrological-regime">
+  <h2>Profil stacji i charakterystyka zlewni</h2>
+  <div class="semantic-grid">
+    <table class="info-table">
+      <tr><td>Rzeka</td><td>{{ .Params.river }}</td></tr>
+      {{ with $st.catchment_km2 }}<tr><td>Zlewnia</td><td>{{ partial "fmt-num" . }} km²</td></tr>{{ end }}
+      {{ with $st.regime }}<tr><td>Reżim</td><td>{{ . }}</td></tr>{{ end }}
+      {{ with $st.station_class }}<tr><td>Typ stacji</td><td>{{ . }} rzędu</td></tr>{{ end }}
+      <tr><td>Status</td>{{ if eq $st.status "active" }}<td>czynna</td>{{ else }}<td>archiwalna</td>{{ end }}</tr>
+    </table>
+    <table class="info-table">
+      {{ with $st.unit_runoff_dm3s_km2 }}<tr><td>Odpływ jednostkowy (q)</td><td>{{ partial "fmt-num" . }} dm³/s·km²</td></tr>{{ end }}
+      {{ with $st.runoff_mm }}<tr><td>Wskaźnik odpływu (H)</td><td>{{ partial "fmt-num" . }} mm</td></tr>{{ end }}
+      {{ with $st.network_density_km_km2 }}<tr><td>Gęstość sieci rzecznej</td><td>{{ partial "fmt-num" . }} km/km²</td></tr>{{ end }}
+      {{ with $st.river_length_km }}<tr><td>Długość rzeki</td><td>{{ partial "fmt-num" . }} km</td></tr>{{ end }}
+      {{ with $st.data }}
+        {{- with .discharge }}
+      <tr><td>Dane Q</td><td>{{ .start }}–{{ .end }}, {{ partial "fmt-num" .days }} dni ({{ math.Round (mul .coverage 100) }}%)</td></tr>
+        {{- end }}
+        {{- with .stage }}
+      <tr><td>Dane H</td><td>{{ .start }}–{{ .end }}, {{ partial "fmt-num" .days }} dni ({{ math.Round (mul .coverage 100) }}%)</td></tr>
+        {{- end }}
+      {{- else }}
+      <tr><td>Dane pomiarowe</td><td>brak</td></tr>
+      {{- end }}
+    </table>
+  </div>
+</section>
+
+{{- if $agg.stats -}}
+
+{{- /* Section 2: flow matrix + summary statistics (discharge) */ -}}
+{{- $matrix := $agg.flow_matrix -}}
+<section class="hydrological-stats">
+  <h2>Macierz przepływów i statystyki</h2>
+  <div class="semantic-grid">
+    {{- with $matrix }}
+    <div class="flow-matrix">
+      <div class="matrix-cell header-row"></div>
+      <div class="matrix-cell header-row">NQ</div>
+      <div class="matrix-cell header-row">SQ</div>
+      <div class="matrix-cell header-row">WQ</div>
+      {{- range $row := slice "N" "S" "W" }}
+      <div class="matrix-cell header-col">{{ $row }}</div>
+      {{- $cells := index $matrix $row }}
+      <div class="matrix-cell">{{ partial "fmt-num" $cells.nq }}</div>
+      <div class="matrix-cell">{{ partial "fmt-num" $cells.sq }}</div>
+      <div class="matrix-cell">{{ partial "fmt-num" $cells.wq }}</div>
+      {{- end }}
+    </div>
+    {{- end }}
+    <table class="info-table">
+      <tr><td>Baseflow Index (BFI)</td><td>{{ partial "fmt-num" $agg.stats.bfi }}</td></tr>
+      <tr><td>Autokorelacja (lag-1)</td><td>{{ partial "fmt-num" $agg.stats.lag1 }}</td></tr>
+      <tr><td>Wskaźnik Flashiness</td><td>{{ partial "fmt-num" $agg.stats.flashiness }}</td></tr>
+      <tr><td>Współczynnik zmienności (CV)</td><td>{{ partial "fmt-num" $agg.stats.cv }}</td></tr>
+      <tr><td>Współczynnik odpływu (Q/P)</td><td>{{ partial "fmt-num" $agg.stats.qp }}</td></tr>
+      <tr><td>Colwell (P / C / M)</td><td>
+        {{- if $agg.stats.colwell -}}
+          {{ partial "fmt-num" $agg.stats.colwell.p }} /
+          {{ partial "fmt-num" $agg.stats.colwell.c }} /
+          {{ partial "fmt-num" $agg.stats.colwell.m }}
+        {{- else }}—{{ end -}}
+      </td></tr>
+    </table>
+  </div>
+</section>
+
+{{- /* Section 3: selected eco-hydrological indicators (discharge) */ -}}
+{{- $monthly := $agg.monthly_means_m3s -}}
+{{- if $monthly -}}
+<section class="ecological-health">
+  <h2>Wybrane wskaźniki ekohydrologiczne (IHA)</h2>
+  <div class="semantic-grid">
+    <div>
+      <h3>Przepływy miesięczne (średnie)</h3>
+      <table class="info-table iha-table">
+        {{- range $i := seq 6 }}
+        <tr>
+          <td>{{ index $months (sub $i 1) }}</td>
+          <td>{{ partial "fmt-num" (index $monthly (sub $i 1)) }}</td>
+          <td>{{ index $months (add $i 5) }}</td>
+          <td>{{ partial "fmt-num" (index $monthly (add $i 5)) }}</td>
+        </tr>
+        {{- end }}
+      </table>
+    </div>
+    <div class="iha-right-col">
+      <div>
+        <h3>Ekstrema roczne</h3>
+        {{- $ae := $agg.annual_extremes }}
+        <table class="info-table iha-table">
+          <tr>
+            <td>1-d min/max</td><td>{{ partial "pair" (dict "a" $ae.min1 "b" $ae.max1) }}</td>
+            <td>30-d min/max</td><td>{{ partial "pair" (dict "a" $ae.min30 "b" $ae.max30) }}</td>
+          </tr>
+          <tr>
+            <td>3-d min/max</td><td>{{ partial "pair" (dict "a" $ae.min3 "b" $ae.max3) }}</td>
+            <td>90-d min/max</td><td>{{ partial "pair" (dict "a" $ae.min90 "b" $ae.max90) }}</td>
+          </tr>
+          <tr>
+            <td>7-d min/max</td><td>{{ partial "pair" (dict "a" $ae.min7 "b" $ae.max7) }}</td>
+            <td>Zero-flow</td><td>{{ partial "fmt-num" $ae.zero_flow_days }}</td>
+          </tr>
+        </table>
+      </div>
+      <div>
+        <h3>Dynamika i impulsy</h3>
+        {{- $dy := $agg.dynamics }}
+        <table class="info-table iha-table">
+          <tr>
+            <td>Min/Max dz</td><td>{{ partial "pair" (dict "a" $dy.min_daily "b" $dy.max_daily) }}</td>
+            <td>Rise/Fall</td><td>{{ partial "pair" (dict "a" $dy.rise "b" $dy.fall) }}</td>
+          </tr>
+          <tr>
+            <td>High/Low pul</td><td>{{ partial "pair" (dict "a" $dy.high_pulses "b" $dy.low_pulses) }}</td>
+            <td>Reversals</td><td>{{ partial "fmt-num" $dy.reversals }}</td>
+          </tr>
+          <tr>
+            <td>High/Low dur</td><td>{{ partial "pair" (dict "a" $dy.high_dur "b" $dy.low_dur) }}</td>
+            <td>Baseflow</td><td>{{ partial "fmt-num" $dy.baseflow_ratio }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+{{- end }}
+
+{{- else if $agg.stage -}}
+
+{{- /* Fallback: stage characteristics for stations without discharge */ -}}
+{{- $stage := $agg.stage -}}
+<section class="hydrological-stats">
+  <h2>Charakterystyka stanu wody (H)</h2>
+  <p class="section-note">Archiwum IMGW nie publikuje przepływów dla tej stacji — przedstawiono dane stanowe.</p>
+  <div class="semantic-grid">
+    <div>
+      <h3>Średnie miesięczne stany (cm)</h3>
+      <table class="info-table iha-table">
+        {{- range $i := seq 6 }}
+        <tr>
+          <td>{{ index $months (sub $i 1) }}</td>
+          <td>{{ partial "fmt-num" (index $stage.monthly_means_cm (sub $i 1)) }}</td>
+          <td>{{ index $months (add $i 5) }}</td>
+          <td>{{ partial "fmt-num" (index $stage.monthly_means_cm (add $i 5)) }}</td>
+        </tr>
+        {{- end }}
+      </table>
+    </div>
+    <table class="info-table">
+      <tr><td>Stan minimalny</td><td>{{ partial "fmt-num" $stage.min_cm }} cm</td></tr>
+      <tr><td>Stan maksymalny</td><td>{{ partial "fmt-num" $stage.max_cm }} cm</td></tr>
+      <tr><td>Współczynnik zmienności (CV)</td><td>{{ partial "fmt-num" $stage.cv }}</td></tr>
+    </table>
+  </div>
+</section>
+
+{{- else -}}
+
+<section class="hydrological-regime">
+  <h2>Dane pomiarowe</h2>
+  <p class="section-note">Niewystarczający ciąg danych pomiarowych do obliczenia wskaźników — okresy dostępnych danych są widoczne w nagłówku.</p>
+</section>
+
+{{- end -}}
+
+{{- /* Charts: only files that exist (stations without charts omit the section) */ -}}
+{{- $specs := slice
+  (dict "file" "raster" "alt" "Raster Hydrograph" "capQ" "2D Hydrogram" "capH" "Raster stanu wody")
+  (dict "file" "fdc" "alt" "FDC" "capQ" "Krzywa czasu trwania" "capH" "Krzywa czasu trwania stanu")
+  (dict "file" "parde" "alt" "Pardé" "capQ" "Wsp. Pardégo" "capH" "Sezonowość stanu")
+  (dict "file" "spectrogram" "alt" "Spectrogram" "capQ" "Analiza okresowości" "capH" "Analiza okresowości (H)")
+  (dict "file" "timing" "alt" "Timing" "capQ" "Terminy ekstremów" "capH" "Terminy ekstremów (H)")
+  (dict "file" "boxplots" "alt" "Boxplots" "capQ" "Miesięczna zmienność" "capH" "Miesięczna zmienność (H)")
+-}}
+{{- $any := false -}}
+{{- range $specs -}}
+  {{- if fileExists (printf "static/charts/%s/%s.svg" $id .file) -}}{{- $any = true -}}{{- end -}}
+{{- end -}}
+{{- if $any }}
+<section class="data-visualization">
+  <h2>Wizualizacja reżimu</h2>
+  <div class="charts-grid-2">
+    {{- range $specs }}
+    {{- $path := printf "charts/%s/%s.svg" $id .file -}}
+    {{- if fileExists (printf "static/%s" $path) }}
+    <figure class="chart">
+      <img src="{{ $path | relURL }}" alt="{{ .alt }}" style="width:100%;height:auto;">
+      <figcaption>{{ if $isQ }}{{ .capQ }}{{ else }}{{ .capH }}{{ end }}</figcaption>
+    </figure>
+    {{- end }}
+    {{- end }}
+  </div>
+</section>
+{{- end }}
+{{ end }}
