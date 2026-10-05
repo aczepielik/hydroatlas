@@ -21,7 +21,6 @@
 {{- with $sts }}{{ $st = index . 0 }}{{ end -}}
 {{- $all := hugo.Data.aggregates | default dict -}}
 {{- $agg := index $all $id | default dict -}}
-{{- $months := slice "Sty" "Lut" "Mar" "Kwi" "Maj" "Cze" "Lip" "Sie" "Wrz" "Paź" "Lis" "Gru" -}}
 {{- $isQ := false -}}
 {{- if $agg.stats -}}{{- $isQ = true -}}{{- end -}}
 
@@ -102,16 +101,7 @@
   <div class="semantic-grid">
     <div>
       <h3>Przepływy miesięczne (średnie)</h3>
-      <table class="info-table iha-table">
-        {{- range $i := seq 6 }}
-        <tr>
-          <td>{{ index $months (sub $i 1) }}</td>
-          <td>{{ partial "fmt-num" (index $monthly (sub $i 1)) }}</td>
-          <td>{{ index $months (add $i 5) }}</td>
-          <td>{{ partial "fmt-num" (index $monthly (add $i 5)) }}</td>
-        </tr>
-        {{- end }}
-      </table>
+      {{ partial "monthly-table" (dict "values" $monthly) }}
     </div>
     <div class="iha-right-col">
       <div>
@@ -165,16 +155,7 @@
   <div class="semantic-grid">
     <div>
       <h3>Średnie miesięczne stany (cm)</h3>
-      <table class="info-table iha-table">
-        {{- range $i := seq 6 }}
-        <tr>
-          <td>{{ index $months (sub $i 1) }}</td>
-          <td>{{ partial "fmt-num" (index $stage.monthly_means_cm (sub $i 1)) }}</td>
-          <td>{{ index $months (add $i 5) }}</td>
-          <td>{{ partial "fmt-num" (index $stage.monthly_means_cm (add $i 5)) }}</td>
-        </tr>
-        {{- end }}
-      </table>
+      {{ partial "monthly-table" (dict "values" $stage.monthly_means_cm) }}
     </div>
     <table class="info-table">
       <tr><td>Stan minimalny</td><td>{{ partial "fmt-num" $stage.min_cm }} cm</td></tr>
