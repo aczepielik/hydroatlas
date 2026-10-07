@@ -1,0 +1,14 @@
+{{- /* Small Leaflet marker map. Input: dict with lat, lon.
+       Requires leaflet.css/leaflet.js already loaded in <head>. */ -}}
+<div id="station-map" class="station-map"></div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  if (typeof L === "undefined") return;
+  var map = L.map("station-map").setView([{{ .lat }}, {{ .lon }}], 11);
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "&copy; OpenStreetMap",
+    maxZoom: 17
+  }).addTo(map);
+  L.marker([{{ .lat }}, {{ .lon }}]).addTo(map);
+});
+</script>

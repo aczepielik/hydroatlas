@@ -1,30 +1,64 @@
 {{ define "title" }}{{ .Params.river }} – {{ .Params.name }} – {{ .Site.Title }}{{ end }}
 {{ define "header-title" }}{{ .Params.river }} – {{ .Params.name }}{{ end }}
 
+{{ define "head" }}
+<script>document.documentElement.className += " has-js";</script>
+{{- $ctx := partial "station-context" . -}}
+{{- if and $ctx.st.lat $ctx.st.lon }}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+{{- end }}
+<script defer src="{{ "js/version-menu.js" | relURL }}"></script>
+{{ end }}
+
+{{ define "bodyattrs" }}{{ $ctx := partial "station-context" . }} data-active-variant="{{ $ctx.default }}" data-default-variant="{{ $ctx.default }}"{{ end }}
+
 {{ define "header-meta" }}
-{{- $id := .File.ContentBaseName -}}
-{{- $sts := where hugo.Data.stations "id" $id -}}
-{{- $st := dict -}}
-{{- with $sts }}{{ $st = index . 0 }}{{ end -}}
-<span><strong>ID:</strong> {{ $id }}</span>
-{{- with $st.data }}
-  {{- with .discharge }} | <span><strong>Q:</strong> {{ .start }}–{{ .end }}</span>{{ end }}
-  {{- with .stage }} | <span><strong>H:</strong> {{ .start }}–{{ .end }}</span>{{ end }}
-{{- else }} | <span>brak danych</span>
+{{- $ctx := partial "station-context" . -}}
+{{- $variants := $ctx.variants -}}
+<span><strong>ID:</strong> {{ $ctx.id }}</span>
+{{- if $variants }}
+<details class="version-menu">
+  <summary>Wersja: <span class="variant-label">{{ index $ctx.labels $ctx.default }}</span></summary>
+  <div class="variant-panel">
+  {{- if or (isset $variants "q_max") (isset $variants "q_cal") }}
+  <div class="variant-group">
+    <div class="variant-group-title">Q — przepływ</div>
+    <ul>
+      {{- range $v := slice "q_max" "q_cal" }}
+      {{- if isset $variants $v }}
+      <li><a href="?var={{ $v }}" data-variant="{{ $v }}">{{ index $ctx.labels $v }}</a></li>
+      {{- end }}
+      {{- end }}
+    </ul>
+  </div>
+  {{- end }}
+  {{- if or (isset $variants "h_max") (isset $variants "h_cal") }}
+  <div class="variant-group">
+    <div class="variant-group-title">H — stan</div>
+    <ul>
+      {{- range $v := slice "h_max" "h_cal" }}
+      {{- if isset $variants $v }}
+      <li><a href="?var={{ $v }}" data-variant="{{ $v }}">{{ index $ctx.labels $v }}</a></li>
+      {{- end }}
+      {{- end }}
+    </ul>
+  </div>
+  {{- end }}
+  </div>
+</details>
 {{- end }}
 {{ end }}
 
 {{ define "main" }}
-{{- $id := .File.ContentBaseName -}}
-{{- $sts := where hugo.Data.stations "id" $id -}}
-{{- $st := dict -}}
-{{- with $sts }}{{ $st = index . 0 }}{{ end -}}
-{{- $all := hugo.Data.aggregates | default dict -}}
-{{- $agg := index $all $id | default dict -}}
-{{- $isQ := false -}}
-{{- if $agg.stats -}}{{- $isQ = true -}}{{- end -}}
+{{- $ctx := partial "station-context" . -}}
+{{- $id := $ctx.id -}}
+{{- $st := $ctx.st -}}
+{{- $variants := $ctx.variants -}}
 
-{{- /* Section 1: profile, catchment characteristics, data availability */ -}}
+{{- /* Section 1: profile, catchment characteristics, data availability
+       (variant-independent: coordinates, km and both Q/H availability
+       belong to the station, not to a Q or H view). */ -}}
 <section class="hydrological-regime">
   <h2>Profil stacji i charakterystyka zlewni</h2>
   <div class="semantic-grid">
@@ -34,68 +68,91 @@
       {{ with $st.regime }}<tr><td>Reżim</td><td>{{ . }}</td></tr>{{ end }}
       {{ with $st.station_class }}<tr><td>Typ stacji</td><td>{{ . }} rzędu</td></tr>{{ end }}
       <tr><td>Status</td>{{ if eq $st.status "active" }}<td>czynna</td>{{ else }}<td>archiwalna</td>{{ end }}</tr>
+      {{ with $st.km }}<tr><td>Kilometraż</td><td>{{ partial "fmt-num" . }} km biegu rzeki</td></tr>{{ end }}
+      {{- if and $st.lat $st.lon }}
+      <tr><td>Współrzędne</td><td>{{ partial "fmt-num" (printf "%.5f" $st.lat) }}° N, {{ partial "fmt-num" (printf "%.5f" $st.lon) }}° E</td></tr>
+      {{- end }}
     </table>
     <table class="info-table">
       {{ with $st.unit_runoff_dm3s_km2 }}<tr><td>Odpływ jednostkowy (q)</td><td>{{ partial "fmt-num" . }} dm³/s·km²</td></tr>{{ end }}
       {{ with $st.runoff_mm }}<tr><td>Wskaźnik odpływu (H)</td><td>{{ partial "fmt-num" . }} mm</td></tr>{{ end }}
       {{ with $st.network_density_km_km2 }}<tr><td>Gęstość sieci rzecznej</td><td>{{ partial "fmt-num" . }} km/km²</td></tr>{{ end }}
       {{ with $st.river_length_km }}<tr><td>Długość rzeki</td><td>{{ partial "fmt-num" . }} km</td></tr>{{ end }}
-      {{ with $st.data }}
+      {{- /* Always both availability rows — never only one of Q/H. */ -}}
+      {{- with $st.data }}
         {{- with .discharge }}
       <tr><td>Dane Q</td><td>{{ .start }}–{{ .end }}, {{ partial "fmt-num" .days }} dni ({{ math.Round (mul .coverage 100) }}%)</td></tr>
+        {{- else }}
+      <tr><td>Dane Q</td><td>brak</td></tr>
         {{- end }}
         {{- with .stage }}
       <tr><td>Dane H</td><td>{{ .start }}–{{ .end }}, {{ partial "fmt-num" .days }} dni ({{ math.Round (mul .coverage 100) }}%)</td></tr>
+        {{- else }}
+      <tr><td>Dane H</td><td>brak</td></tr>
         {{- end }}
       {{- else }}
-      <tr><td>Dane pomiarowe</td><td>brak</td></tr>
+      <tr><td>Dane Q</td><td>brak</td></tr>
+      <tr><td>Dane H</td><td>brak</td></tr>
       {{- end }}
     </table>
   </div>
+  {{- if and $st.lat $st.lon }}
+    {{ partial "leaflet-map" (dict "lat" $st.lat "lon" $st.lon) }}
+  {{- end }}
 </section>
 
-{{- if $agg.stats -}}
+{{- /* Variant views: each div contains ONLY content derived from its own
+       variable (Q/H manifest — see ETL docstring). Blocks are hidden via
+       body[data-active-variant]; version-menu.js switches the attribute. */ -}}
+{{- range $vname := slice "q_max" "q_cal" "h_max" "h_cal" }}
+{{- with index $variants $vname }}
+{{- $v := . -}}
+{{- $isQ := hasPrefix $vname "q" -}}
+<div data-variant-block="{{ $vname }}">
 
-{{- /* Section 2: flow matrix + summary statistics (discharge) */ -}}
-{{- $matrix := $agg.flow_matrix -}}
+{{- if $isQ }}
+
+{{- /* Q: characteristic flow matrix + summary statistics */ -}}
+{{- $matrix := $v.flow_matrix -}}
+{{- with $matrix }}
 <section class="hydrological-stats">
   <h2>Macierz przepływów i statystyki</h2>
   <div class="semantic-grid">
-    {{- with $matrix }}
     <div class="flow-matrix">
       <div class="matrix-cell header-row"></div>
-      <div class="matrix-cell header-row">NQ</div>
-      <div class="matrix-cell header-row">SQ</div>
-      <div class="matrix-cell header-row">WQ</div>
+      {{- range $col := slice "N" "S" "W" }}
+      <div class="matrix-cell header-row">{{ $col }}</div>
+      {{- end }}
       {{- range $row := slice "N" "S" "W" }}
       <div class="matrix-cell header-col">{{ $row }}</div>
-      {{- $cells := index $matrix $row }}
-      <div class="matrix-cell">{{ partial "fmt-num" $cells.nq }}</div>
-      <div class="matrix-cell">{{ partial "fmt-num" $cells.sq }}</div>
-      <div class="matrix-cell">{{ partial "fmt-num" $cells.wq }}</div>
+      {{- range $col := slice "N" "S" "W" }}
+      <div class="matrix-cell">{{ partial "fmt-num" (index $matrix (printf "%s%sQ" $row $col)) }}</div>
+      {{- end }}
       {{- end }}
     </div>
-    {{- end }}
     <table class="info-table">
-      <tr><td>Baseflow Index (BFI)</td><td>{{ partial "fmt-num" $agg.stats.bfi }}</td></tr>
-      <tr><td>Autokorelacja (lag-1)</td><td>{{ partial "fmt-num" $agg.stats.lag1 }}</td></tr>
-      <tr><td>Wskaźnik Flashiness</td><td>{{ partial "fmt-num" $agg.stats.flashiness }}</td></tr>
-      <tr><td>Współczynnik zmienności (CV)</td><td>{{ partial "fmt-num" $agg.stats.cv }}</td></tr>
-      <tr><td>Współczynnik odpływu (Q/P)</td><td>{{ partial "fmt-num" $agg.stats.qp }}</td></tr>
+      {{- with $v.stats }}
+      <tr><td>Baseflow Index (BFI)</td><td>{{ partial "fmt-num" .bfi }}</td></tr>
+      <tr><td>Autokorelacja (lag-1)</td><td>{{ partial "fmt-num" .lag1 }}</td></tr>
+      <tr><td>Wskaźnik Flashiness</td><td>{{ partial "fmt-num" .flashiness }}</td></tr>
+      <tr><td>Współczynnik zmienności (CV)</td><td>{{ partial "fmt-num" .cv }}</td></tr>
+      <tr><td>Współczynnik odpływu (Q/P)</td><td>{{ partial "fmt-num" .qp }}</td></tr>
       <tr><td>Colwell (P / C / M)</td><td>
-        {{- if $agg.stats.colwell -}}
-          {{ partial "fmt-num" $agg.stats.colwell.p }} /
-          {{ partial "fmt-num" $agg.stats.colwell.c }} /
-          {{ partial "fmt-num" $agg.stats.colwell.m }}
+        {{- if .colwell -}}
+          {{ partial "fmt-num" .colwell.p }} /
+          {{ partial "fmt-num" .colwell.c }} /
+          {{ partial "fmt-num" .colwell.m }}
         {{- else }}—{{ end -}}
       </td></tr>
+      {{- end }}
     </table>
   </div>
 </section>
+{{- end }}
 
-{{- /* Section 3: selected eco-hydrological indicators (discharge) */ -}}
-{{- $monthly := $agg.monthly_means_m3s -}}
-{{- if $monthly -}}
+{{- /* Q: IHA indicators — flow-defined, never on the H side */ -}}
+{{- $monthly := $v.monthly_means_m3s -}}
+{{- if $monthly }}
 <section class="ecological-health">
   <h2>Wybrane wskaźniki ekohydrologiczne (IHA)</h2>
   <div class="semantic-grid">
@@ -106,7 +163,7 @@
     <div class="iha-right-col">
       <div>
         <h3>Ekstrema roczne</h3>
-        {{- $ae := $agg.annual_extremes }}
+        {{- $ae := $v.annual_extremes }}
         <table class="info-table iha-table">
           <tr>
             <td>1-d min/max</td><td>{{ partial "pair" (dict "a" $ae.min1 "b" $ae.max1) }}</td>
@@ -124,7 +181,7 @@
       </div>
       <div>
         <h3>Dynamika i impulsy</h3>
-        {{- $dy := $agg.dynamics }}
+        {{- $dy := $v.dynamics }}
         <table class="info-table iha-table">
           <tr>
             <td>Min/Max dz</td><td>{{ partial "pair" (dict "a" $dy.min_daily "b" $dy.max_daily) }}</td>
@@ -145,36 +202,36 @@
 </section>
 {{- end }}
 
-{{- else if $agg.stage -}}
+{{- else }}
 
-{{- /* Fallback: stage characteristics for stations without discharge */ -}}
-{{- $stage := $agg.stage -}}
+{{- /* H: stage statistics — no matrix, no IHA, no BFI/Colwell (Q-only). */ -}}
+{{- with $v.stage }}
 <section class="hydrological-stats">
   <h2>Charakterystyka stanu wody (H)</h2>
-  <p class="section-note">Archiwum IMGW nie publikuje przepływów dla tej stacji — przedstawiono dane stanowe.</p>
   <div class="semantic-grid">
-    <div>
+    <div class="stretch-col">
       <h3>Średnie miesięczne stany (cm)</h3>
-      {{ partial "monthly-table" (dict "values" $stage.monthly_means_cm) }}
+      {{ partial "monthly-table" (dict "values" .monthly_means_cm) }}
     </div>
     <table class="info-table">
-      <tr><td>Stan minimalny</td><td>{{ partial "fmt-num" $stage.min_cm }} cm</td></tr>
-      <tr><td>Stan maksymalny</td><td>{{ partial "fmt-num" $stage.max_cm }} cm</td></tr>
-      <tr><td>Współczynnik zmienności (CV)</td><td>{{ partial "fmt-num" $stage.cv }}</td></tr>
+      <tr><td>Stan minimalny</td><td>{{ partial "fmt-num" .min_cm }} cm</td></tr>
+      <tr><td>Stan maksymalny</td><td>{{ partial "fmt-num" .max_cm }} cm</td></tr>
+      <tr><td>Współczynnik zmienności (CV)</td><td>{{ partial "fmt-num" .cv }}</td></tr>
+      {{- with .extremes }}
+      <tr><td>1-d min/max</td><td>{{ partial "pair" (dict "a" .min1 "b" .max1) }} cm</td></tr>
+      <tr><td>3-d min/max</td><td>{{ partial "pair" (dict "a" .min3 "b" .max3) }} cm</td></tr>
+      <tr><td>7-d min/max</td><td>{{ partial "pair" (dict "a" .min7 "b" .max7) }} cm</td></tr>
+      <tr><td>30-d min/max</td><td>{{ partial "pair" (dict "a" .min30 "b" .max30) }} cm</td></tr>
+      <tr><td>90-d min/max</td><td>{{ partial "pair" (dict "a" .min90 "b" .max90) }} cm</td></tr>
+      {{- end }}
     </table>
   </div>
 </section>
+{{- end }}
 
-{{- else -}}
+{{- end }}
 
-<section class="hydrological-regime">
-  <h2>Dane pomiarowe</h2>
-  <p class="section-note">Niewystarczający ciąg danych pomiarowych do obliczenia wskaźników — okresy dostępnych danych są widoczne w nagłówku.</p>
-</section>
-
-{{- end -}}
-
-{{- /* Charts: only files that exist (stations without charts omit the section) */ -}}
+{{- /* Charts: only files that exist for this variant and variable. */ -}}
 {{- $specs := slice
   (dict "file" "raster" "alt" "Raster Hydrograph" "capQ" "2D Hydrogram" "capH" "Raster stanu wody")
   (dict "file" "fdc" "alt" "FDC" "capQ" "Krzywa czasu trwania" "capH" "Krzywa czasu trwania stanu")
@@ -185,14 +242,14 @@
 -}}
 {{- $any := false -}}
 {{- range $specs -}}
-  {{- if fileExists (printf "static/charts/%s/%s.svg" $id .file) -}}{{- $any = true -}}{{- end -}}
+  {{- if fileExists (printf "static/charts/%s/%s/%s.svg" $id $vname .file) -}}{{- $any = true -}}{{- end -}}
 {{- end -}}
 {{- if $any }}
 <section class="data-visualization">
   <h2>Wizualizacja reżimu</h2>
   <div class="charts-grid-2">
     {{- range $specs }}
-    {{- $path := printf "charts/%s/%s.svg" $id .file -}}
+    {{- $path := printf "charts/%s/%s/%s.svg" $id $vname .file -}}
     {{- if fileExists (printf "static/%s" $path) }}
     <figure class="chart">
       <img src="{{ $path | relURL }}" alt="{{ .alt }}" style="width:100%;height:auto;">
@@ -201,6 +258,17 @@
     {{- end }}
     {{- end }}
   </div>
+</section>
+{{- end }}
+
+</div>
+{{- end }}
+{{- end }}
+
+{{- if not $variants }}
+<section class="hydrological-regime">
+  <h2>Dane pomiarowe</h2>
+  <p class="section-note">Niewystarczający ciąg danych pomiarowych do obliczenia wskaźników — okresy dostępnych danych są widoczne w nagłówku.</p>
 </section>
 {{- end }}
 {{ end }}

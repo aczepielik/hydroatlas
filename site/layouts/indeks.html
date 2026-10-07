@@ -1,0 +1,9 @@
+{{ define "title" }}Indeks stacji – {{ .Site.Title }}{{ end }}
+{{ define "header-title" }}Indeks stacji{{ end }}
+
+{{ define "main" }}
+<section class="hydrological-regime">
+  <h2>Stacje</h2>
+  {{ partial "station-index" (dict "filter" "nonlake") }}
+</section>
+{{ end }}

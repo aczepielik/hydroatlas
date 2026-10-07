@@ -1,0 +1,9 @@
+{{ define "title" }}Jeziora – {{ .Site.Title }}{{ end }}
+{{ define "header-title" }}Jeziora{{ end }}
+
+{{ define "main" }}
+<section class="hydrological-regime">
+  <h2>Stacje jeziorne</h2>
+  {{ partial "station-index" (dict "filter" "lake") }}
+</section>
+{{ end }}

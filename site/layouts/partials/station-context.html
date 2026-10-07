@@ -1,0 +1,20 @@
+{{- /* Shared per-station lookup for stacje/single.html defines (which are
+       separate template scopes and cannot share file-level variables).
+       Returns dict: id, st, variants, labels, default. */ -}}
+{{- $id := .File.ContentBaseName -}}
+{{- $sts := where hugo.Data.stations "id" $id -}}
+{{- $st := dict -}}
+{{- with $sts }}{{ $st = index . 0 }}{{ end -}}
+{{- $all := hugo.Data.aggregates | default dict -}}
+{{- $agg := index $all $id | default dict -}}
+{{- $variants := $agg.variants | default dict -}}
+{{- $labels := dict
+      "q_max" "Q – maks. seria"
+      "q_cal" "Q – 1991–2020"
+      "h_max" "H – maks. seria"
+      "h_cal" "H – 1991–2020" -}}
+{{- $default := "" -}}
+{{- range $cand := slice "q_max" "h_max" "q_cal" "h_cal" -}}
+  {{- if and (not $default) (isset $variants $cand) -}}{{- $default = $cand -}}{{- end -}}
+{{- end -}}
+{{ return (dict "id" $id "st" $st "variants" $variants "labels" $labels "default" $default) }}

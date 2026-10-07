@@ -1,0 +1,41 @@
+{{ define "title" }}Rzeki – {{ .Site.Title }}{{ end }}
+{{ define "header-title" }}Rzeki{{ end }}
+
+{{ define "main" }}
+{{- $rivers := (hugo.Data.rivers).rivers | default slice -}}
+{{- $basins := (hugo.Data.rivers).basins | default dict -}}
+{{- range $id := slice "wisla" "odra" "przymorza" -}}
+{{- $groups := slice -}}
+{{- range $rivers }}{{ if eq .basin $id }}{{ $groups = $groups | append . }}{{ end }}{{ end -}}
+{{- if $groups }}
+<section class="hydrological-regime">
+  <h2>{{ index $basins $id }}</h2>
+  <div class="river-hubs">
+    {{- range $groups }}
+    <a class="river-hub-card" href="{{ printf "rzeki/%s/" .key | relURL }}">{{ .name }}
+      <span class="hub-count">{{ len .stations }} st.</span>
+    </a>
+    {{- end }}
+  </div>
+</section>
+{{- end }}
+{{- end }}
+
+{{- /* Rivers whose Wikidata chain could not be resolved. */ -}}
+{{- $unknown := slice -}}
+{{- range $rivers }}{{ if eq .basin "unknown" }}{{ $unknown = $unknown | append . }}{{ end }}{{ end -}}
+{{- if $unknown }}
+<section class="hydrological-regime">
+  <h2>Bez przypisania</h2>
+  <table class="dir-table">
+    <tr><th>Rzeka</th><th>Stacje</th></tr>
+    {{- range $unknown }}
+    <tr>
+      <td><a href="{{ printf "rzeki/%s/" .key | relURL }}">{{ .name }}</a></td>
+      <td>{{ len .stations }}</td>
+    </tr>
+    {{- end }}
+  </table>
+</section>
+{{- end }}
+{{ end }}

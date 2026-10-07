@@ -1,43 +1,21 @@
 {{ define "title" }}{{ .Site.Title }}{{ end }}
 
 {{ define "main" }}
-{{- if fileExists "static/img/index-map.svg" }}
+{{- /* Topology hub links; per-river SVGs land in WP7 (see /rzeki/). */ -}}
 <section class="hydrological-regime">
   <h2>Sieć rzek</h2>
-  <div class="map-frame">
-    {{ readFile "static/img/index-map.svg" | safeHTML }}
+  <div class="river-hubs">
+    <a class="river-hub-card" href="{{ "rzeki/wisla/" | relURL }}">Wisła</a>
+    <a class="river-hub-card" href="{{ "rzeki/odra/" | relURL }}">Odra</a>
+    <a class="river-hub-card" href="{{ "rzeki/przymorza/" | relURL }}">Rzeki Przymorza</a>
   </div>
 </section>
-{{- end }}
 <section class="hydrological-regime">
-  <h2>Stacje</h2>
-  <table class="dir-table">
-    <tr>
-      <th>Rzeka</th>
-      <th>Stacja</th>
-      <th>ID</th>
-      <th>Q (lata)</th>
-      <th>H (lata)</th>
-      <th>Status</th>
-    </tr>
-    {{- range sort hugo.Data.stations "river" "name" }}
-    <tr>
-      <td>{{ .river }}</td>
-      <td><a href="{{ printf "stacje/%s/" .id | relURL }}">{{ .name }}</a></td>
-      <td class="dir-id">{{ .id }}</td>
-      <td>
-        {{- with .data -}}
-          {{- with .discharge }}{{ .start }}–{{ .end }}{{ else }}—{{ end -}}
-        {{- else }}—{{- end -}}
-      </td>
-      <td>
-        {{- with .data -}}
-          {{- with .stage }}{{ .start }}–{{ .end }}{{ else }}—{{ end -}}
-        {{- else }}—{{- end -}}
-      </td>
-      <td>{{ if eq .status "active" }}czynna{{ else }}archiwalna{{ end }}</td>
-    </tr>
-    {{- end }}
-  </table>
+  <h2>Indeksy</h2>
+  <div class="river-hubs">
+    <a class="river-hub-card" href="{{ "indeks/" | relURL }}">Indeks stacji</a>
+    <a class="river-hub-card" href="{{ "jeziora/" | relURL }}">Jeziora</a>
+    <a class="river-hub-card" href="{{ "rzeki/" | relURL }}">Wszystkie rzeki</a>
+  </div>
 </section>
 {{ end }}

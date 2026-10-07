@@ -155,12 +155,14 @@ color: #64748b;
 font-weight: 600;
 }
 
-.ecological-health .semantic-grid > div:first-child {
+.ecological-health .semantic-grid > div:first-child,
+.hydrological-stats .semantic-grid > .stretch-col {
   display: flex;
   flex-direction: column;
 }
 
-.ecological-health .semantic-grid > div:first-child .info-table {
+.ecological-health .semantic-grid > div:first-child .info-table,
+.hydrological-stats .semantic-grid > .stretch-col .info-table {
   flex: 1;
   height: auto;
 }
@@ -259,4 +261,169 @@ text-decoration: underline;
 .dir-id {
 color: #64748b;
 font-variant-numeric: tabular-nums;
+}
+
+/* header navigation */
+.site-nav {
+display: flex;
+gap: 16px;
+font-size: 0.85rem;
+}
+
+.site-nav a {
+color: #1a4e8a;
+text-decoration: none;
+}
+
+.site-nav a:hover {
+text-decoration: underline;
+}
+
+/* station version/period menu (top right corner) */
+.version-menu {
+position: relative;
+}
+
+.version-menu > summary {
+cursor: pointer;
+list-style: none;
+color: #1e293b;
+white-space: nowrap;
+}
+
+.version-menu > summary::-webkit-details-marker {
+display: none;
+}
+
+.version-menu > summary::after {
+content: " ▾";
+color: #64748b;
+font-size: 0.7em;
+}
+
+.version-menu .variant-label {
+color: #1a4e8a;
+font-weight: 600;
+}
+
+.version-menu[open] .variant-label {
+color: inherit;
+font-weight: inherit;
+}
+
+.version-menu .variant-panel {
+position: absolute;
+right: 0;
+top: 100%;
+margin-top: 6px;
+background: white;
+border: 1px solid #e3e7ec;
+border-radius: 6px;
+box-shadow: 0 6px 18px rgba(15, 23, 42, 0.12);
+min-width: 190px;
+z-index: 30;
+padding: 6px 0;
+}
+
+.version-menu .variant-group + .variant-group {
+border-top: 1px solid #f1f5f9;
+margin-top: 4px;
+padding-top: 4px;
+}
+
+.version-menu .variant-group-title {
+font-size: 0.7rem;
+text-transform: uppercase;
+letter-spacing: 0.05em;
+color: #64748b;
+padding: 6px 14px 2px;
+}
+
+.version-menu ul {
+list-style: none;
+margin: 0;
+padding: 0;
+}
+
+.version-menu li a {
+display: block;
+padding: 6px 14px;
+font-size: 0.85rem;
+color: #1c2a39;
+text-decoration: none;
+}
+
+.version-menu li a:hover {
+background: #f1f5f9;
+}
+
+.version-menu li a.active {
+color: #1a4e8a;
+font-weight: 600;
+}
+
+/* version blocks: only the active variant renders */
+html:not(.has-js) .version-menu {
+display: none;
+}
+
+[data-variant-block] {
+display: none;
+}
+
+body[data-active-variant="q_max"] [data-variant-block="q_max"],
+body[data-active-variant="q_cal"] [data-variant-block="q_cal"],
+body[data-active-variant="h_max"] [data-variant-block="h_max"],
+body[data-active-variant="h_cal"] [data-variant-block="h_cal"] {
+display: block;
+}
+
+/* leaflet map on the station page */
+.station-map {
+height: 240px;
+margin-top: 20px;
+border: 1px solid #e3e7ec;
+border-radius: 6px;
+background: #eef2f6;
+}
+
+/* home page hub cards */
+.river-hubs {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: 20px;
+}
+
+.river-hub-card {
+display: block;
+background: white;
+border: 1px solid #e3e7ec;
+border-radius: 8px;
+padding: 30px 20px;
+text-align: center;
+font-size: 1.1rem;
+font-weight: 600;
+color: #1a4e8a;
+text-decoration: none;
+}
+
+.river-hub-card:hover {
+border-color: #1a4e8a;
+}
+
+.hub-count {
+display: block;
+font-size: 0.75rem;
+font-weight: 400;
+color: #64748b;
+margin-top: 4px;
+}
+
+/* inlined per-river SVG schematics */
+.map-frame {
+background: white;
+border: 1px solid #e3e7ec;
+border-radius: 8px;
+padding: 12px;
+overflow-x: auto;
 }

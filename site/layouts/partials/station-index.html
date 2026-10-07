@@ -1,0 +1,37 @@
+{{- /* Station directory table. Params: filter = "nonlake" | "lake".
+       Lake rule: river name starts with "jez." (case-insensitive). */ -}}
+{{- $filter := .filter -}}
+<table class="dir-table">
+  <tr>
+    <th>Rzeka</th>
+    <th>Stacja</th>
+    <th>ID</th>
+    <th>Q (lata)</th>
+    <th>H (lata)</th>
+    <th>Status</th>
+  </tr>
+  {{- range sort hugo.Data.stations "river" "name" }}
+  {{- $isLake := hasPrefix (lower .river) "jez." -}}
+  {{- if eq $filter "lake" }}
+    {{- if not $isLake }}{{ continue }}{{ end }}
+  {{- else if eq $filter "nonlake" }}
+    {{- if $isLake }}{{ continue }}{{ end }}
+  {{- end }}
+  <tr>
+    <td>{{ .river }}</td>
+    <td><a href="{{ printf "stacje/%s/" .id | relURL }}">{{ .name }}</a></td>
+    <td class="dir-id">{{ .id }}</td>
+    <td>
+      {{- with .data -}}
+        {{- with .discharge }}{{ .start }}–{{ .end }}{{ else }}—{{ end -}}
+      {{- else }}—{{- end -}}
+    </td>
+    <td>
+      {{- with .data -}}
+        {{- with .stage }}{{ .start }}–{{ .end }}{{ else }}—{{ end -}}
+      {{- else }}—{{- end -}}
+    </td>
+    <td>{{ if eq .status "active" }}czynna{{ else }}archiwalna{{ end }}</td>
+  </tr>
+  {{- end }}
+</table>

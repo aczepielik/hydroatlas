@@ -1,0 +1,49 @@
+{{ define "title" }}{{ .Params.title }} – {{ .Site.Title }}{{ end }}
+{{ define "header-title" }}{{ .Params.title }}{{ end }}
+
+{{ define "main" }}
+{{- $key := .Params.river_key -}}
+{{- $rivers := (hugo.Data.rivers).rivers | default slice -}}
+{{- $river := dict -}}
+{{- range $rivers }}{{ if eq .key $key }}{{ $river = . }}{{ end }}{{ end }}
+
+<section class="hydrological-regime">
+  <h2>Sieć rzeki</h2>
+  {{- $svg := printf "static/rzeki/%s.svg" $key -}}
+  {{- if fileExists $svg }}
+  <div class="map-frame">
+    {{ readFile $svg | safeHTML }}
+  </div>
+  {{- else }}
+  <p class="section-note">Brak schematu rzeki.</p>
+  {{- end }}
+  {{- $parent := $river.parent -}}
+  {{- with $parent }}
+  <p class="section-note">Rzeka wpada do:
+    {{- range $rivers }}{{ if and (eq .name $parent) (ne .key $key) }} <a href="{{ printf "rzeki/%s/" .key | relURL }}">{{ .name }}</a>{{ end }}{{ end -}}
+  </p>
+  {{- end }}
+</section>
+
+<section class="hydrological-regime">
+  <h2>Stacje na rzece</h2>
+  {{- with $river.stations }}
+  <table class="dir-table">
+    <tr>
+      <th>Stacja</th>
+      <th>Kilometraż</th>
+      <th>Status</th>
+    </tr>
+    {{- range . }}
+    <tr>
+      <td><a href="{{ printf "stacje/%s/" .id | relURL }}">{{ .name }}</a></td>
+      <td>{{ if .km }}{{ partial "fmt-num" .km }} km{{ else }}—{{ end }}</td>
+      <td>{{ if eq .status "active" }}czynna{{ else }}archiwalna{{ end }}</td>
+    </tr>
+    {{- end }}
+  </table>
+  {{- else }}
+  <p class="section-note">Brak stacji dla tej rzeki.</p>
+  {{- end }}
+</section>
+{{ end }}

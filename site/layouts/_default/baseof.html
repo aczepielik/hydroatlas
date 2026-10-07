@@ -5,12 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ block "title" . }}{{ .Site.Title }}{{ end }}</title>
 <link rel="stylesheet" href="{{ "css/styles.css" | relURL }}">
+{{ block "head" . }}{{ end }}
 </head>
-<body>
+<body{{ block "bodyattrs" . }}{{ end }}>
 
 <header class="site-header">
 <div class="container header-content">
 <h1>{{ block "header-title" . }}{{ .Site.Title }}{{ end }}</h1>
+<nav class="site-nav" aria-label="Nawigacja główna">
+<a href="{{ "/" | relURL }}">Strona główna</a>
+<a href="{{ "/indeks/" | relURL }}">Indeks</a>
+<a href="{{ "/jeziora/" | relURL }}">Jeziora</a>
+</nav>
 <div class="quick-meta">{{ block "header-meta" . }}{{ end }}</div>
 </div>
 </header>
