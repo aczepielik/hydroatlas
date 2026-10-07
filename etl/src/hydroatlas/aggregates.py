@@ -10,12 +10,24 @@ Hydrological year
     Oct 1 (rok hydrologiczny) .. Sep 30. Used for year classes, annual
     means, pulse/reversal rates.
 
-Flow matrix (przepływy charakterystyczne, Polish standard)
-    Rows = hydrological-year classes N/S/W by terciles of annual mean flow
-    (equal-count: dry / normal / wet years).  Cols = characteristic flows of
-    the days belonging to that class: NQ = exceedance 90% (10th percentile),
-    SQ = 50th percentile, WQ = exceedance 10% (90th percentile).  Hence the
-    NNQ cell is "najniższy z najniższych".
+Variants (strict Q/H separation)
+    Each station yields up to four variants: q_max, q_cal, h_max, h_cal.
+    "max" = full record; "cal" = official 1991..2020 calibration window
+    (hydrological-year labels), clipped to available data.  A q_* variant
+    exists only when the window slice has >= MIN_Q_DAYS valid discharge
+    days (plus >= MIN_CAL_YEARS hydrological years with data for cal);
+    h_* the same with MIN_STAGE_DAYS.  q_* variants carry only
+    discharge-derived blocks; h_* only stage-derived blocks — never a mix.
+
+Flow matrix (przepływy charakterystyczne, two-stage definition)
+    First order (internal, per hydrological year with >= 300 valid days):
+    NQ = yearly minimum, SQ = yearly mean, WQ = yearly maximum of daily Q.
+    Second order (the displayed 3x3): aggregate the yearly values across
+    years — rows N/S/W = min / mean / max over years, cols N/S/W =
+    min / mean / max within the year.  Hence NNQ = minimum of minima,
+    NSQ = minimum of averages, NWQ = minimum of maxima, SNQ = average of
+    minima, SSQ = average of averages, ..., WWQ = maximum of maxima.
+    Requires >= 5 valid years, else null.
 
 BFI
     Eckhardt (2005) recursive digital filter, alpha=0.925, BFmax=0.8
@@ -56,12 +68,9 @@ Dynamics
     baseflow/Q >= 0.9 (Eckhardt).
 
 Stage block
-    Monthly mean stage, stage extremes, stage CV — for stations without
-    (enough) discharge.
-
-Gating
-    Q blocks require >= 1825 valid discharge days (5 years); stage block
-    requires >= 365 valid stage days; charts follow the same data.
+    Monthly mean stage, min/max stage, CV, and the 1/3/7/30/90-day
+    rolling-mean min/max extremes of stage — the H-only counterpart of
+    the Q annual extremes.
 """
 
 from __future__ import annotations
@@ -73,6 +82,8 @@ import pandas as pd
 
 MIN_Q_DAYS = 5 * 365
 MIN_STAGE_DAYS = 365
+CAL_YEARS = (1991, 2020)
+MIN_CAL_YEARS = 20  # hydrological years with data required for a cal variant
 ECKHARDT_ALPHA = 0.925
 ECKHARDT_BFMAX = 0.8
 COLWELL_STATES = 4  # zero / low / mid / high flow classes
@@ -140,27 +151,20 @@ def colwell(q: np.ndarray, months: np.ndarray) -> dict | None:
 
 
 def flow_matrix(q: pd.Series, hy_year: pd.Series) -> dict | None:
-    """Tercile year classes x characteristic flows (see module docstring)."""
-    annual = pd.DataFrame({"q": q, "hy": hy_year}).groupby("hy")["q"].mean().dropna()
-    if len(annual) < 9:
-        return None
-    low, high = annual.quantile([1 / 3, 2 / 3])
-    classes = {
-        "N": annual[annual <= low].index,
-        "S": annual[(annual > low) & (annual <= high)].index,
-        "W": annual[annual > high].index,
-    }
+    """Two-stage characteristic flows (see module docstring)."""
     df = pd.DataFrame({"q": q, "hy": hy_year})
+    yearly = (
+        df.dropna()
+        .groupby("hy")["q"]
+        .agg(n="count", nq="min", sq="mean", wq="max")
+    )
+    yearly = yearly[yearly["n"] >= 300]
+    if len(yearly) < 5:
+        return None
     out = {}
-    for key, years in classes.items():
-        sub = df[df["hy"].isin(years)]["q"].dropna()
-        if len(sub) < 365:
-            return None
-        out[key] = {
-            "nq": _q_digits(sub.quantile(0.10)),
-            "sq": _q_digits(sub.quantile(0.50)),
-            "wq": _q_digits(sub.quantile(0.90)),
-        }
+    for row, agg in (("N", np.nanmin), ("S", np.nanmean), ("W", np.nanmax)):
+        for col in ("nq", "sq", "wq"):
+            out[f"{row}{col[0].upper()}Q"] = _q_digits(agg(yearly[col]))
     return out
 
 
@@ -210,43 +214,65 @@ def _pulse_stats(q: pd.Series, dates: pd.Series, hy: pd.Series) -> dict:
     }
 
 
-def compute(df: pd.DataFrame, meta: dict | None = None) -> dict:
-    """Compute the station aggregate JSON (see module docstring for methods)."""
-    meta = meta or {}
-    dates = df["date"]
-    q = df["discharge_m3s"]
-    stage = df["stage_cm"]
-
-    q_valid = q.notna()
-    stage_valid = stage.notna()
-    hy = pd.Series(hydro_year(dates), index=df.index)
-
-    result = {
-        "station_id": None,
-        "generated": None,
-        "period": None,
-        "flow_matrix": None,
-        "stats": None,
-        "monthly_means_m3s": None,
-        "annual_extremes": None,
-        "dynamics": None,
-        "stage": None,
-        "charts": [],
-    }
-    if df.empty:
-        return result
-
-    result["period"] = {
+def _period(dates: pd.Series, valid: pd.Series) -> dict:
+    return {
         "start": int(dates.min().year),
         "end": int(dates.max().year),
-        "n_valid_days": int(q_valid.sum()),
-        "coverage": _round(q_valid.sum() / len(df), 3),
+        "n_valid_days": int(valid.sum()),
+        "coverage": _round(valid.sum() / len(dates), 3),
     }
 
-    if int(q_valid.sum()) >= MIN_Q_DAYS:
-        result.update(_q_blocks(q, dates, hy, q_valid, meta))
-    if int(stage_valid.sum()) >= MIN_STAGE_DAYS:
-        result["stage"] = _stage_block(stage, dates)
+
+def variant_frames(df: pd.DataFrame) -> dict[str, pd.DataFrame]:
+    """Windowed frames for every gate-passing variant (``{q,h}_{max,cal}``).
+
+    Single source of truth for variant gating: aggregates and charts must
+    agree on which variants exist for a station.
+    """
+    if df.empty:
+        return {}
+    hy = pd.Series(hydro_year(df["date"]), index=df.index)
+    windows: dict[str, pd.DataFrame] = {"max": df}
+    cal = df[(hy >= CAL_YEARS[0]) & (hy <= CAL_YEARS[1])]
+    if not cal.empty:
+        windows["cal"] = cal
+
+    frames: dict[str, pd.DataFrame] = {}
+    for win, wdf in windows.items():
+        why = hy.loc[wdf.index]
+        q_valid = wdf["discharge_m3s"].notna()
+        stage_valid = wdf["stage_cm"].notna()
+        if int(q_valid.sum()) >= MIN_Q_DAYS and (
+            win == "max" or int(why[q_valid].nunique()) >= MIN_CAL_YEARS
+        ):
+            frames[f"q_{win}"] = wdf
+        if int(stage_valid.sum()) >= MIN_STAGE_DAYS and (
+            win == "max" or int(why[stage_valid].nunique()) >= MIN_CAL_YEARS
+        ):
+            frames[f"h_{win}"] = wdf
+    return frames
+
+
+def compute(df: pd.DataFrame, meta: dict | None = None) -> dict:
+    """Compute the station aggregate JSON (see module docstring for variants)."""
+    meta = meta or {}
+    result: dict = {"station_id": None, "generated": None, "variants": {}}
+
+    for name, wdf in variant_frames(df).items():
+        wdates = wdf["date"]
+        why = pd.Series(hydro_year(wdates), index=wdf.index)
+        if name[0] == "q":
+            valid = wdf["discharge_m3s"].notna()
+            result["variants"][name] = {
+                "period": _period(wdates, valid),
+                **_q_blocks(wdf["discharge_m3s"], wdates, why, valid, meta),
+            }
+        else:
+            valid = wdf["stage_cm"].notna()
+            result["variants"][name] = {
+                "period": _period(wdates, valid),
+                "stage": _stage_block(wdf["stage_cm"], wdates),
+            }
     return result
 
 
@@ -347,6 +373,11 @@ def _stage_block(stage, dates) -> dict:
     sv = stage[stage.notna()]
     sdates = dates[stage.notna()]
     monthly = sv.groupby(sdates.dt.month).mean().reindex(range(1, 13))
+    extremes = {}
+    for n in (1, 3, 7, 30, 90):
+        series = sv if n == 1 else sv.rolling(n, min_periods=n).mean().dropna()
+        extremes[f"min{n}"] = _q_digits(series.min())
+        extremes[f"max{n}"] = _q_digits(series.max())
     return {
         "monthly_means_cm": [
             _q_digits(v) if pd.notna(v) else None for v in monthly.tolist()
@@ -354,4 +385,5 @@ def _stage_block(stage, dates) -> dict:
         "min_cm": _q_digits(sv.min()),
         "max_cm": _q_digits(sv.max()),
         "cv": _round(float(sv.std(ddof=1) / sv.mean())) if sv.mean() else None,
+        "extremes": extremes,
     }
