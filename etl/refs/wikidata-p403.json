@@ -1,0 +1,6126 @@
+{
+ "fetched": "2026-10-06T20:22:21Z",
+ "candidates": {
+  "Bóbr": [
+   {
+    "qid": "Q148307",
+    "label": "Bóbr",
+    "coord": [
+     50.6665985,
+     15.8877504
+    ]
+   },
+   {
+    "qid": "Q2994049",
+    "label": "Bóbr",
+    "coord": [
+     54.049324,
+     28.850377
+    ]
+   }
+  ],
+  "Bug": [
+   {
+    "qid": "Q156237",
+    "label": "Bug",
+    "coord": [
+     49.8927,
+     25.0166
+    ]
+   },
+   {
+    "qid": "Q188940",
+    "label": "Bug",
+    "coord": [
+     46.9866,
+     31.9796
+    ]
+   }
+  ],
+  "Biała": [
+   {
+    "qid": "Q192157",
+    "label": "Biała",
+    "coord": [
+     54.539,
+     59.049638888
+    ]
+   },
+   {
+    "qid": "Q855902",
+    "label": "Biała",
+    "coord": [
+     49.743611111,
+     18.995833055
+    ]
+   },
+   {
+    "qid": "Q3491828",
+    "label": "Biała",
+    "coord": [
+     53.065277777,
+     23.291388888
+    ]
+   },
+   {
+    "qid": "Q5288949",
+    "label": "Biała",
+    "coord": [
+     52.826944444,
+     23.250277777
+    ]
+   },
+   {
+    "qid": "Q9170229",
+    "label": "Biała",
+    "coord": [
+     50.0363,
+     20.9133
+    ]
+   },
+   {
+    "qid": "Q9170231",
+    "label": "Biała",
+    "coord": [
+     50.364722222,
+     17.575833333
+    ]
+   },
+   {
+    "qid": "Q11687900",
+    "label": "Biała",
+    "coord": null
+   },
+   {
+    "qid": "Q13032180",
+    "label": "Biała",
+    "coord": [
+     52.577222222,
+     23.756777777
+    ]
+   }
+  ],
+  "Bystrzyca": [
+   {
+    "qid": "Q296662",
+    "label": "Bystrzyca",
+    "coord": [
+     48.9608,
+     24.7403
+    ]
+   },
+   {
+    "qid": "Q767793",
+    "label": "Bystrzyca",
+    "coord": [
+     46.49225,
+     26.96852
+    ]
+   },
+   {
+    "qid": "Q1018675",
+    "label": "Bystrzyca",
+    "coord": [
+     50.63141,
+     16.38791
+    ]
+   },
+   {
+    "qid": "Q9182745",
+    "label": "Bystrzyca",
+    "coord": [
+     50.8622,
+     22.3941
+    ]
+   }
+  ],
+  "Bierawka": [
+   {
+    "qid": "Q367775",
+    "label": "Bierawka",
+    "coord": [
+     50.27690278,
+     18.22461389
+    ]
+   }
+  ],
+  "Brynica": [
+   {
+    "qid": "Q376000",
+    "label": "Brynica",
+    "coord": [
+     50.258838888,
+     19.137280555
+    ]
+   },
+   {
+    "qid": "Q9180783",
+    "label": "Brynica",
+    "coord": [
+     53.280277777,
+     19.561388888
+    ]
+   },
+   {
+    "qid": "Q32539622",
+    "label": "Brynica",
+    "coord": [
+     50.833333333,
+     17.666666666
+    ]
+   }
+  ],
+  "Bzura": [
+   {
+    "qid": "Q656640",
+    "label": "Bzura",
+    "coord": [
+     52.3779,
+     20.1934
+    ]
+   }
+  ],
+  "Brda": [
+   {
+    "qid": "Q772970",
+    "label": "Brda",
+    "coord": [
+     54.0325,
+     17.0775
+    ]
+   }
+  ],
+  "Barycz": [
+   {
+    "qid": "Q809673",
+    "label": "Barycz",
+    "coord": [
+     51.686388888,
+     16.2525
+    ]
+   }
+  ],
+  "Biała Głuchołaska": [
+   {
+    "qid": "Q855904",
+    "label": "Biała Głuchołaska",
+    "coord": [
+     50.1152,
+     17.2423
+    ]
+   }
+  ],
+  "Biała Lądecka": [
+   {
+    "qid": "Q855909",
+    "label": "Biała Lądecka",
+    "coord": [
+     50.4021,
+     16.63208
+    ]
+   }
+  ],
+  "Biebrza": [
+   {
+    "qid": "Q857160",
+    "label": "Biebrza",
+    "coord": [
+     53.217135105,
+     22.430992126
+    ]
+   },
+   {
+    "qid": "Q32491097",
+    "label": "Biebrza",
+    "coord": [
+     54.366111111,
+     19.846666666
+    ]
+   }
+  ],
+  "Brok": [
+   {
+    "qid": "Q925450",
+    "label": "Brok",
+    "coord": [
+     52.7,
+     21.9
+    ]
+   }
+  ],
+  "Bystrzyca Dusznicka": [
+   {
+    "qid": "Q1018673",
+    "label": "Bystrzyca Dusznicka",
+    "coord": [
+     50.322259,
+     16.392849
+    ]
+   }
+  ],
+  "Czarna Hańcza": [
+   {
+    "qid": "Q1095661",
+    "label": "Czarna Hańcza",
+    "coord": [
+     54.244,
+     22.7969
+    ]
+   }
+  ],
+  "Cetynia": [
+   {
+    "qid": "Q1144779",
+    "label": "Cetynia",
+    "coord": null
+   }
+  ],
+  "Czerwona Woda": [
+   {
+    "qid": "Q1595261",
+    "label": "Czerwona Woda",
+    "coord": [
+     51.136157,
+     14.995801
+    ]
+   }
+  ],
+  "Czerna Wielka": [
+   {
+    "qid": "Q2457998",
+    "label": "Czerna Wielka",
+    "coord": [
+     51.5194,
+     15.2183
+    ]
+   }
+  ],
+  "Białka": [
+   {
+    "qid": "Q4176549",
+    "label": "Białka",
+    "coord": [
+     49.46,
+     20.22194444
+    ]
+   },
+   {
+    "qid": "Q9170443",
+    "label": "Białka",
+    "coord": [
+     50.622777777,
+     22.277777777
+    ]
+   },
+   {
+    "qid": "Q9170451",
+    "label": "Białka",
+    "coord": [
+     51.411389,
+     22.18
+    ]
+   },
+   {
+    "qid": "Q20033662",
+    "label": "Białka",
+    "coord": null
+   }
+  ],
+  "Bukowa": [
+   {
+    "qid": "Q4987041",
+    "label": "Bukowa",
+    "coord": [
+     50.603333333,
+     22.066944444
+    ]
+   },
+   {
+    "qid": "Q9181787",
+    "label": "Bukowa",
+    "coord": [
+     50.624833333,
+     23.850555555
+    ]
+   },
+   {
+    "qid": "Q9181788",
+    "label": "Bukowa",
+    "coord": [
+     53.39333333,
+     14.54305556
+    ]
+   },
+   {
+    "qid": "Q11689091",
+    "label": "Bukowa",
+    "coord": [
+     53.829167,
+     16.0775
+    ]
+   }
+  ],
+  "Cybina": [
+   {
+    "qid": "Q5197882",
+    "label": "Cybina",
+    "coord": [
+     52.4096,
+     16.9516
+    ]
+   }
+  ],
+  "Czerwona": [
+   {
+    "qid": "Q5202050",
+    "label": "Czerwona",
+    "coord": [
+     54.216666666,
+     15.933333333
+    ]
+   }
+  ],
+  "Czarna Woda": [
+   {
+    "qid": "Q7930252",
+    "label": "Czarna Woda",
+    "coord": [
+     51.2229,
+     16.1791
+    ]
+   },
+   {
+    "qid": "Q11691932",
+    "label": "Czarna Woda",
+    "coord": [
+     50.831306,
+     16.684167
+    ]
+   },
+   {
+    "qid": "Q20033701",
+    "label": "Czarna Woda",
+    "coord": null
+   }
+  ],
+  "Babulówka": [
+   {
+    "qid": "Q9163814",
+    "label": "Babulówka",
+    "coord": [
+     50.51555556,
+     21.59333333
+    ]
+   }
+  ],
+  "Bauda": [
+   {
+    "qid": "Q9167393",
+    "label": "Bauda",
+    "coord": [
+     54.374762,
+     19.692593
+    ]
+   }
+  ],
+  "Biała Nida": [
+   {
+    "qid": "Q9170278",
+    "label": "Biała Nida",
+    "coord": [
+     50.75138889,
+     20.41
+    ]
+   }
+  ],
+  "Bobrza": [
+   {
+    "qid": "Q9174864",
+    "label": "Bobrza",
+    "coord": [
+     50.749444444,
+     20.41
+    ]
+   }
+  ],
+  "Bobrówka": [
+   {
+    "qid": "Q9174871",
+    "label": "Bobrówka",
+    "coord": [
+     52.11916667,
+     19.91583333
+    ]
+   },
+   {
+    "qid": "Q20033668",
+    "label": "Bobrówka",
+    "coord": [
+     51.448389,
+     23.07075
+    ]
+   }
+  ],
+  "Brennica": [
+   {
+    "qid": "Q9179207",
+    "label": "Brennica",
+    "coord": [
+     49.78222222,
+     18.81277778
+    ]
+   }
+  ],
+  "Brzeźnica": [
+   {
+    "qid": "Q9180954",
+    "label": "Brzeźnica",
+    "coord": [
+     50.638889,
+     20.488889
+    ]
+   }
+  ],
+  "Budkowiczanka": [
+   {
+    "qid": "Q9181322",
+    "label": "Budkowiczanka",
+    "coord": [
+     50.8425,
+     17.665
+    ]
+   }
+  ],
+  "Budzówka": [
+   {
+    "qid": "Q9181642",
+    "label": "Budzówka",
+    "coord": [
+     50.51388889,
+     16.88694444
+    ]
+   }
+  ],
+  "Bychowska Struga": [
+   {
+    "qid": "Q9182554",
+    "label": "Bychowska Struga",
+    "coord": [
+     54.779167,
+     18.030833
+    ]
+   }
+  ],
+  "Bytomka": [
+   {
+    "qid": "Q9182805",
+    "label": "Bytomka",
+    "coord": [
+     50.28694444,
+     18.71138889
+    ]
+   }
+  ],
+  "Cicha Woda": [
+   {
+    "qid": "Q9192301",
+    "label": "Cicha Woda",
+    "coord": [
+     49.33236111,
+     20.04277778
+    ]
+   },
+   {
+    "qid": "Q11690543",
+    "label": "Cicha Woda",
+    "coord": [
+     51.227222222,
+     16.420555555
+    ]
+   },
+   {
+    "qid": "Q25415112",
+    "label": "Cicha Woda",
+    "coord": [
+     49.299722,
+     19.947222
+    ]
+   }
+  ],
+  "Cienka": [
+   {
+    "qid": "Q9192507",
+    "label": "Cienka",
+    "coord": [
+     52.402777777,
+     21.321666666
+    ]
+   }
+  ],
+  "Czarna": [
+   {
+    "qid": "Q9197847",
+    "label": "Czarna",
+    "coord": [
+     52.38545,
+     21.04895
+    ]
+   },
+   {
+    "qid": "Q9197848",
+    "label": "Czarna",
+    "coord": [
+     52.678611111,
+     22.939722222
+    ]
+   },
+   {
+    "qid": "Q9197855",
+    "label": "Czarna",
+    "coord": [
+     51.616666666,
+     22.433333333
+    ]
+   },
+   {
+    "qid": "Q9325211",
+    "label": "Czarna",
+    "coord": [
+     51.951666666,
+     21.2675
+    ]
+   },
+   {
+    "qid": "Q11691919",
+    "label": "Czarna",
+    "coord": [
+     54.11194444,
+     16.07444444
+    ]
+   },
+   {
+    "qid": "Q11691920",
+    "label": "Czarna",
+    "coord": [
+     51.536944444,
+     20.049722222
+    ]
+   },
+   {
+    "qid": "Q32712754",
+    "label": "Czarna",
+    "coord": [
+     50.4,
+     23.0
+    ]
+   },
+   {
+    "qid": "Q32712777",
+    "label": "Czarna",
+    "coord": [
+     50.055277777,
+     21.348888888
+    ]
+   },
+   {
+    "qid": "Q32712782",
+    "label": "Czarna",
+    "coord": [
+     50.0975,
+     22.053333333
+    ]
+   },
+   {
+    "qid": "Q32712792",
+    "label": "Czarna",
+    "coord": [
+     52.898333333,
+     23.324166666
+    ]
+   },
+   {
+    "qid": "Q32712797",
+    "label": "Czarna",
+    "coord": [
+     53.194722222,
+     23.189166666
+    ]
+   },
+   {
+    "qid": "Q32712813",
+    "label": "Czarna",
+    "coord": [
+     53.911388888,
+     22.543888888
+    ]
+   },
+   {
+    "qid": "Q107649312",
+    "label": "Czarna",
+    "coord": [
+     51.766555555,
+     20.926861111
+    ]
+   }
+  ],
+  "Czarna Nida": [
+   {
+    "qid": "Q9197884",
+    "label": "Czarna Nida",
+    "coord": [
+     50.749444444,
+     20.41
+    ]
+   }
+  ],
+  "Czarna Orawa": [
+   {
+    "qid": "Q9197887",
+    "label": "Czarna Orawa",
+    "coord": [
+     49.449444444,
+     19.639166666
+    ]
+   }
+  ],
+  "Czarna Przemsza": [
+   {
+    "qid": "Q9197890",
+    "label": "Czarna Przemsza",
+    "coord": [
+     50.4744,
+     19.5166
+    ]
+   }
+  ],
+  "Czarna Łada": [
+   {
+    "qid": "Q9197949",
+    "label": "Czarna Łada",
+    "coord": [
+     50.498888888,
+     22.6475
+    ]
+   }
+  ],
+  "Czarny Dunajec": [
+   {
+    "qid": "Q9198147",
+    "label": "Czarny Dunajec",
+    "coord": [
+     49.291361111,
+     19.850888888
+    ]
+   }
+  ],
+  "Czerwonka": [
+   {
+    "qid": "Q9198841",
+    "label": "Czerwonka",
+    "coord": null
+   },
+   {
+    "qid": "Q11692158",
+    "label": "Czerwonka",
+    "coord": null
+   },
+   {
+    "qid": "Q16538326",
+    "label": "Czerwonka",
+    "coord": [
+     50.85,
+     15.675
+    ]
+   },
+   {
+    "qid": "Q25415723",
+    "label": "Czerwonka",
+    "coord": [
+     49.878056,
+     19.139167
+    ]
+   }
+  ],
+  "Czarna Wisełka": [
+   {
+    "qid": "Q11017177",
+    "label": "Czarna Wisełka",
+    "coord": [
+     49.616666666,
+     18.933333333
+    ]
+   }
+  ],
+  "Biała Wisełka": [
+   {
+    "qid": "Q11687913",
+    "label": "Biała Wisełka",
+    "coord": [
+     49.633333333,
+     18.933333333
+    ]
+   }
+  ],
+  "Bobrzyca": [
+   {
+    "qid": "Q11688371",
+    "label": "Bobrzyca",
+    "coord": [
+     51.316666666,
+     15.566666666
+    ]
+   }
+  ],
+  "Brzozówka": [
+   {
+    "qid": "Q11689008",
+    "label": "Brzozówka",
+    "coord": [
+     53.581388888,
+     22.932222222
+    ]
+   },
+   {
+    "qid": "Q30918867",
+    "label": "Brzozówka",
+    "coord": null
+   }
+  ],
+  "Czarny Potok": [
+   {
+    "qid": "Q11691991",
+    "label": "Czarny Potok",
+    "coord": [
+     50.888928,
+     15.286669
+    ]
+   },
+   {
+    "qid": "Q25413750",
+    "label": "Czarny Potok",
+    "coord": [
+     49.810556,
+     20.673333
+    ]
+   },
+   {
+    "qid": "Q25414695",
+    "label": "Czarny Potok",
+    "coord": [
+     50.243789,
+     16.983139
+    ]
+   }
+  ],
+  "Biała Przemsza": [
+   {
+    "qid": "Q13479615",
+    "label": "Biała Przemsza",
+    "coord": [
+     50.2294,
+     19.1578
+    ]
+   }
+  ],
+  "Cedron": [
+   {
+    "qid": "Q18604433",
+    "label": "Cedron",
+    "coord": null
+   }
+  ],
+  "Cienica": [
+   {
+    "qid": "Q25406354",
+    "label": "Cienica",
+    "coord": [
+     51.869444,
+     16.041944
+    ]
+   }
+  ],
+  "Czernica": [
+   {
+    "qid": "Q25414610",
+    "label": "Czernica",
+    "coord": null
+   },
+   {
+    "qid": "Q97215231",
+    "label": "Czernica",
+    "coord": [
+     54.54469,
+     25.29248
+    ]
+   }
+  ],
+  "Cieszyca": [
+   {
+    "qid": "Q30910319",
+    "label": "Cieszyca",
+    "coord": null
+   }
+  ],
+  "Czerna Mała": [
+   {
+    "qid": "Q32712944",
+    "label": "Czerna Mała",
+    "coord": [
+     51.52051,
+     15.21874
+    ]
+   }
+  ],
+  "Drawa": [
+   {
+    "qid": "Q171009",
+    "label": "Drawa",
+    "coord": [
+     46.722469444,
+     12.252988888
+    ]
+   }
+  ],
+  "Huczwa": [
+   {
+    "qid": "Q52341",
+    "label": "Huczwa",
+    "coord": [
+     50.483333333,
+     23.483333333
+    ]
+   }
+  ],
+  "Elma": [
+   {
+    "qid": "Q649012",
+    "label": "Elma",
+    "coord": [
+     54.16694444,
+     20.61194444
+    ]
+   }
+  ],
+  "Elbląg": [
+   {
+    "qid": "Q661087",
+    "label": "Elbląg",
+    "coord": [
+     54.252038,
+     19.381725
+    ]
+   }
+  ],
+  "Gołdapa": [
+   {
+    "qid": "Q752554",
+    "label": "Gołdapa",
+    "coord": [
+     54.293611111,
+     21.855
+    ]
+   }
+  ],
+  "Dunajec": [
+   {
+    "qid": "Q840694",
+    "label": "Dunajec",
+    "coord": [
+     49.216661111,
+     19.766009444
+    ]
+   }
+  ],
+  "Gąsawka": [
+   {
+    "qid": "Q924177",
+    "label": "Gąsawka",
+    "coord": [
+     53.06722222,
+     17.80416667
+    ]
+   }
+  ],
+  "Drwęca": [
+   {
+    "qid": "Q1261531",
+    "label": "Drwęca",
+    "coord": [
+     52.9992,
+     18.6897
+    ]
+   }
+  ],
+  "Dzierzgoń": [
+   {
+    "qid": "Q1269456",
+    "label": "Dzierzgoń",
+    "coord": [
+     54.08064,
+     19.470896
+    ]
+   }
+  ],
+  "Ełk": [
+   {
+    "qid": "Q1322502",
+    "label": "Ełk",
+    "coord": [
+     53.476944444,
+     22.624444444
+    ]
+   }
+  ],
+  "Gwda": [
+   {
+    "qid": "Q1429579",
+    "label": "Gwda",
+    "coord": [
+     53.055,
+     16.7258
+    ]
+   }
+  ],
+  "Kamienna": [
+   {
+    "qid": "Q1477204",
+    "label": "Kamienna",
+    "coord": [
+     51.1998,
+     20.7245
+    ]
+   },
+   {
+    "qid": "Q112748029",
+    "label": "Kamienna",
+    "coord": [
+     53.609722222,
+     23.292222222
+    ]
+   }
+  ],
+  "Guber": [
+   {
+    "qid": "Q1552966",
+    "label": "Guber",
+    "coord": [
+     54.26798103,
+     21.01787567
+    ]
+   }
+  ],
+  "Iławka": [
+   {
+    "qid": "Q1633197",
+    "label": "Iławka",
+    "coord": [
+     53.600194444,
+     19.560611111
+    ]
+   }
+  ],
+  "Jegrznia": [
+   {
+    "qid": "Q1642027",
+    "label": "Jegrznia",
+    "coord": [
+     53.520555555,
+     22.802777777
+    ]
+   },
+   {
+    "qid": "Q127608935",
+    "label": "Jegrznia",
+    "coord": [
+     53.520555555,
+     22.802777777
+    ]
+   }
+  ],
+  "Ilanka": [
+   {
+    "qid": "Q1658308",
+    "label": "Ilanka",
+    "coord": [
+     52.29910278,
+     15.09211111
+    ]
+   }
+  ],
+  "Ina": [
+   {
+    "qid": "Q1660820",
+    "label": "Ina",
+    "coord": [
+     53.534166666,
+     14.635555555
+    ]
+   }
+  ],
+  "Iłżanka": [
+   {
+    "qid": "Q1676187",
+    "label": "Iłżanka",
+    "coord": [
+     51.22305556,
+     21.79694444
+    ]
+   }
+  ],
+  "Kaczawa": [
+   {
+    "qid": "Q1720921",
+    "label": "Kaczawa",
+    "coord": [
+     51.296705,
+     16.420012
+    ]
+   }
+  ],
+  "Gniła Obra": [
+   {
+    "qid": "Q1817810",
+    "label": "Gniła Obra",
+    "coord": [
+     52.07407255,
+     15.78941345
+    ]
+   }
+  ],
+  "Kacza": [
+   {
+    "qid": "Q2011766",
+    "label": "Kacza",
+    "coord": [
+     44.7254,
+     33.5486
+    ]
+   }
+  ],
+  "Kamionka": [
+   {
+    "qid": "Q2032708",
+    "label": "Kamionka",
+    "coord": [
+     48.0218,
+     28.7054
+    ]
+   },
+   {
+    "qid": "Q3918897",
+    "label": "Kamionka",
+    "coord": null
+   },
+   {
+    "qid": "Q11734592",
+    "label": "Kamionka",
+    "coord": [
+     53.478056,
+     17.887778
+    ]
+   },
+   {
+    "qid": "Q11734593",
+    "label": "Kamionka",
+    "coord": [
+     50.981472,
+     20.763556
+    ]
+   },
+   {
+    "qid": "Q11734594",
+    "label": "Kamionka",
+    "coord": null
+   },
+   {
+    "qid": "Q11734597",
+    "label": "Kamionka",
+    "coord": [
+     52.468611,
+     15.980556
+    ]
+   },
+   {
+    "qid": "Q28006583",
+    "label": "Kamionka",
+    "coord": null
+   },
+   {
+    "qid": "Q127512731",
+    "label": "Kamionka",
+    "coord": [
+     54.203888888,
+     17.355555555
+    ]
+   }
+  ],
+  "Gizdepka": [
+   {
+    "qid": "Q4976792",
+    "label": "Gizdepka",
+    "coord": [
+     54.6659,
+     18.4665
+    ]
+   }
+  ],
+  "Dzierżęcinka": [
+   {
+    "qid": "Q5319862",
+    "label": "Dzierżęcinka",
+    "coord": [
+     54.25166667,
+     16.13222222
+    ]
+   }
+  ],
+  "Dębosznica": [
+   {
+    "qid": "Q5321041",
+    "label": "Dębosznica",
+    "coord": [
+     54.1261,
+     15.4352
+    ]
+   }
+  ],
+  "Gowienica": [
+   {
+    "qid": "Q5590080",
+    "label": "Gowienica",
+    "coord": [
+     53.6521,
+     14.6068
+    ]
+   }
+  ],
+  "Grabinianka": [
+   {
+    "qid": "Q5590664",
+    "label": "Grabinianka",
+    "coord": [
+     50.0634,
+     21.3946
+    ]
+   }
+  ],
+  "Hoczewka": [
+   {
+    "qid": "Q5875888",
+    "label": "Hoczewka",
+    "coord": [
+     49.4321,
+     22.3386
+    ]
+   },
+   {
+    "qid": "Q127511730",
+    "label": "Hoczewka",
+    "coord": [
+     49.43333,
+     20.35
+    ]
+   }
+  ],
+  "Jarka": [
+   {
+    "qid": "Q6160268",
+    "label": "Jarka",
+    "coord": [
+     54.3327,
+     22.3432
+    ]
+   }
+  ],
+  "Kamienica": [
+   {
+    "qid": "Q6357406",
+    "label": "Kamienica",
+    "coord": [
+     49.6316,
+     20.6885
+    ]
+   },
+   {
+    "qid": "Q11733976",
+    "label": "Kamienica",
+    "coord": [
+     50.949167,
+     15.636389
+    ]
+   },
+   {
+    "qid": "Q11733978",
+    "label": "Kamienica",
+    "coord": [
+     50.393333,
+     16.903889
+    ]
+   },
+   {
+    "qid": "Q11733979",
+    "label": "Kamienica",
+    "coord": [
+     54.237222222,
+     17.283055555
+    ]
+   }
+  ],
+  "Darżyńska Struga": [
+   {
+    "qid": "Q9202427",
+    "label": "Darżyńska Struga",
+    "coord": [
+     54.484444,
+     17.397222
+    ]
+   }
+  ],
+  "Dojca": [
+   {
+    "qid": "Q9208503",
+    "label": "Dojca",
+    "coord": [
+     52.238194,
+     16.23525
+    ]
+   }
+  ],
+  "Drzewiczka": [
+   {
+    "qid": "Q9212510",
+    "label": "Drzewiczka",
+    "coord": [
+     51.598611111,
+     20.573055555
+    ]
+   }
+  ],
+  "Gardęga": [
+   {
+    "qid": "Q9265979",
+    "label": "Gardęga",
+    "coord": [
+     53.517922,
+     18.946294
+    ]
+   }
+  ],
+  "Gać": [
+   {
+    "qid": "Q9266475",
+    "label": "Gać",
+    "coord": [
+     53.12,
+     22.268888888
+    ]
+   }
+  ],
+  "Giełczewka": [
+   {
+    "qid": "Q9267985",
+    "label": "Giełczewka",
+    "coord": [
+     51.176944,
+     22.981667
+    ]
+   }
+  ],
+  "Gostynia": [
+   {
+    "qid": "Q9274807",
+    "label": "Gostynia",
+    "coord": [
+     50.05702778,
+     19.16272222
+    ]
+   }
+  ],
+  "Grajcarek": [
+   {
+    "qid": "Q9275404",
+    "label": "Grajcarek",
+    "coord": [
+     49.424166666,
+     20.459166666
+    ]
+   }
+  ],
+  "Głomia": [
+   {
+    "qid": "Q9284161",
+    "label": "Głomia",
+    "coord": [
+     53.218055555,
+     16.791111111
+    ]
+   }
+  ],
+  "Główna": [
+   {
+    "qid": "Q9284376",
+    "label": "Główna",
+    "coord": [
+     52.428166666,
+     16.962333333
+    ]
+   }
+  ],
+  "Grabia": [
+   {
+    "qid": "Q11701215",
+    "label": "Grabia",
+    "coord": [
+     51.525,
+     18.990277777
+    ]
+   }
+  ],
+  "Iłownica": [
+   {
+    "qid": "Q11714994",
+    "label": "Iłownica",
+    "coord": [
+     49.92588889,
+     18.98188889
+    ]
+   }
+  ],
+  "Jasiołka": [
+   {
+    "qid": "Q11721182",
+    "label": "Jasiołka",
+    "coord": [
+     49.75222222,
+     21.46111111
+    ]
+   }
+  ],
+  "Jastrzębianka": [
+   {
+    "qid": "Q11723255",
+    "label": "Jastrzębianka",
+    "coord": [
+     49.956806,
+     18.600306
+    ]
+   },
+   {
+    "qid": "Q20033775",
+    "label": "Jastrzębianka",
+    "coord": null
+   }
+  ],
+  "Jedlica": [
+   {
+    "qid": "Q11723754",
+    "label": "Jedlica",
+    "coord": [
+     50.756944444,
+     15.837222222
+    ]
+   }
+  ],
+  "Kamieniczka": [
+   {
+    "qid": "Q11734341",
+    "label": "Kamieniczka",
+    "coord": [
+     50.647278,
+     18.987861
+    ]
+   }
+  ],
+  "Flinta": [
+   {
+    "qid": "Q16545516",
+    "label": "Flinta",
+    "coord": null
+   }
+  ],
+  "Goworówka": [
+   {
+    "qid": "Q30904678",
+    "label": "Goworówka",
+    "coord": null
+   }
+  ],
+  "Drwęca Warmińska": [
+   {
+    "qid": "Q32744565",
+    "label": "Drwęca Warmińska",
+    "coord": [
+     54.097222222,
+     20.043611111
+    ]
+   }
+  ],
+  "Kocinka": [
+   {
+    "qid": "Q127511747",
+    "label": "Kocinka",
+    "coord": [
+     51.04,
+     19.055
+    ]
+   }
+  ],
+  "Krzywianka": [
+   {
+    "qid": "Q127511764",
+    "label": "Krzywianka",
+    "coord": [
+     51.325,
+     23.471666666
+    ]
+   },
+   {
+    "qid": "Q11749917",
+    "label": "Krzywianka",
+    "coord": [
+     49.76216667,
+     19.97438889
+    ]
+   }
+  ],
+  "Mienia": [
+   {
+    "qid": "Q127511790",
+    "label": "Mienia",
+    "coord": [
+     51.223611111,
+     16.941388888
+    ]
+   },
+   {
+    "qid": "Q11780367",
+    "label": "Mienia",
+    "coord": [
+     52.14388889,
+     21.2725
+    ]
+   }
+  ],
+  "Kwisa": [
+   {
+    "qid": "Q13762",
+    "label": "Kwisa",
+    "coord": [
+     50.8522,
+     15.4025
+    ]
+   }
+  ],
+  "Krzna": [
+   {
+    "qid": "Q657615",
+    "label": "Krzna",
+    "coord": [
+     52.133333333,
+     22.516666666
+    ]
+   }
+  ],
+  "Liswarta": [
+   {
+    "qid": "Q667976",
+    "label": "Liswarta",
+    "coord": [
+     51.0473,
+     19.0358
+    ]
+   }
+  ],
+  "Kozi Bród": [
+   {
+    "qid": "Q776010",
+    "label": "Kozi Bród",
+    "coord": [
+     50.253611111,
+     19.251111111
+    ]
+   }
+  ],
+  "Lubsza": [
+   {
+    "qid": "Q822796",
+    "label": "Lubsza",
+    "coord": [
+     51.953888888,
+     14.7225
+    ]
+   }
+  ],
+  "Kurówka": [
+   {
+    "qid": "Q833916",
+    "label": "Kurówka",
+    "coord": [
+     51.4408,
+     21.9458
+    ]
+   }
+  ],
+  "Miedzianka": [
+   {
+    "qid": "Q878397",
+    "label": "Miedzianka",
+    "coord": [
+     50.94416667,
+     14.89541667
+    ]
+   },
+   {
+    "qid": "Q16855097",
+    "label": "Miedzianka",
+    "coord": [
+     52.749166666,
+     24.277222222
+    ]
+   }
+  ],
+  "Krasna": [
+   {
+    "qid": "Q1088466",
+    "label": "Krasna",
+    "coord": [
+     47.057361111,
+     22.869277777
+    ]
+   },
+   {
+    "qid": "Q11747988",
+    "label": "Krasna",
+    "coord": [
+     51.12833333,
+     20.47138889
+    ]
+   }
+  ],
+  "Leśna": [
+   {
+    "qid": "Q1348658",
+    "label": "Leśna",
+    "coord": [
+     52.17372114,
+     23.50790977
+    ]
+   }
+  ],
+  "Mała Panew": [
+   {
+    "qid": "Q1411894",
+    "label": "Mała Panew",
+    "coord": [
+     50.71934,
+     17.87697
+    ]
+   }
+  ],
+  "Koprzywianka": [
+   {
+    "qid": "Q1475746",
+    "label": "Koprzywianka",
+    "coord": [
+     50.66888889,
+     21.73388889
+    ]
+   }
+  ],
+  "Kłodnica": [
+   {
+    "qid": "Q1774837",
+    "label": "Kłodnica",
+    "coord": [
+     50.329444444,
+     18.161944444
+    ]
+   }
+  ],
+  "Kurzyca": [
+   {
+    "qid": "Q1794502",
+    "label": "Kurzyca",
+    "coord": [
+     52.7087,
+     14.4094
+    ]
+   }
+  ],
+  "Liwiec": [
+   {
+    "qid": "Q1866578",
+    "label": "Liwiec",
+    "coord": [
+     52.600888888,
+     21.557666666
+    ]
+   }
+  ],
+  "Krutynia": [
+   {
+    "qid": "Q2072664",
+    "label": "Krutynia",
+    "coord": [
+     53.7004,
+     21.4344
+    ]
+   }
+  ],
+  "Martwa Wisła": [
+   {
+    "qid": "Q2134229",
+    "label": "Martwa Wisła",
+    "coord": [
+     54.41,
+     18.6608
+    ]
+   }
+  ],
+  "Marycha": [
+   {
+    "qid": "Q3502083",
+    "label": "Marycha",
+    "coord": [
+     54.2659,
+     23.1291
+    ]
+   }
+  ],
+  "Klikawa": [
+   {
+    "qid": "Q4308476",
+    "label": "Klikawa",
+    "coord": [
+     50.431594,
+     16.195242
+    ]
+   }
+  ],
+  "Lubaczówka": [
+   {
+    "qid": "Q5244299",
+    "label": "Lubaczówka",
+    "coord": [
+     50.1196,
+     22.6436
+    ]
+   }
+  ],
+  "Liwa": [
+   {
+    "qid": "Q6659908",
+    "label": "Liwa",
+    "coord": [
+     53.91388889,
+     18.88444444
+    ]
+   }
+  ],
+  "Mała Ina": [
+   {
+    "qid": "Q6799211",
+    "label": "Mała Ina",
+    "coord": [
+     53.3078,
+     15.0622
+    ]
+   }
+  ],
+  "Mała Ślęza": [
+   {
+    "qid": "Q6799267",
+    "label": "Mała Ślęza",
+    "coord": [
+     50.885,
+     16.98
+    ]
+   }
+  ],
+  "Kasinianka": [
+   {
+    "qid": "Q11736711",
+    "label": "Kasinianka",
+    "coord": [
+     49.7075,
+     20.03194444
+    ]
+   }
+  ],
+  "Klukówka": [
+   {
+    "qid": "Q11740364",
+    "label": "Klukówka",
+    "coord": [
+     52.032777777,
+     23.168888888
+    ]
+   }
+  ],
+  "Kocunia": [
+   {
+    "qid": "Q11740739",
+    "label": "Kocunia",
+    "coord": [
+     53.293611,
+     17.022222
+    ]
+   }
+  ],
+  "Konopka": [
+   {
+    "qid": "Q11742640",
+    "label": "Konopka",
+    "coord": [
+     50.7114,
+     18.9467
+    ]
+   }
+  ],
+  "Kopel": [
+   {
+    "qid": "Q11743465",
+    "label": "Kopel",
+    "coord": [
+     52.31916667,
+     16.90916667
+    ]
+   }
+  ],
+  "Kostrzyń": [
+   {
+    "qid": "Q11744168",
+    "label": "Kostrzyń",
+    "coord": [
+     52.29416667,
+     22.0225
+    ]
+   }
+  ],
+  "Koszarawa": [
+   {
+    "qid": "Q11744185",
+    "label": "Koszarawa",
+    "coord": [
+     49.683778,
+     19.196667
+    ]
+   }
+  ],
+  "Krynka": [
+   {
+    "qid": "Q11748566",
+    "label": "Krynka",
+    "coord": [
+     50.532222,
+     17.116111
+    ]
+   }
+  ],
+  "Krzczonówka": [
+   {
+    "qid": "Q11748932",
+    "label": "Krzczonówka",
+    "coord": [
+     49.721666666,
+     19.870277777
+    ]
+   }
+  ],
+  "Krztynia": [
+   {
+    "qid": "Q11749020",
+    "label": "Krztynia",
+    "coord": [
+     50.65027778,
+     19.80138889
+    ]
+   }
+  ],
+  "Krzycki Rów": [
+   {
+    "qid": "Q11749022",
+    "label": "Krzycki Rów",
+    "coord": [
+     51.783333333,
+     16.316666666
+    ]
+   }
+  ],
+  "Krzyworzeka": [
+   {
+    "qid": "Q11749946",
+    "label": "Krzyworzeka",
+    "coord": [
+     49.758888888,
+     20.108888888
+    ]
+   }
+  ],
+  "Królewski Potok": [
+   {
+    "qid": "Q11750160",
+    "label": "Królewski Potok",
+    "coord": [
+     49.941389,
+     20.303333
+    ]
+   }
+  ],
+  "Krępica": [
+   {
+    "qid": "Q11750304",
+    "label": "Krępica",
+    "coord": [
+     51.76444444,
+     18.07611111
+    ]
+   }
+  ],
+  "Kucelinka": [
+   {
+    "qid": "Q11750696",
+    "label": "Kucelinka",
+    "coord": [
+     50.76655556,
+     19.17375
+    ]
+   }
+  ],
+  "Kuroch": [
+   {
+    "qid": "Q11751267",
+    "label": "Kuroch",
+    "coord": [
+     51.54666,
+     17.534518
+    ]
+   }
+  ],
+  "Lesk": [
+   {
+    "qid": "Q11754827",
+    "label": "Lesk",
+    "coord": [
+     50.81861111,
+     16.04583333
+    ]
+   }
+  ],
+  "Leśnica": [
+   {
+    "qid": "Q11755169",
+    "label": "Leśnica",
+    "coord": [
+     49.925,
+     18.46805556
+    ]
+   },
+   {
+    "qid": "Q11755476",
+    "label": "Leśnica",
+    "coord": [
+     49.727667,
+     18.899583
+    ]
+   },
+   {
+    "qid": "Q11755479",
+    "label": "Leśnica",
+    "coord": [
+     50.591389,
+     18.701667
+    ]
+   },
+   {
+    "qid": "Q35003496",
+    "label": "Leśnica",
+    "coord": null
+   }
+  ],
+  "Lubatówka": [
+   {
+    "qid": "Q11762963",
+    "label": "Lubatówka",
+    "coord": [
+     49.530694,
+     21.763556
+    ]
+   }
+  ],
+  "Lubienka": [
+   {
+    "qid": "Q11763047",
+    "label": "Lubienka",
+    "coord": [
+     52.417083333,
+     19.132222222
+    ]
+   }
+  ],
+  "Lubrzanka": [
+   {
+    "qid": "Q11763192",
+    "label": "Lubrzanka",
+    "coord": [
+     50.781944444,
+     20.706111111
+    ]
+   }
+  ],
+  "Luciąża": [
+   {
+    "qid": "Q11763269",
+    "label": "Luciąża",
+    "coord": [
+     51.37617,
+     19.85356
+    ]
+   }
+  ],
+  "Lutynia": [
+   {
+    "qid": "Q11764362",
+    "label": "Lutynia",
+    "coord": [
+     52.121111111,
+     17.493055555
+    ]
+   }
+  ],
+  "Mała Wełna": [
+   {
+    "qid": "Q11772131",
+    "label": "Mała Wełna",
+    "coord": [
+     52.753888888,
+     17.003055555
+    ]
+   }
+  ],
+  "Meszna": [
+   {
+    "qid": "Q11777565",
+    "label": "Meszna",
+    "coord": [
+     52.208333333,
+     17.854722222
+    ]
+   }
+  ],
+  "Mierzawa": [
+   {
+    "qid": "Q11780408",
+    "label": "Mierzawa",
+    "coord": [
+     50.473305555,
+     20.092694444
+    ]
+   }
+  ],
+  "Mierzęcka Struga": [
+   {
+    "qid": "Q11780424",
+    "label": "Mierzęcka Struga",
+    "coord": [
+     52.97083333,
+     14.94472222
+    ]
+   }
+  ],
+  "Minina": [
+   {
+    "qid": "Q11781464",
+    "label": "Minina",
+    "coord": [
+     51.59275,
+     22.268555555
+    ]
+   }
+  ],
+  "Mitręga": [
+   {
+    "qid": "Q11783610",
+    "label": "Mitręga",
+    "coord": [
+     50.457222222,
+     19.24
+    ]
+   }
+  ],
+  "Mleczka": [
+   {
+    "qid": "Q11784213",
+    "label": "Mleczka",
+    "coord": [
+     50.114698,
+     22.494191
+    ]
+   }
+  ],
+  "Miała": [
+   {
+    "qid": "Q16576452",
+    "label": "Miała",
+    "coord": [
+     52.8375,
+     15.938333333
+    ]
+   }
+  ],
+  "Lepietnica": [
+   {
+    "qid": "Q18431389",
+    "label": "Lepietnica",
+    "coord": [
+     49.466667,
+     19.974167
+    ]
+   }
+  ],
+  "Kocierzanka": [
+   {
+    "qid": "Q24944797",
+    "label": "Kocierzanka",
+    "coord": null
+   }
+  ],
+  "Lubniewka": [
+   {
+    "qid": "Q35388526",
+    "label": "Lubniewka",
+    "coord": [
+     52.593888888,
+     15.153333333
+    ]
+   }
+  ],
+  "Mień": [
+   {
+    "qid": "Q108209549",
+    "label": "Mień",
+    "coord": [
+     52.84261524,
+     18.91103329
+    ]
+   }
+  ],
+  "Mleczka Wschodnia": [
+   {
+    "qid": "Q126937114",
+    "label": "Mleczka Wschodnia",
+    "coord": [
+     49.856388888,
+     22.450833333
+    ]
+   }
+  ],
+  "Odra": [
+   {
+    "qid": "Q552",
+    "label": "Odra",
+    "coord": [
+     49.6133,
+     17.5208
+    ]
+   }
+  ],
+  "Nysa Łużycka": [
+   {
+    "qid": "Q5602",
+    "label": "Nysa Łużycka",
+    "coord": [
+     50.726312,
+     15.226706
+    ]
+   }
+  ],
+  "Narew": [
+   {
+    "qid": "Q60055",
+    "label": "Narew",
+    "coord": [
+     52.433333333,
+     20.676944444
+    ]
+   }
+  ],
+  "Oława": [
+   {
+    "qid": "Q164033",
+    "label": "Oława",
+    "coord": [
+     50.546944444,
+     17.110833333
+    ]
+   }
+  ],
+  "Opatówka": [
+   {
+    "qid": "Q212562",
+    "label": "Opatówka",
+    "coord": [
+     50.75805556,
+     21.83777778
+    ]
+   },
+   {
+    "qid": "Q60860364",
+    "label": "Opatówka",
+    "coord": null
+   }
+  ],
+  "Pielnica": [
+   {
+    "qid": "Q454087",
+    "label": "Pielnica",
+    "coord": [
+     49.6246,
+     21.9511
+    ]
+   }
+  ],
+  "Orla": [
+   {
+    "qid": "Q512484",
+    "label": "Orla",
+    "coord": [
+     50.90242,
+     10.63157
+    ]
+   },
+   {
+    "qid": "Q11799232",
+    "label": "Orla",
+    "coord": [
+     51.5686,
+     16.6671
+    ]
+   }
+  ],
+  "Opawa": [
+   {
+    "qid": "Q577026",
+    "label": "Opawa",
+    "coord": [
+     49.833784,
+     18.221539
+    ]
+   },
+   {
+    "qid": "Q16584242",
+    "label": "Opawa",
+    "coord": [
+     50.700361,
+     15.923778
+    ]
+   }
+  ],
+  "Pilica": [
+   {
+    "qid": "Q750418",
+    "label": "Pilica",
+    "coord": [
+     50.4561,
+     19.6456
+    ]
+   }
+  ],
+  "Noteć": [
+   {
+    "qid": "Q828869",
+    "label": "Noteć",
+    "coord": [
+     52.7355,
+     15.4065
+    ]
+   }
+  ],
+  "Morawka": [
+   {
+    "qid": "Q849928",
+    "label": "Morawka",
+    "coord": [
+     49.502235,
+     18.542923
+    ]
+   },
+   {
+    "qid": "Q11785426",
+    "label": "Morawka",
+    "coord": [
+     50.599722,
+     20.693611
+    ]
+   },
+   {
+    "qid": "Q11785427",
+    "label": "Morawka",
+    "coord": [
+     52.979667,
+     20.972556
+    ]
+   }
+  ],
+  "Nogat": [
+   {
+    "qid": "Q980095",
+    "label": "Nogat",
+    "coord": [
+     54.275,
+     19.272222222
+    ]
+   }
+  ],
+  "Obra": [
+   {
+    "qid": "Q989796",
+    "label": "Obra",
+    "coord": [
+     52.602369866,
+     15.478878021
+    ]
+   }
+  ],
+  "Opawica": [
+   {
+    "qid": "Q1281952",
+    "label": "Opawica",
+    "coord": [
+     50.096071,
+     17.716535
+    ]
+   }
+  ],
+  "Netta": [
+   {
+    "qid": "Q1322211",
+    "label": "Netta",
+    "coord": [
+     53.60972222,
+     22.93194444
+    ]
+   }
+  ],
+  "Olza": [
+   {
+    "qid": "Q1331973",
+    "label": "Olza",
+    "coord": [
+     49.561359,
+     18.844553
+    ]
+   }
+  ],
+  "Orzyc": [
+   {
+    "qid": "Q1333952",
+    "label": "Orzyc",
+    "coord": [
+     53.138055555,
+     20.474444444
+    ]
+   }
+  ],
+  "Osobłoga": [
+   {
+    "qid": "Q1411962",
+    "label": "Osobłoga",
+    "coord": [
+     50.211674,
+     17.423556
+    ]
+   }
+  ],
+  "Nysa Kłodzka": [
+   {
+    "qid": "Q1455991",
+    "label": "Nysa Kłodzka",
+    "coord": [
+     50.148,
+     16.7795
+    ]
+   }
+  ],
+  "Mołstowa": [
+   {
+    "qid": "Q1459336",
+    "label": "Mołstowa",
+    "coord": [
+     53.9863,
+     15.2942
+    ]
+   }
+  ],
+  "Nida": [
+   {
+    "qid": "Q1521184",
+    "label": "Nida",
+    "coord": [
+     50.296666666,
+     20.854722222
+    ]
+   },
+   {
+    "qid": "Q11791141",
+    "label": "Nida",
+    "coord": [
+     52.162472,
+     19.843528
+    ]
+   },
+   {
+    "qid": "Q127628248",
+    "label": "Nida",
+    "coord": [
+     53.238333333,
+     20.2475
+    ]
+   }
+  ],
+  "Orlanka": [
+   {
+    "qid": "Q1630608",
+    "label": "Orlanka",
+    "coord": [
+     52.605075,
+     23.392628
+    ]
+   }
+  ],
+  "Nysa Szalona": [
+   {
+    "qid": "Q1641953",
+    "label": "Nysa Szalona",
+    "coord": [
+     50.878,
+     16.0833
+    ]
+   }
+  ],
+  "Osa": [
+   {
+    "qid": "Q1666451",
+    "label": "Osa",
+    "coord": [
+     53.55549167,
+     18.76534722
+    ]
+   },
+   {
+    "qid": "Q25411751",
+    "label": "Osa",
+    "coord": [
+     50.551028,
+     22.718889
+    ]
+   }
+  ],
+  "Mleczna": [
+   {
+    "qid": "Q1712252",
+    "label": "Mleczna",
+    "coord": [
+     51.51,
+     21.1822
+    ]
+   },
+   {
+    "qid": "Q11784217",
+    "label": "Mleczna",
+    "coord": [
+     50.07966667,
+     19.06783333
+    ]
+   }
+  ],
+  "Narewka": [
+   {
+    "qid": "Q1722452",
+    "label": "Narewka",
+    "coord": [
+     52.43333333,
+     23.65
+    ]
+   }
+  ],
+  "Osława": [
+   {
+    "qid": "Q1757249",
+    "label": "Osława",
+    "coord": [
+     49.5347,
+     22.2678
+    ]
+   }
+  ],
+  "Ner": [
+   {
+    "qid": "Q1777582",
+    "label": "Ner",
+    "coord": [
+     52.1413,
+     18.6888
+    ]
+   }
+  ],
+  "Nurzec": [
+   {
+    "qid": "Q1889871",
+    "label": "Nurzec",
+    "coord": [
+     52.610083333,
+     22.408833333
+    ]
+   }
+  ],
+  "Motława": [
+   {
+    "qid": "Q1950176",
+    "label": "Motława",
+    "coord": [
+     54.066944444,
+     18.705277777
+    ]
+   }
+  ],
+  "Nidzica": [
+   {
+    "qid": "Q1987434",
+    "label": "Nidzica",
+    "coord": [
+     50.2107142,
+     20.6794007
+    ]
+   }
+  ],
+  "Obrzyca": [
+   {
+    "qid": "Q2012943",
+    "label": "Obrzyca",
+    "coord": [
+     52.03274615,
+     15.63251495
+    ]
+   },
+   {
+    "qid": "Q11795105",
+    "label": "Obrzyca",
+    "coord": null
+   }
+  ],
+  "Omulew": [
+   {
+    "qid": "Q2023557",
+    "label": "Omulew",
+    "coord": [
+     53.08333333,
+     21.55
+    ]
+   }
+  ],
+  "Orz": [
+   {
+    "qid": "Q2032390",
+    "label": "Orz",
+    "coord": [
+     52.8225,
+     21.465833333
+    ]
+   }
+  ],
+  "Pasłęka": [
+   {
+    "qid": "Q2055907",
+    "label": "Pasłęka",
+    "coord": [
+     53.604,
+     20.345611111
+    ]
+   }
+  ],
+  "Parsęta": [
+   {
+    "qid": "Q2071851",
+    "label": "Parsęta",
+    "coord": [
+     54.188333333,
+     15.551111111
+    ]
+   }
+  ],
+  "Muława": [
+   {
+    "qid": "Q3579508",
+    "label": "Muława",
+    "coord": [
+     51.867222222,
+     23.146388888
+    ]
+   }
+  ],
+  "Mszanka": [
+   {
+    "qid": "Q4309214",
+    "label": "Mszanka",
+    "coord": [
+     49.3033,
+     22.8669
+    ]
+   },
+   {
+    "qid": "Q30910041",
+    "label": "Mszanka",
+    "coord": null
+   }
+  ],
+  "Moszczenica": [
+   {
+    "qid": "Q6917068",
+    "label": "Moszczenica",
+    "coord": [
+     51.8215,
+     19.6334
+    ]
+   },
+   {
+    "qid": "Q11786044",
+    "label": "Moszczenica",
+    "coord": [
+     54.338333333,
+     16.495277777
+    ]
+   }
+  ],
+  "Piaśnica": [
+   {
+    "qid": "Q6976632",
+    "label": "Piaśnica",
+    "coord": [
+     54.652777777,
+     18.215277777
+    ]
+   }
+  ],
+  "Nizica": [
+   {
+    "qid": "Q7042253",
+    "label": "Nizica",
+    "coord": [
+     53.7225,
+     16.70833333
+    ]
+   }
+  ],
+  "Pełcznica": [
+   {
+    "qid": "Q7179716",
+    "label": "Pełcznica",
+    "coord": [
+     50.720555555,
+     16.276944444
+    ]
+   }
+  ],
+  "Mogilnica": [
+   {
+    "qid": "Q11784608",
+    "label": "Mogilnica",
+    "coord": [
+     52.141944444,
+     16.544444444
+    ]
+   }
+  ],
+  "Moskawa": [
+   {
+    "qid": "Q11785728",
+    "label": "Moskawa",
+    "coord": [
+     52.103444,
+     17.191556
+    ]
+   }
+  ],
+  "Moszczeniczka": [
+   {
+    "qid": "Q11786049",
+    "label": "Moszczeniczka",
+    "coord": [
+     54.44888889,
+     16.745
+    ]
+   }
+  ],
+  "Mroga": [
+   {
+    "qid": "Q11786373",
+    "label": "Mroga",
+    "coord": [
+     52.109583333,
+     19.701888888
+    ]
+   }
+  ],
+  "Muchawka": [
+   {
+    "qid": "Q11786467",
+    "label": "Muchawka",
+    "coord": [
+     52.016388888,
+     22.256944444
+    ]
+   }
+  ],
+  "Muszynka": [
+   {
+    "qid": "Q11786842",
+    "label": "Muszynka",
+    "coord": [
+     49.352777777,
+     20.890833333
+    ]
+   }
+  ],
+  "Myja": [
+   {
+    "qid": "Q11787537",
+    "label": "Myja",
+    "coord": [
+     50.766388888,
+     15.679722222
+    ]
+   },
+   {
+    "qid": "Q127511802",
+    "label": "Myja",
+    "coord": [
+     51.551388888,
+     18.510555555
+    ]
+   }
+  ],
+  "Myśla": [
+   {
+    "qid": "Q11787707",
+    "label": "Myśla",
+    "coord": [
+     52.6579,
+     14.4756
+    ]
+   },
+   {
+    "qid": "Q28676373",
+    "label": "Myśla",
+    "coord": [
+     52.387222222,
+     22.349027777
+    ]
+   }
+  ],
+  "Mławka": [
+   {
+    "qid": "Q11787957",
+    "label": "Mławka",
+    "coord": [
+     52.951388888,
+     20.076666666
+    ]
+   }
+  ],
+  "Nereśl": [
+   {
+    "qid": "Q11790664",
+    "label": "Nereśl",
+    "coord": [
+     53.211666666,
+     22.756944444
+    ]
+   }
+  ],
+  "Niechwaszcz": [
+   {
+    "qid": "Q11791317",
+    "label": "Niechwaszcz",
+    "coord": [
+     53.907222222,
+     17.706111111
+    ]
+   }
+  ],
+  "Nieciecz": [
+   {
+    "qid": "Q11791321",
+    "label": "Nieciecz",
+    "coord": [
+     51.45611111,
+     18.95722222
+    ]
+   }
+  ],
+  "Niedziczanka": [
+   {
+    "qid": "Q11791400",
+    "label": "Niedziczanka",
+    "coord": null
+   }
+  ],
+  "Niesób": [
+   {
+    "qid": "Q11791781",
+    "label": "Niesób",
+    "coord": [
+     51.300778,
+     18.148278
+    ]
+   }
+  ],
+  "Ochnia": [
+   {
+    "qid": "Q11795645",
+    "label": "Ochnia",
+    "coord": [
+     52.407916666,
+     19.083388888
+    ]
+   }
+  ],
+  "Ochotnica": [
+   {
+    "qid": "Q11795658",
+    "label": "Ochotnica",
+    "coord": [
+     49.51667,
+     20.4
+    ]
+   }
+  ],
+  "Okrzejka": [
+   {
+    "qid": "Q11797113",
+    "label": "Okrzejka",
+    "coord": [
+     51.72333333,
+     21.44555556
+    ]
+   }
+  ],
+  "Olczyski Potok": [
+   {
+    "qid": "Q11797678",
+    "label": "Olczyski Potok",
+    "coord": [
+     49.32305556,
+     19.98555556
+    ]
+   }
+  ],
+  "Oleśnica": [
+   {
+    "qid": "Q11797832",
+    "label": "Oleśnica",
+    "coord": [
+     51.1125,
+     20.928888888
+    ]
+   },
+   {
+    "qid": "Q11797835",
+    "label": "Oleśnica",
+    "coord": [
+     51.276388888,
+     18.423333333
+    ]
+   },
+   {
+    "qid": "Q11797836",
+    "label": "Oleśnica",
+    "coord": [
+     51.114722222,
+     17.208333333
+    ]
+   }
+  ],
+  "Orzysza": [
+   {
+    "qid": "Q11799428",
+    "label": "Orzysza",
+    "coord": null
+   }
+  ],
+  "Osownica": [
+   {
+    "qid": "Q11800545",
+    "label": "Osownica",
+    "coord": [
+     52.51083333,
+     21.64166667
+    ]
+   }
+  ],
+  "Ołobok": [
+   {
+    "qid": "Q11801521",
+    "label": "Ołobok",
+    "coord": [
+     52.052777777,
+     15.379444444
+    ]
+   },
+   {
+    "qid": "Q11801522",
+    "label": "Ołobok",
+    "coord": [
+     51.766111111,
+     17.671944444
+    ]
+   }
+  ],
+  "Paklica": [
+   {
+    "qid": "Q11802249",
+    "label": "Paklica",
+    "coord": [
+     52.37,
+     15.453888888
+    ]
+   }
+  ],
+  "Paleczka": [
+   {
+    "qid": "Q11802323",
+    "label": "Paleczka",
+    "coord": [
+     49.77972222,
+     19.60361111
+    ]
+   }
+  ],
+  "Panna": [
+   {
+    "qid": "Q11802679",
+    "label": "Panna",
+    "coord": [
+     49.390555555,
+     21.751944444
+    ]
+   }
+  ],
+  "Młynówka": [
+   {
+    "qid": "Q16481785",
+    "label": "Młynówka",
+    "coord": [
+     51.041389,
+     21.095833
+    ]
+   },
+   {
+    "qid": "Q60214049",
+    "label": "Młynówka",
+    "coord": null
+   },
+   {
+    "qid": "Q127511795",
+    "label": "Młynówka",
+    "coord": [
+     51.443611111,
+     17.969444444
+    ]
+   }
+  ],
+  "Piekielnik": [
+   {
+    "qid": "Q30910227",
+    "label": "Piekielnik",
+    "coord": null
+   }
+  ],
+  "Pichna": [
+   {
+    "qid": "Q30919008",
+    "label": "Pichna",
+    "coord": [
+     51.795008,
+     18.697244
+    ]
+   }
+  ],
+  "Przylepnica": [
+   {
+    "qid": "Q11830075",
+    "label": "Przylepnica",
+    "coord": [
+     53.030277777,
+     20.126388888
+    ]
+   }
+  ],
+  "Prądnik": [
+   {
+    "qid": "Q11830505",
+    "label": "Prądnik",
+    "coord": [
+     50.265282777,
+     19.742498888
+    ]
+   }
+  ],
+  "Pszczynka": [
+   {
+    "qid": "Q11830730",
+    "label": "Pszczynka",
+    "coord": [
+     49.977444444,
+     18.602222222
+    ]
+   }
+  ],
+  "Płociczna": [
+   {
+    "qid": "Q11832595",
+    "label": "Płociczna",
+    "coord": [
+     53.019166666,
+     15.955
+    ]
+   }
+  ],
+  "Raciążnica": [
+   {
+    "qid": "Q11833288",
+    "label": "Raciążnica",
+    "coord": [
+     52.690909,
+     20.465296
+    ]
+   }
+  ],
+  "Sapina": [
+   {
+    "qid": "Q11835706",
+    "label": "Sapina",
+    "coord": [
+     54.0289318,
+     21.8948117
+    ]
+   }
+  ],
+  "Prudnik": [
+   {
+    "qid": "Q12145266",
+    "label": "Prudnik",
+    "coord": null
+   },
+   {
+    "qid": "Q2114389",
+    "label": "Prudnik",
+    "coord": [
+     50.29954,
+     17.75253
+    ]
+   }
+  ],
+  "Porębianka": [
+   {
+    "qid": "Q16590395",
+    "label": "Porębianka",
+    "coord": [
+     50.44527778,
+     19.76833333
+    ]
+   },
+   {
+    "qid": "Q11825047",
+    "label": "Porębianka",
+    "coord": [
+     49.66916667,
+     20.08583333
+    ]
+   }
+  ],
+  "Ruda": [
+   {
+    "qid": "Q16597795",
+    "label": "Ruda",
+    "coord": [
+     53.17055556,
+     16.74166667
+    ]
+   },
+   {
+    "qid": "Q56328765",
+    "label": "Ruda",
+    "coord": null
+   },
+   {
+    "qid": "Q1573744",
+    "label": "Ruda",
+    "coord": [
+     52.13194444,
+     13.20666667
+    ]
+   },
+   {
+    "qid": "Q1670405",
+    "label": "Ruda",
+    "coord": [
+     50.19094722,
+     18.258575
+    ]
+   },
+   {
+    "qid": "Q9323660",
+    "label": "Ruda",
+    "coord": [
+     52.91809,
+     23.51675
+    ]
+   }
+  ],
+  "Pomianka": [
+   {
+    "qid": "Q35255354",
+    "label": "Pomianka",
+    "coord": [
+     51.2127,
+     18.0897
+    ]
+   }
+  ],
+  "Raba": [
+   {
+    "qid": "Q182138",
+    "label": "Raba",
+    "coord": [
+     47.345277777,
+     15.515277777
+    ]
+   },
+   {
+    "qid": "Q615272",
+    "label": "Raba",
+    "coord": [
+     49.5394,
+     19.9703
+    ]
+   }
+  ],
+  "Pisa": [
+   {
+    "qid": "Q5625",
+    "label": "Pisa",
+    "coord": [
+     54.636111111,
+     21.906944444
+    ]
+   },
+   {
+    "qid": "Q941710",
+    "label": "Pisa",
+    "coord": [
+     53.230277777,
+     21.872777777
+    ]
+   },
+   {
+    "qid": "Q11818460",
+    "label": "Pisa",
+    "coord": [
+     53.83504,
+     20.598
+    ]
+   },
+   {
+    "qid": "Q11818461",
+    "label": "Pisa",
+    "coord": [
+     54.250278,
+     20.981111
+    ]
+   }
+  ],
+  "Psina": [
+   {
+    "qid": "Q205040",
+    "label": "Psina",
+    "coord": [
+     50.04413216,
+     18.23919296
+    ]
+   }
+  ],
+  "San": [
+   {
+    "qid": "Q216488",
+    "label": "San",
+    "coord": [
+     49.0028,
+     22.875
+    ]
+   }
+  ],
+  "Prosna": [
+   {
+    "qid": "Q304527",
+    "label": "Prosna",
+    "coord": [
+     52.141706131,
+     17.662110328
+    ]
+   }
+  ],
+  "Sanna": [
+   {
+    "qid": "Q362287",
+    "label": "Sanna",
+    "coord": [
+     50.86777778,
+     21.85055556
+    ]
+   },
+   {
+    "qid": "Q689569",
+    "label": "Sanna",
+    "coord": [
+     47.1439,
+     10.5646
+    ]
+   }
+  ],
+  "Radomka": [
+   {
+    "qid": "Q456984",
+    "label": "Radomka",
+    "coord": [
+     51.70855,
+     21.434362
+    ]
+   }
+  ],
+  "Rega": [
+   {
+    "qid": "Q504582",
+    "label": "Rega",
+    "coord": [
+     54.1458,
+     15.285
+    ]
+   }
+  ],
+  "Rządza": [
+   {
+    "qid": "Q646358",
+    "label": "Rządza",
+    "coord": [
+     52.47611111,
+     21.11555556
+    ]
+   }
+  ],
+  "Płonia": [
+   {
+    "qid": "Q752594",
+    "label": "Płonia",
+    "coord": [
+     53.39589444,
+     14.64771111
+    ]
+   }
+  ],
+  "Poprad": [
+   {
+    "qid": "Q756302",
+    "label": "Poprad",
+    "coord": [
+     49.176111111,
+     20.060388888
+    ]
+   }
+  ],
+  "Skawinka": [
+   {
+    "qid": "Q954273",
+    "label": "Skawinka",
+    "coord": [
+     49.906944444,
+     19.832222222
+    ]
+   }
+  ],
+  "Pliszka": [
+   {
+    "qid": "Q1116386",
+    "label": "Pliszka",
+    "coord": [
+     52.252375,
+     14.70004167
+    ]
+   }
+  ],
+  "Przemsza": [
+   {
+    "qid": "Q1149087",
+    "label": "Przemsza",
+    "coord": [
+     50.06679,
+     19.23277
+    ]
+   }
+  ],
+  "Skawa": [
+   {
+    "qid": "Q1253322",
+    "label": "Skawa",
+    "coord": [
+     49.559694444,
+     19.755805555
+    ]
+   }
+  ],
+  "Piława": [
+   {
+    "qid": "Q1433446",
+    "label": "Piława",
+    "coord": [
+     50.881133,
+     16.50537
+    ]
+   },
+   {
+    "qid": "Q11818897",
+    "label": "Piława",
+    "coord": [
+     53.22472222,
+     16.78444444
+    ]
+   }
+  ],
+  "Rudawa": [
+   {
+    "qid": "Q1543147",
+    "label": "Rudawa",
+    "coord": [
+     50.05165548,
+     19.91623878
+    ]
+   }
+  ],
+  "Piotrówka": [
+   {
+    "qid": "Q1747947",
+    "label": "Piotrówka",
+    "coord": [
+     49.91138889,
+     18.47805556
+    ]
+   }
+  ],
+  "Radunia": [
+   {
+    "qid": "Q1761064",
+    "label": "Radunia",
+    "coord": [
+     54.1825642,
+     17.9419411
+    ]
+   }
+  ],
+  "Rawka": [
+   {
+    "qid": "Q2005504",
+    "label": "Rawka",
+    "coord": [
+     52.1421,
+     20.1124
+    ]
+   }
+  ],
+  "Postomia": [
+   {
+    "qid": "Q2106230",
+    "label": "Postomia",
+    "coord": [
+     52.56666667,
+     14.65
+    ]
+   }
+  ],
+  "Radew": [
+   {
+    "qid": "Q2125602",
+    "label": "Radew",
+    "coord": [
+     54.03761258,
+     15.86992264
+    ]
+   }
+  ],
+  "Rozoga": [
+   {
+    "qid": "Q2171265",
+    "label": "Rozoga",
+    "coord": [
+     53.11877,
+     21.62907
+    ]
+   }
+  ],
+  "Samica Stęszewska": [
+   {
+    "qid": "Q2217129",
+    "label": "Samica Stęszewska",
+    "coord": [
+     52.25,
+     16.88333333
+    ]
+   }
+  ],
+  "Reda": [
+   {
+    "qid": "Q4977535",
+    "label": "Reda",
+    "coord": [
+     54.5707181,
+     18.0144444
+    ]
+   }
+  ],
+  "Płonka": [
+   {
+    "qid": "Q6976919",
+    "label": "Płonka",
+    "coord": [
+     52.658888888,
+     20.503055555
+    ]
+   }
+  ],
+  "Płoska": [
+   {
+    "qid": "Q7265145",
+    "label": "Płoska",
+    "coord": [
+     53.1939,
+     23.4079
+    ]
+   }
+  ],
+  "Sajna": [
+   {
+    "qid": "Q7402707",
+    "label": "Sajna",
+    "coord": [
+     54.2345,
+     21.0967
+    ]
+   }
+  ],
+  "Sierpienica": [
+   {
+    "qid": "Q7511290",
+    "label": "Sierpienica",
+    "coord": [
+     52.6647,
+     19.7855
+    ]
+   }
+  ],
+  "Skora": [
+   {
+    "qid": "Q7536311",
+    "label": "Skora",
+    "coord": [
+     51.028333333,
+     15.768888888
+    ]
+   }
+  ],
+  "Rgilewka": [
+   {
+    "qid": "Q9309987",
+    "label": "Rgilewka",
+    "coord": [
+     52.176166666,
+     18.673166666
+    ]
+   }
+  ],
+  "Ropa": [
+   {
+    "qid": "Q9322717",
+    "label": "Ropa",
+    "coord": [
+     49.745277777,
+     21.451666666
+    ]
+   }
+  ],
+  "Ruziec": [
+   {
+    "qid": "Q9324212",
+    "label": "Ruziec",
+    "coord": [
+     53.097222222,
+     19.028333333
+    ]
+   }
+  ],
+  "Rycerka": [
+   {
+    "qid": "Q9324322",
+    "label": "Rycerka",
+    "coord": [
+     49.50444444,
+     19.09333333
+    ]
+   }
+  ],
+  "Sama": [
+   {
+    "qid": "Q9333077",
+    "label": "Sama",
+    "coord": [
+     52.428055555,
+     16.646944444
+    ]
+   }
+  ],
+  "Sanka": [
+   {
+    "qid": "Q9333588",
+    "label": "Sanka",
+    "coord": [
+     50.0348,
+     19.8264
+    ]
+   }
+  ],
+  "Sawica": [
+   {
+    "qid": "Q9334094",
+    "label": "Sawica",
+    "coord": [
+     53.396453,
+     20.948972
+    ]
+   }
+  ],
+  "Sidra": [
+   {
+    "qid": "Q9336320",
+    "label": "Sidra",
+    "coord": [
+     53.701388888,
+     23.41
+    ]
+   }
+  ],
+  "Skarlanka": [
+   {
+    "qid": "Q9337690",
+    "label": "Skarlanka",
+    "coord": [
+     53.280278,
+     19.479444
+    ]
+   }
+  ],
+  "Skawica": [
+   {
+    "qid": "Q9337737",
+    "label": "Skawica",
+    "coord": [
+     49.636388888,
+     19.528333333
+    ]
+   }
+  ],
+  "Skierniewka": [
+   {
+    "qid": "Q9337863",
+    "label": "Skierniewka",
+    "coord": [
+     51.854055555,
+     19.948222222
+    ]
+   }
+  ],
+  "Rawa": [
+   {
+    "qid": "Q9346834",
+    "label": "Rawa",
+    "coord": [
+     54.132778,
+     21.276111
+    ]
+   }
+  ],
+  "Piwonia": [
+   {
+    "qid": "Q11818762",
+    "label": "Piwonia",
+    "coord": [
+     51.475555555,
+     23.080277777
+    ]
+   }
+  ],
+  "Plitnica": [
+   {
+    "qid": "Q11819739",
+    "label": "Plitnica",
+    "coord": [
+     53.298611111,
+     16.796111111
+    ]
+   }
+  ],
+  "Pokrzywianka": [
+   {
+    "qid": "Q11821274",
+    "label": "Pokrzywianka",
+    "coord": [
+     50.886944444,
+     20.939722222
+    ]
+   }
+  ],
+  "Polska Woda": [
+   {
+    "qid": "Q11822325",
+    "label": "Polska Woda",
+    "coord": [
+     51.555833,
+     17.392222
+    ]
+   }
+  ],
+  "Poroniec": [
+   {
+    "qid": "Q11824092",
+    "label": "Poroniec",
+    "coord": [
+     49.338056,
+     20.001944
+    ]
+   }
+  ],
+  "Powa": [
+   {
+    "qid": "Q11825492",
+    "label": "Powa",
+    "coord": [
+     51.89361111,
+     18.24944444
+    ]
+   }
+  ],
+  "Prusina": [
+   {
+    "qid": "Q11828092",
+    "label": "Prusina",
+    "coord": [
+     53.616944444,
+     18.269722222
+    ]
+   }
+  ],
+  "Szeszupa": [
+   {
+    "qid": "Q5629",
+    "label": "Szeszupa",
+    "coord": [
+     54.2733,
+     23.0408
+    ]
+   }
+  ],
+  "Skrwa": [
+   {
+    "qid": "Q175887",
+    "label": "Skrwa",
+    "coord": [
+     52.580833333,
+     19.533055555
+    ]
+   }
+  ],
+  "Stobrawa": [
+   {
+    "qid": "Q191752",
+    "label": "Stobrawa",
+    "coord": [
+     50.85385883,
+     17.59245872
+    ]
+   }
+  ],
+  "Warta": [
+   {
+    "qid": "Q201823",
+    "label": "Warta",
+    "coord": [
+     50.4907,
+     19.4899
+    ]
+   }
+  ],
+  "Wel": [
+   {
+    "qid": "Q362276",
+    "label": "Wel",
+    "coord": [
+     53.457683,
+     19.606476
+    ]
+   }
+  ],
+  "Wda": [
+   {
+    "qid": "Q640476",
+    "label": "Wda",
+    "coord": [
+     53.4117,
+     18.4792
+    ]
+   }
+  ],
+  "Toczna": [
+   {
+    "qid": "Q676885",
+    "label": "Toczna",
+    "coord": [
+     52.122777777,
+     22.693611111
+    ]
+   }
+  ],
+  "Soła": [
+   {
+    "qid": "Q927195",
+    "label": "Soła",
+    "coord": [
+     49.490833333,
+     19.054722222
+    ]
+   }
+  ],
+  "Skrwa Lewa": [
+   {
+    "qid": "Q993464",
+    "label": "Skrwa Lewa",
+    "coord": [
+     52.341725,
+     19.270073
+    ]
+   }
+  ],
+  "Wieprz": [
+   {
+    "qid": "Q1130403",
+    "label": "Wieprz",
+    "coord": [
+     50.500277777,
+     23.436944444
+    ]
+   }
+  ],
+  "Słupia": [
+   {
+    "qid": "Q1515455",
+    "label": "Słupia",
+    "coord": [
+     54.5908,
+     16.8511
+    ]
+   }
+  ],
+  "Stradunia": [
+   {
+    "qid": "Q1574315",
+    "label": "Stradunia",
+    "coord": [
+     50.4268,
+     18.0496
+    ]
+   }
+  ],
+  "Tanew": [
+   {
+    "qid": "Q1581395",
+    "label": "Tanew",
+    "coord": [
+     50.492777777,
+     22.257777777
+    ]
+   }
+  ],
+  "Widawa": [
+   {
+    "qid": "Q1639422",
+    "label": "Widawa",
+    "coord": [
+     51.198888888,
+     16.918888888
+    ]
+   }
+  ],
+  "Supraśl": [
+   {
+    "qid": "Q1644971",
+    "label": "Supraśl",
+    "coord": [
+     53.05,
+     23.45
+    ]
+   }
+  ],
+  "Szkwa": [
+   {
+    "qid": "Q1805229",
+    "label": "Szkwa",
+    "coord": [
+     53.16666667,
+     21.7
+    ]
+   }
+  ],
+  "Wieprza": [
+   {
+    "qid": "Q1973608",
+    "label": "Wieprza",
+    "coord": [
+     54.440277777,
+     16.377222222
+    ]
+   }
+  ],
+  "Wadąg": [
+   {
+    "qid": "Q2090677",
+    "label": "Wadąg",
+    "coord": [
+     53.8131,
+     20.4567
+    ]
+   }
+  ],
+  "Skotawa": [
+   {
+    "qid": "Q2292899",
+    "label": "Skotawa",
+    "coord": [
+     54.358055555,
+     17.114444444
+    ]
+   }
+  ],
+  "Szreniawa": [
+   {
+    "qid": "Q2377663",
+    "label": "Szreniawa",
+    "coord": [
+     50.394722222,
+     19.797777777
+    ]
+   }
+  ],
+  "Troja": [
+   {
+    "qid": "Q2455065",
+    "label": "Troja",
+    "coord": [
+     50.164166666,
+     17.719444444
+    ]
+   }
+  ],
+  "Uherka": [
+   {
+    "qid": "Q2474078",
+    "label": "Uherka",
+    "coord": [
+     51.0633,
+     23.3947
+    ]
+   }
+  ],
+  "Wałsza": [
+   {
+    "qid": "Q2543257",
+    "label": "Wałsza",
+    "coord": [
+     54.175751,
+     19.954318
+    ]
+   }
+  ],
+  "Widna": [
+   {
+    "qid": "Q2555067",
+    "label": "Widna",
+    "coord": [
+     50.256659,
+     17.160202
+    ]
+   }
+  ],
+  "Wiar": [
+   {
+    "qid": "Q2617805",
+    "label": "Wiar",
+    "coord": [
+     49.514166666,
+     22.588055555
+    ]
+   }
+  ],
+  "Strzegomka": [
+   {
+    "qid": "Q3887051",
+    "label": "Strzegomka",
+    "coord": [
+     51.1064,
+     16.8298
+    ]
+   }
+  ],
+  "Strwiąż": [
+   {
+    "qid": "Q4443559",
+    "label": "Strwiąż",
+    "coord": [
+     49.4494,
+     22.5312
+    ]
+   }
+  ],
+  "Stupnica": [
+   {
+    "qid": "Q4486885",
+    "label": "Stupnica",
+    "coord": [
+     49.780277777,
+     22.482777777
+    ]
+   }
+  ],
+  "Sokołda": [
+   {
+    "qid": "Q5752453",
+    "label": "Sokołda",
+    "coord": [
+     53.203055555,
+     23.453055555
+    ]
+   }
+  ],
+  "Szczeberka": [
+   {
+    "qid": "Q5756750",
+    "label": "Szczeberka",
+    "coord": [
+     53.9072,
+     22.9761
+    ]
+   }
+  ],
+  "Szkarpawa": [
+   {
+    "qid": "Q6977719",
+    "label": "Szkarpawa",
+    "coord": [
+     54.2658,
+     19.2437
+    ]
+   }
+  ],
+  "Szotkówka": [
+   {
+    "qid": "Q7664840",
+    "label": "Szotkówka",
+    "coord": [
+     49.922731,
+     18.459877
+    ]
+   }
+  ],
+  "Trzebośnica": [
+   {
+    "qid": "Q7848996",
+    "label": "Trzebośnica",
+    "coord": [
+     50.3526,
+     22.3713
+    ]
+   }
+  ],
+  "Tywa": [
+   {
+    "qid": "Q7861904",
+    "label": "Tywa",
+    "coord": [
+     52.9702,
+     14.6873
+    ]
+   }
+  ],
+  "Wierzbiak": [
+   {
+    "qid": "Q7930805",
+    "label": "Wierzbiak",
+    "coord": [
+     51.2436,
+     16.2429
+    ]
+   }
+  ],
+  "Widawka": [
+   {
+    "qid": "Q7998500",
+    "label": "Widawka",
+    "coord": [
+     51.508333333,
+     18.866944444
+    ]
+   }
+  ],
+  "Skroda": [
+   {
+    "qid": "Q9338184",
+    "label": "Skroda",
+    "coord": [
+     53.275833333,
+     21.890833333
+    ]
+   }
+  ],
+  "Stobnica": [
+   {
+    "qid": "Q9345893",
+    "label": "Stobnica",
+    "coord": [
+     53.43861111,
+     14.47916667
+    ]
+   },
+   {
+    "qid": "Q9345894",
+    "label": "Stobnica",
+    "coord": [
+     53.1725,
+     15.386388888
+    ]
+   },
+   {
+    "qid": "Q9345895",
+    "label": "Stobnica",
+    "coord": [
+     49.865,
+     21.801388888
+    ]
+   }
+  ],
+  "Stoła": [
+   {
+    "qid": "Q9346331",
+    "label": "Stoła",
+    "coord": [
+     50.423722222,
+     18.861916666
+    ]
+   }
+  ],
+  "Stradomka": [
+   {
+    "qid": "Q9346409",
+    "label": "Stradomka",
+    "coord": [
+     49.718055555,
+     20.179722222
+    ]
+   },
+   {
+    "qid": "Q9346411",
+    "label": "Stradomka",
+    "coord": [
+     50.764694444,
+     18.886111111
+    ]
+   }
+  ],
+  "Stryszawka": [
+   {
+    "qid": "Q9347057",
+    "label": "Stryszawka",
+    "coord": [
+     49.75,
+     19.616666666
+    ]
+   }
+  ],
+  "Studnica": [
+   {
+    "qid": "Q9347446",
+    "label": "Studnica",
+    "coord": [
+     54.17656,
+     16.90734
+    ]
+   },
+   {
+    "qid": "Q35425858",
+    "label": "Studnica",
+    "coord": [
+     51.1075,
+     17.758055555
+    ]
+   }
+  ],
+  "Sucha": [
+   {
+    "qid": "Q9347749",
+    "label": "Sucha",
+    "coord": [
+     52.1725,
+     20.166388888
+    ]
+   },
+   {
+    "qid": "Q28676837",
+    "label": "Sucha",
+    "coord": [
+     51.572694444,
+     15.650527777
+    ]
+   },
+   {
+    "qid": "Q56344387",
+    "label": "Sucha",
+    "coord": null
+   }
+  ],
+  "Swędrnia": [
+   {
+    "qid": "Q9348691",
+    "label": "Swędrnia",
+    "coord": [
+     51.760111,
+     18.098444
+    ]
+   }
+  ],
+  "Szkotówka": [
+   {
+    "qid": "Q9351509",
+    "label": "Szkotówka",
+    "coord": null
+   }
+  ],
+  "Szprotawa": [
+   {
+    "qid": "Q9352197",
+    "label": "Szprotawa",
+    "coord": [
+     51.562222,
+     15.533611
+    ]
+   }
+  ],
+  "Sztoła": [
+   {
+    "qid": "Q9352279",
+    "label": "Sztoła",
+    "coord": [
+     50.266666666,
+     19.35
+    ]
+   }
+  ],
+  "Sąpólna": [
+   {
+    "qid": "Q9352933",
+    "label": "Sąpólna",
+    "coord": [
+     53.7433,
+     15.2642
+    ]
+   }
+  ],
+  "Sąsiecznica": [
+   {
+    "qid": "Q9352937",
+    "label": "Sąsiecznica",
+    "coord": [
+     51.482222222,
+     16.891111111
+    ]
+   }
+  ],
+  "Słubia": [
+   {
+    "qid": "Q9353508",
+    "label": "Słubia",
+    "coord": [
+     52.802991,
+     14.236665
+    ]
+   }
+  ],
+  "Trojanówka": [
+   {
+    "qid": "Q9361721",
+    "label": "Trojanówka",
+    "coord": [
+     51.73305556,
+     18.11194444
+    ]
+   }
+  ],
+  "Tyśmienica": [
+   {
+    "qid": "Q9363796",
+    "label": "Tyśmienica",
+    "coord": [
+     51.356944444,
+     22.979444444
+    ]
+   }
+  ],
+  "Tążyna": [
+   {
+    "qid": "Q9363827",
+    "label": "Tążyna",
+    "coord": [
+     52.848361111,
+     18.364944444
+    ]
+   }
+  ],
+  "Udal": [
+   {
+    "qid": "Q9364423",
+    "label": "Udal",
+    "coord": [
+     51.094083333,
+     23.472277777
+    ]
+   }
+  ],
+  "Uszwica": [
+   {
+    "qid": "Q9367505",
+    "label": "Uszwica",
+    "coord": [
+     49.818611111,
+     20.524166666
+    ]
+   }
+  ],
+  "Utrata": [
+   {
+    "qid": "Q9367547",
+    "label": "Utrata",
+    "coord": [
+     52.245472222,
+     20.249833333
+    ]
+   }
+  ],
+  "Wielka Roztoka": [
+   {
+    "qid": "Q9372829",
+    "label": "Wielka Roztoka",
+    "coord": null
+   }
+  ],
+  "Wieprzówka": [
+   {
+    "qid": "Q9373195",
+    "label": "Wieprzówka",
+    "coord": null
+   }
+  ],
+  "Wierna Rzeka": [
+   {
+    "qid": "Q9394368",
+    "label": "Wierna Rzeka",
+    "coord": [
+     50.788611111,
+     20.356388888
+    ]
+   }
+  ],
+  "Sękówka": [
+   {
+    "qid": "Q11836674",
+    "label": "Sękówka",
+    "coord": [
+     49.656944444,
+     21.164166666
+    ]
+   }
+  ],
+  "Wiercica": [
+   {
+    "qid": "Q16614960",
+    "label": "Wiercica",
+    "coord": [
+     52.22555556,
+     18.41055556
+    ]
+   }
+  ],
+  "Smolnik": [
+   {
+    "qid": "Q18434322",
+    "label": "Smolnik",
+    "coord": [
+     49.666666666,
+     20.65
+    ]
+   }
+  ],
+  "Wielopolka": [
+   {
+    "qid": "Q34900889",
+    "label": "Wielopolka",
+    "coord": [
+     50.126666666,
+     21.475555555
+    ]
+   }
+  ],
+  "Słoja": [
+   {
+    "qid": "Q35394839",
+    "label": "Słoja",
+    "coord": [
+     53.181333333,
+     23.520166666
+    ]
+   }
+  ],
+  "Szkło": [
+   {
+    "qid": "Q109681574",
+    "label": "Szkło",
+    "coord": [
+     50.575476,
+     15.965074
+    ]
+   }
+  ],
+  "Żeglina": [
+   {
+    "qid": "Q9397315",
+    "label": "Żeglina",
+    "coord": [
+     51.6,
+     18.742777777
+    ]
+   }
+  ],
+  "Żółkiewka": [
+   {
+    "qid": "Q9397928",
+    "label": "Żółkiewka",
+    "coord": [
+     50.90725,
+     22.790222222
+    ]
+   }
+  ],
+  "Łękawka": [
+   {
+    "qid": "Q60214059",
+    "label": "Łękawka",
+    "coord": null
+   },
+   {
+    "qid": "Q9395202",
+    "label": "Łękawka",
+    "coord": [
+     49.71,
+     19.24166667
+    ]
+   }
+  ],
+  "Złota": [
+   {
+    "qid": "Q86668196",
+    "label": "Złota",
+    "coord": [
+     50.328361111,
+     22.437555555
+    ]
+   },
+   {
+    "qid": "Q639742",
+    "label": "Złota",
+    "coord": [
+     50.300833333,
+     22.452222222
+    ]
+   }
+  ],
+  "Złotnica": [
+   {
+    "qid": "Q125668646",
+    "label": "Złotnica",
+    "coord": [
+     51.391111111,
+     17.919166666
+    ]
+   }
+  ],
+  "Święta": [
+   {
+    "qid": "Q127511838",
+    "label": "Święta",
+    "coord": [
+     53.967777777,
+     18.885555555
+    ]
+   },
+   {
+    "qid": "Q392760",
+    "label": "Święta",
+    "coord": [
+     55.094185331,
+     24.350509643
+    ]
+   },
+   {
+    "qid": "Q9396574",
+    "label": "Święta",
+    "coord": [
+     53.458888888,
+     14.600277777
+    ]
+   }
+  ],
+  "Wisła": [
+   {
+    "qid": "Q548",
+    "label": "Wisła",
+    "coord": [
+     49.605833333,
+     19.003611111
+    ]
+   }
+  ],
+  "Węgorapa": [
+   {
+    "qid": "Q5613",
+    "label": "Węgorapa",
+    "coord": [
+     54.1975,
+     21.7186
+    ]
+   }
+  ],
+  "Łyna": [
+   {
+    "qid": "Q5620",
+    "label": "Łyna",
+    "coord": [
+     53.441267,
+     20.413474
+    ]
+   }
+  ],
+  "Wisznia": [
+   {
+    "qid": "Q74012",
+    "label": "Wisznia",
+    "coord": [
+     49.615,
+     23.538
+    ]
+   }
+  ],
+  "Zadrna": [
+   {
+    "qid": "Q140108",
+    "label": "Zadrna",
+    "coord": [
+     50.786659,
+     16.039056
+    ]
+   }
+  ],
+  "Zgłowiączka": [
+   {
+    "qid": "Q197123",
+    "label": "Zgłowiączka",
+    "coord": [
+     52.516944444,
+     18.631944444
+    ]
+   }
+  ],
+  "Wisłoka": [
+   {
+    "qid": "Q221200",
+    "label": "Wisłoka",
+    "coord": [
+     49.436944444,
+     21.391944444
+    ]
+   }
+  ],
+  "Złoty Potok": [
+   {
+    "qid": "Q249090",
+    "label": "Złoty Potok",
+    "coord": [
+     50.207444444,
+     17.410777777
+    ]
+   }
+  ],
+  "Ścinawka": [
+   {
+    "qid": "Q371014",
+    "label": "Ścinawka",
+    "coord": [
+     50.7197,
+     16.2972
+    ]
+   }
+  ],
+  "Wołosaty": [
+   {
+    "qid": "Q372805",
+    "label": "Wołosaty",
+    "coord": [
+     49.1968,
+     22.6817
+    ]
+   }
+  ],
+  "Łęg": [
+   {
+    "qid": "Q384479",
+    "label": "Łęg",
+    "coord": [
+     50.175833333,
+     21.952222222
+    ]
+   }
+  ],
+  "Ślęza": [
+   {
+    "qid": "Q387135",
+    "label": "Ślęza",
+    "coord": [
+     51.1593,
+     16.9505
+    ]
+   }
+  ],
+  "Świder": [
+   {
+    "qid": "Q387327",
+    "label": "Świder",
+    "coord": [
+     52.099722222,
+     21.214722222
+    ]
+   }
+  ],
+  "Żylica": [
+   {
+    "qid": "Q393243",
+    "label": "Żylica",
+    "coord": [
+     49.657777777,
+     18.997777777
+    ]
+   }
+  ],
+  "Witka": [
+   {
+    "qid": "Q453217",
+    "label": "Witka",
+    "coord": [
+     51.023168,
+     15.01996
+    ]
+   }
+  ],
+  "Włodawka": [
+   {
+    "qid": "Q686094",
+    "label": "Włodawka",
+    "coord": [
+     51.5491,
+     23.5641
+    ]
+   }
+  ],
+  "Wkra": [
+   {
+    "qid": "Q704775",
+    "label": "Wkra",
+    "coord": [
+     53.751166,
+     14.071414
+    ]
+   },
+   {
+    "qid": "Q771440",
+    "label": "Wkra",
+    "coord": [
+     52.445,
+     20.745833333
+    ]
+   }
+  ],
+  "Wilga": [
+   {
+    "qid": "Q1327596",
+    "label": "Wilga",
+    "coord": [
+     51.86666667,
+     21.28333333
+    ]
+   },
+   {
+    "qid": "Q9374403",
+    "label": "Wilga",
+    "coord": [
+     50.033333333,
+     19.933333333
+    ]
+   }
+  ],
+  "Wierzyca": [
+   {
+    "qid": "Q1408190",
+    "label": "Wierzyca",
+    "coord": [
+     54.060555555,
+     18.030555555
+    ]
+   }
+  ],
+  "Wisłok": [
+   {
+    "qid": "Q1476324",
+    "label": "Wisłok",
+    "coord": [
+     49.387222222,
+     22.028333333
+    ]
+   }
+  ],
+  "Ślina": [
+   {
+    "qid": "Q1769885",
+    "label": "Ślina",
+    "coord": [
+     52.932666666,
+     22.649111111
+    ]
+   }
+  ],
+  "Łeba": [
+   {
+    "qid": "Q1810813",
+    "label": "Łeba",
+    "coord": [
+     54.300746388,
+     17.975126666
+    ]
+   }
+  ],
+  "Ścinawa Niemodlińska": [
+   {
+    "qid": "Q2339683",
+    "label": "Ścinawa Niemodlińska",
+    "coord": [
+     50.743055,
+     17.629965
+    ]
+   }
+  ],
+  "Wschodnia": [
+   {
+    "qid": "Q2547057",
+    "label": "Wschodnia",
+    "coord": [
+     50.4333,
+     21.3
+    ]
+   }
+  ],
+  "Łomnica": [
+   {
+    "qid": "Q2600881",
+    "label": "Łomnica",
+    "coord": [
+     48.461425,
+     23.967143
+    ]
+   },
+   {
+    "qid": "Q9394296",
+    "label": "Łomnica",
+    "coord": [
+     50.87956251,
+     15.80653667
+    ]
+   }
+  ],
+  "Zielawa": [
+   {
+    "qid": "Q3018454",
+    "label": "Zielawa",
+    "coord": [
+     52.031944444,
+     23.284444444
+    ]
+   }
+  ],
+  "Żarnica": [
+   {
+    "qid": "Q3472662",
+    "label": "Żarnica",
+    "coord": [
+     51.995833333,
+     23.284444444
+    ]
+   }
+  ],
+  "Łagowianka": [
+   {
+    "qid": "Q4252393",
+    "label": "Łagowianka",
+    "coord": [
+     50.661944444,
+     21.046111111
+    ]
+   }
+  ],
+  "Włodzica": [
+   {
+    "qid": "Q4903947",
+    "label": "Włodzica",
+    "coord": [
+     50.54446,
+     16.46209
+    ]
+   }
+  ],
+  "Zimnica": [
+   {
+    "qid": "Q6981717",
+    "label": "Zimnica",
+    "coord": [
+     51.399416666,
+     16.108305555
+    ]
+   }
+  ],
+  "Wyżnica": [
+   {
+    "qid": "Q8040706",
+    "label": "Wyżnica",
+    "coord": [
+     51.0395,
+     21.8262
+    ]
+   }
+  ],
+  "Wietcisa": [
+   {
+    "qid": "Q9373690",
+    "label": "Wietcisa",
+    "coord": [
+     54.0425,
+     18.411666666
+    ]
+   }
+  ],
+  "Wirowa": [
+   {
+    "qid": "Q9375340",
+    "label": "Wirowa",
+    "coord": [
+     50.364722222,
+     22.988611111
+    ]
+   }
+  ],
+  "Wissa": [
+   {
+    "qid": "Q9375407",
+    "label": "Wissa",
+    "coord": null
+   }
+  ],
+  "Woda Ujsolska": [
+   {
+    "qid": "Q9376193",
+    "label": "Woda Ujsolska",
+    "coord": [
+     49.50583333,
+     19.09972222
+    ]
+   }
+  ],
+  "Wojsławka": [
+   {
+    "qid": "Q9377536",
+    "label": "Wojsławka",
+    "coord": [
+     50.96115,
+     23.17488
+    ]
+   }
+  ],
+  "Wolbórka": [
+   {
+    "qid": "Q9377627",
+    "label": "Wolbórka",
+    "coord": [
+     51.53444444,
+     20.05416667
+    ]
+   }
+  ],
+  "Wąska": [
+   {
+    "qid": "Q9381304",
+    "label": "Wąska",
+    "coord": [
+     54.079497,
+     19.483419
+    ]
+   }
+  ],
+  "Zdynia": [
+   {
+    "qid": "Q9389573",
+    "label": "Zdynia",
+    "coord": [
+     49.521666666,
+     21.1425
+    ]
+   }
+  ],
+  "Złotna": [
+   {
+    "qid": "Q9393426",
+    "label": "Złotna",
+    "coord": [
+     50.714167,
+     15.936389
+    ]
+   }
+  ],
+  "Łabna": [
+   {
+    "qid": "Q9393882",
+    "label": "Łabna",
+    "coord": null
+   }
+  ],
+  "Łabuńka": [
+   {
+    "qid": "Q9393900",
+    "label": "Łabuńka",
+    "coord": [
+     50.827222222,
+     23.073888888
+    ]
+   }
+  ],
+  "Łasica": [
+   {
+    "qid": "Q9394021",
+    "label": "Łasica",
+    "coord": null
+   }
+  ],
+  "Łobżonka": [
+   {
+    "qid": "Q9394243",
+    "label": "Łobżonka",
+    "coord": [
+     53.091611,
+     17.372139
+    ]
+   }
+  ],
+  "Łososina": [
+   {
+    "qid": "Q9394362",
+    "label": "Łososina",
+    "coord": [
+     49.791248,
+     20.650946
+    ]
+   }
+  ],
+  "Łubinka": [
+   {
+    "qid": "Q9394471",
+    "label": "Łubinka",
+    "coord": [
+     49.645,
+     20.684722
+    ]
+   }
+  ],
+  "Łużyca": [
+   {
+    "qid": "Q9394872",
+    "label": "Łużyca",
+    "coord": [
+     51.546667,
+     18.184444
+    ]
+   }
+  ],
+  "Łydynia": [
+   {
+    "qid": "Q9394887",
+    "label": "Łydynia",
+    "coord": [
+     52.7066,
+     20.4448
+    ]
+   }
+  ],
+  "Świdnik": [
+   {
+    "qid": "Q9396329",
+    "label": "Świdnik",
+    "coord": [
+     50.748888888,
+     15.868888888
+    ]
+   }
+  ],
+  "Żabniczanka": [
+   {
+    "qid": "Q9397147",
+    "label": "Żabniczanka",
+    "coord": [
+     49.60388889,
+     19.10666667
+    ]
+   }
+  ],
+  "Żebrówka": [
+   {
+    "qid": "Q9397297",
+    "label": "Żebrówka",
+    "coord": [
+     50.626388888,
+     19.790555555
+    ]
+   }
+  ]
+ },
+ "labels": {
+  "Q148307": "Bóbr",
+  "Q156237": "Bug",
+  "Q188940": "Bug",
+  "Q192157": "Biała",
+  "Q296662": "Bystrzyca",
+  "Q367775": "Bierawka",
+  "Q376000": "Brynica",
+  "Q656640": "Bzura",
+  "Q767793": "Bystrzyca",
+  "Q772970": "Brda",
+  "Q809673": "Barycz",
+  "Q855902": "Biała",
+  "Q855904": "Biała Głuchołaska",
+  "Q855909": "Biała Lądecka",
+  "Q857160": "Biebrza",
+  "Q925450": "Brok",
+  "Q1018673": "Bystrzyca Dusznicka",
+  "Q1018675": "Bystrzyca",
+  "Q1095661": "Czarna Hańcza",
+  "Q1144779": "Cetynia",
+  "Q1595261": "Czerwona Woda",
+  "Q2457998": "Czerna Wielka",
+  "Q2994049": "Bóbr",
+  "Q3491828": "Biała",
+  "Q4176549": "Białka",
+  "Q4987041": "Bukowa",
+  "Q5197882": "Cybina",
+  "Q5202050": "Czerwona",
+  "Q5288949": "Biała",
+  "Q7930252": "Czarna Woda",
+  "Q9163814": "Babulówka",
+  "Q9167393": "Bauda",
+  "Q9170229": "Biała",
+  "Q9170231": "Biała",
+  "Q9170278": "Biała Nida",
+  "Q9170443": "Białka",
+  "Q9170451": "Białka",
+  "Q9174864": "Bobrza",
+  "Q9174871": "Bobrówka",
+  "Q9179207": "Brennica",
+  "Q9180783": "Brynica",
+  "Q9180954": "Brzeźnica",
+  "Q9181322": "Budkowiczanka",
+  "Q9181642": "Budzówka",
+  "Q9181787": "Bukowa",
+  "Q9181788": "Bukowa",
+  "Q9182554": "Bychowska Struga",
+  "Q9182745": "Bystrzyca",
+  "Q9182805": "Bytomka",
+  "Q9192301": "Cicha Woda",
+  "Q9192507": "Cienka",
+  "Q9197847": "Czarna",
+  "Q9197848": "Czarna",
+  "Q9197855": "Czarna",
+  "Q9197884": "Czarna Nida",
+  "Q9197887": "Czarna Orawa",
+  "Q9197890": "Czarna Przemsza",
+  "Q9197949": "Czarna Łada",
+  "Q9198147": "Czarny Dunajec",
+  "Q9198841": "Czerwonka",
+  "Q9325211": "Czarna",
+  "Q11017177": "Czarna Wisełka",
+  "Q11687900": "Biała",
+  "Q11687913": "Biała Wisełka",
+  "Q11688371": "Bobrzyca",
+  "Q11689008": "Brzozówka",
+  "Q11689091": "Bukowa",
+  "Q11690543": "Cicha Woda",
+  "Q11691919": "Czarna",
+  "Q11691920": "Czarna",
+  "Q11691932": "Czarna Woda",
+  "Q11691991": "Czarny Potok",
+  "Q11692158": "Czerwonka",
+  "Q13032180": "Biała",
+  "Q13479615": "Biała Przemsza",
+  "Q16538326": "Czerwonka",
+  "Q18604433": "Cedron",
+  "Q20033662": "Białka",
+  "Q20033668": "Bobrówka",
+  "Q20033701": "Czarna Woda",
+  "Q25406354": "Cienica",
+  "Q25413750": "Czarny Potok",
+  "Q25414610": "Czernica",
+  "Q25414695": "Czarny Potok",
+  "Q25415112": "Cicha Woda",
+  "Q25415723": "Czerwonka",
+  "Q30910319": "Cieszyca",
+  "Q30918867": "Brzozówka",
+  "Q32491097": "Biebrza",
+  "Q32539622": "Brynica",
+  "Q32712754": "Czarna",
+  "Q32712777": "Czarna",
+  "Q32712782": "Czarna",
+  "Q32712792": "Czarna",
+  "Q32712797": "Czarna",
+  "Q32712813": "Czarna",
+  "Q32712944": "Czerna Mała",
+  "Q97215231": "Czernica",
+  "Q107649312": "Czarna",
+  "Q171009": "Drawa",
+  "Q52341": "Huczwa",
+  "Q649012": "Elma",
+  "Q661087": "Elbląg",
+  "Q752554": "Gołdapa",
+  "Q840694": "Dunajec",
+  "Q924177": "Gąsawka",
+  "Q1261531": "Drwęca",
+  "Q1269456": "Dzierzgoń",
+  "Q1322502": "Ełk",
+  "Q1429579": "Gwda",
+  "Q1477204": "Kamienna",
+  "Q1552966": "Guber",
+  "Q1633197": "Iławka",
+  "Q1642027": "Jegrznia",
+  "Q1658308": "Ilanka",
+  "Q1660820": "Ina",
+  "Q1676187": "Iłżanka",
+  "Q1720921": "Kaczawa",
+  "Q1817810": "Gniła Obra",
+  "Q2011766": "Kacza",
+  "Q2032708": "Kamionka",
+  "Q3918897": "Kamionka",
+  "Q4976792": "Gizdepka",
+  "Q5319862": "Dzierżęcinka",
+  "Q5321041": "Dębosznica",
+  "Q5590080": "Gowienica",
+  "Q5590664": "Grabinianka",
+  "Q5875888": "Hoczewka",
+  "Q6160268": "Jarka",
+  "Q6357406": "Kamienica",
+  "Q9202427": "Darżyńska Struga",
+  "Q9208503": "Dojca",
+  "Q9212510": "Drzewiczka",
+  "Q9265979": "Gardęga",
+  "Q9266475": "Gać",
+  "Q9267985": "Giełczewka",
+  "Q9274807": "Gostynia",
+  "Q9275404": "Grajcarek",
+  "Q9284161": "Głomia",
+  "Q9284376": "Główna",
+  "Q11701215": "Grabia",
+  "Q11714994": "Iłownica",
+  "Q11721182": "Jasiołka",
+  "Q11723255": "Jastrzębianka",
+  "Q11723754": "Jedlica",
+  "Q11733976": "Kamienica",
+  "Q11733978": "Kamienica",
+  "Q11733979": "Kamienica",
+  "Q11734341": "Kamieniczka",
+  "Q11734592": "Kamionka",
+  "Q11734593": "Kamionka",
+  "Q11734594": "Kamionka",
+  "Q11734597": "Kamionka",
+  "Q16545516": "Flinta",
+  "Q20033775": "Jastrzębianka",
+  "Q28006583": "Kamionka",
+  "Q30904678": "Goworówka",
+  "Q32744565": "Drwęca Warmińska",
+  "Q112748029": "Kamienna",
+  "Q127511730": "Hoczewka",
+  "Q127512731": "Kamionka",
+  "Q127608935": "Jegrznia",
+  "Q127511747": "Kocinka",
+  "Q127511764": "Krzywianka",
+  "Q127511790": "Mienia",
+  "Q13762": "Kwisa",
+  "Q657615": "Krzna",
+  "Q667976": "Liswarta",
+  "Q776010": "Kozi Bród",
+  "Q822796": "Lubsza",
+  "Q833916": "Kurówka",
+  "Q878397": "Miedzianka",
+  "Q1088466": "Krasna",
+  "Q1348658": "Leśna",
+  "Q1411894": "Mała Panew",
+  "Q1475746": "Koprzywianka",
+  "Q1774837": "Kłodnica",
+  "Q1794502": "Kurzyca",
+  "Q1866578": "Liwiec",
+  "Q2072664": "Krutynia",
+  "Q2134229": "Martwa Wisła",
+  "Q3502083": "Marycha",
+  "Q4308476": "Klikawa",
+  "Q5244299": "Lubaczówka",
+  "Q6659908": "Liwa",
+  "Q6799211": "Mała Ina",
+  "Q6799267": "Mała Ślęza",
+  "Q11736711": "Kasinianka",
+  "Q11740364": "Klukówka",
+  "Q11740739": "Kocunia",
+  "Q11742640": "Konopka",
+  "Q11743465": "Kopel",
+  "Q11744168": "Kostrzyń",
+  "Q11744185": "Koszarawa",
+  "Q11747988": "Krasna",
+  "Q11748566": "Krynka",
+  "Q11748932": "Krzczonówka",
+  "Q11749020": "Krztynia",
+  "Q11749022": "Krzycki Rów",
+  "Q11749917": "Krzywianka",
+  "Q11749946": "Krzyworzeka",
+  "Q11750160": "Królewski Potok",
+  "Q11750304": "Krępica",
+  "Q11750696": "Kucelinka",
+  "Q11751267": "Kuroch",
+  "Q11754827": "Lesk",
+  "Q11755169": "Leśnica",
+  "Q11755476": "Leśnica",
+  "Q11755479": "Leśnica",
+  "Q11762963": "Lubatówka",
+  "Q11763047": "Lubienka",
+  "Q11763192": "Lubrzanka",
+  "Q11763269": "Luciąża",
+  "Q11764362": "Lutynia",
+  "Q11772131": "Mała Wełna",
+  "Q11777565": "Meszna",
+  "Q11780367": "Mienia",
+  "Q11780408": "Mierzawa",
+  "Q11780424": "Mierzęcka Struga",
+  "Q11781464": "Minina",
+  "Q11783610": "Mitręga",
+  "Q11784213": "Mleczka",
+  "Q16576452": "Miała",
+  "Q16855097": "Miedzianka",
+  "Q18431389": "Lepietnica",
+  "Q24944797": "Kocierzanka",
+  "Q35003496": "Leśnica",
+  "Q35388526": "Lubniewka",
+  "Q108209549": "Mień",
+  "Q126937114": "Mleczka Wschodnia",
+  "Q552": "Odra",
+  "Q5602": "Nysa Łużycka",
+  "Q60055": "Narew",
+  "Q164033": "Oława",
+  "Q212562": "Opatówka",
+  "Q454087": "Pielnica",
+  "Q512484": "Orla",
+  "Q577026": "Opawa",
+  "Q750418": "Pilica",
+  "Q828869": "Noteć",
+  "Q849928": "Morawka",
+  "Q980095": "Nogat",
+  "Q989796": "Obra",
+  "Q1281952": "Opawica",
+  "Q1322211": "Netta",
+  "Q1331973": "Olza",
+  "Q1333952": "Orzyc",
+  "Q1411962": "Osobłoga",
+  "Q1455991": "Nysa Kłodzka",
+  "Q1459336": "Mołstowa",
+  "Q1521184": "Nida",
+  "Q1630608": "Orlanka",
+  "Q1641953": "Nysa Szalona",
+  "Q1666451": "Osa",
+  "Q1712252": "Mleczna",
+  "Q1722452": "Narewka",
+  "Q1757249": "Osława",
+  "Q1777582": "Ner",
+  "Q1889871": "Nurzec",
+  "Q1950176": "Motława",
+  "Q1987434": "Nidzica",
+  "Q2012943": "Obrzyca",
+  "Q2023557": "Omulew",
+  "Q2032390": "Orz",
+  "Q2055907": "Pasłęka",
+  "Q2071851": "Parsęta",
+  "Q3579508": "Muława",
+  "Q4309214": "Mszanka",
+  "Q6917068": "Moszczenica",
+  "Q6976632": "Piaśnica",
+  "Q7042253": "Nizica",
+  "Q7179716": "Pełcznica",
+  "Q11784217": "Mleczna",
+  "Q11784608": "Mogilnica",
+  "Q11785426": "Morawka",
+  "Q11785427": "Morawka",
+  "Q11785728": "Moskawa",
+  "Q11786044": "Moszczenica",
+  "Q11786049": "Moszczeniczka",
+  "Q11786373": "Mroga",
+  "Q11786467": "Muchawka",
+  "Q11786842": "Muszynka",
+  "Q11787537": "Myja",
+  "Q11787707": "Myśla",
+  "Q11787957": "Mławka",
+  "Q11790664": "Nereśl",
+  "Q11791141": "Nida",
+  "Q11791317": "Niechwaszcz",
+  "Q11791321": "Nieciecz",
+  "Q11791400": "Niedziczanka",
+  "Q11791781": "Niesób",
+  "Q11795105": "Obrzyca",
+  "Q11795645": "Ochnia",
+  "Q11795658": "Ochotnica",
+  "Q11797113": "Okrzejka",
+  "Q11797678": "Olczyski Potok",
+  "Q11797832": "Oleśnica",
+  "Q11797835": "Oleśnica",
+  "Q11797836": "Oleśnica",
+  "Q11799232": "Orla",
+  "Q11799428": "Orzysza",
+  "Q11800545": "Osownica",
+  "Q11801521": "Ołobok",
+  "Q11801522": "Ołobok",
+  "Q11802249": "Paklica",
+  "Q11802323": "Paleczka",
+  "Q11802679": "Panna",
+  "Q16481785": "Młynówka",
+  "Q16584242": "Opawa",
+  "Q25411751": "Osa",
+  "Q28676373": "Myśla",
+  "Q30910041": "Mszanka",
+  "Q30910227": "Piekielnik",
+  "Q30919008": "Pichna",
+  "Q60214049": "Młynówka",
+  "Q60860364": "Opatówka",
+  "Q127511795": "Młynówka",
+  "Q127511802": "Myja",
+  "Q127628248": "Nida",
+  "Q11830075": "Przylepnica",
+  "Q11830505": "Prądnik",
+  "Q11830730": "Pszczynka",
+  "Q11832595": "Płociczna",
+  "Q11833288": "Raciążnica",
+  "Q11835706": "Sapina",
+  "Q12145266": "Prudnik",
+  "Q16590395": "Porębianka",
+  "Q16597795": "Ruda",
+  "Q35255354": "Pomianka",
+  "Q56328765": "Ruda",
+  "Q182138": "Raba",
+  "Q5625": "Pisa",
+  "Q205040": "Psina",
+  "Q216488": "San",
+  "Q304527": "Prosna",
+  "Q362287": "Sanna",
+  "Q456984": "Radomka",
+  "Q504582": "Rega",
+  "Q615272": "Raba",
+  "Q646358": "Rządza",
+  "Q689569": "Sanna",
+  "Q752594": "Płonia",
+  "Q756302": "Poprad",
+  "Q941710": "Pisa",
+  "Q954273": "Skawinka",
+  "Q1116386": "Pliszka",
+  "Q1149087": "Przemsza",
+  "Q1253322": "Skawa",
+  "Q1433446": "Piława",
+  "Q1543147": "Rudawa",
+  "Q1573744": "Ruda",
+  "Q1670405": "Ruda",
+  "Q1747947": "Piotrówka",
+  "Q1761064": "Radunia",
+  "Q2005504": "Rawka",
+  "Q2106230": "Postomia",
+  "Q2114389": "Prudnik",
+  "Q2125602": "Radew",
+  "Q2171265": "Rozoga",
+  "Q2217129": "Samica Stęszewska",
+  "Q4977535": "Reda",
+  "Q6976919": "Płonka",
+  "Q7265145": "Płoska",
+  "Q7402707": "Sajna",
+  "Q7511290": "Sierpienica",
+  "Q7536311": "Skora",
+  "Q9309987": "Rgilewka",
+  "Q9322717": "Ropa",
+  "Q9323660": "Ruda",
+  "Q9324212": "Ruziec",
+  "Q9324322": "Rycerka",
+  "Q9333077": "Sama",
+  "Q9333588": "Sanka",
+  "Q9334094": "Sawica",
+  "Q9336320": "Sidra",
+  "Q9337690": "Skarlanka",
+  "Q9337737": "Skawica",
+  "Q9337863": "Skierniewka",
+  "Q9346834": "Rawa",
+  "Q11818460": "Pisa",
+  "Q11818461": "Pisa",
+  "Q11818762": "Piwonia",
+  "Q11818897": "Piława",
+  "Q11819739": "Plitnica",
+  "Q11821274": "Pokrzywianka",
+  "Q11822325": "Polska Woda",
+  "Q11824092": "Poroniec",
+  "Q11825047": "Porębianka",
+  "Q11825492": "Powa",
+  "Q11828092": "Prusina",
+  "Q5629": "Szeszupa",
+  "Q175887": "Skrwa",
+  "Q191752": "Stobrawa",
+  "Q201823": "Warta",
+  "Q362276": "Wel",
+  "Q640476": "Wda",
+  "Q676885": "Toczna",
+  "Q927195": "Soła",
+  "Q993464": "Skrwa Lewa",
+  "Q1130403": "Wieprz",
+  "Q1515455": "Słupia",
+  "Q1574315": "Stradunia",
+  "Q1581395": "Tanew",
+  "Q1639422": "Widawa",
+  "Q1644971": "Supraśl",
+  "Q1805229": "Szkwa",
+  "Q1973608": "Wieprza",
+  "Q2090677": "Wadąg",
+  "Q2292899": "Skotawa",
+  "Q2377663": "Szreniawa",
+  "Q2455065": "Troja",
+  "Q2474078": "Uherka",
+  "Q2543257": "Wałsza",
+  "Q2555067": "Widna",
+  "Q2617805": "Wiar",
+  "Q3887051": "Strzegomka",
+  "Q4443559": "Strwiąż",
+  "Q4486885": "Stupnica",
+  "Q5752453": "Sokołda",
+  "Q5756750": "Szczeberka",
+  "Q6977719": "Szkarpawa",
+  "Q7664840": "Szotkówka",
+  "Q7848996": "Trzebośnica",
+  "Q7861904": "Tywa",
+  "Q7930805": "Wierzbiak",
+  "Q7998500": "Widawka",
+  "Q9338184": "Skroda",
+  "Q9345893": "Stobnica",
+  "Q9345894": "Stobnica",
+  "Q9345895": "Stobnica",
+  "Q9346331": "Stoła",
+  "Q9346409": "Stradomka",
+  "Q9346411": "Stradomka",
+  "Q9347057": "Stryszawka",
+  "Q9347446": "Studnica",
+  "Q9347749": "Sucha",
+  "Q9348691": "Swędrnia",
+  "Q9351509": "Szkotówka",
+  "Q9352197": "Szprotawa",
+  "Q9352279": "Sztoła",
+  "Q9352933": "Sąpólna",
+  "Q9352937": "Sąsiecznica",
+  "Q9353508": "Słubia",
+  "Q9361721": "Trojanówka",
+  "Q9363796": "Tyśmienica",
+  "Q9363827": "Tążyna",
+  "Q9364423": "Udal",
+  "Q9367505": "Uszwica",
+  "Q9367547": "Utrata",
+  "Q9372829": "Wielka Roztoka",
+  "Q9373195": "Wieprzówka",
+  "Q9394368": "Wierna Rzeka",
+  "Q11836674": "Sękówka",
+  "Q16614960": "Wiercica",
+  "Q18434322": "Smolnik",
+  "Q28676837": "Sucha",
+  "Q34900889": "Wielopolka",
+  "Q35394839": "Słoja",
+  "Q35425858": "Studnica",
+  "Q56344387": "Sucha",
+  "Q109681574": "Szkło",
+  "Q9397315": "Żeglina",
+  "Q9397928": "Żółkiewka",
+  "Q60214059": "Łękawka",
+  "Q86668196": "Złota",
+  "Q125668646": "Złotnica",
+  "Q127511838": "Święta",
+  "Q548": "Wisła",
+  "Q5613": "Węgorapa",
+  "Q5620": "Łyna",
+  "Q74012": "Wisznia",
+  "Q140108": "Zadrna",
+  "Q197123": "Zgłowiączka",
+  "Q221200": "Wisłoka",
+  "Q249090": "Złoty Potok",
+  "Q371014": "Ścinawka",
+  "Q372805": "Wołosaty",
+  "Q384479": "Łęg",
+  "Q387135": "Ślęza",
+  "Q387327": "Świder",
+  "Q392760": "Święta",
+  "Q393243": "Żylica",
+  "Q453217": "Witka",
+  "Q639742": "Złota",
+  "Q686094": "Włodawka",
+  "Q704775": "Wkra",
+  "Q771440": "Wkra",
+  "Q1327596": "Wilga",
+  "Q1408190": "Wierzyca",
+  "Q1476324": "Wisłok",
+  "Q1769885": "Ślina",
+  "Q1810813": "Łeba",
+  "Q2339683": "Ścinawa Niemodlińska",
+  "Q2547057": "Wschodnia",
+  "Q2600881": "Łomnica",
+  "Q3018454": "Zielawa",
+  "Q3472662": "Żarnica",
+  "Q4252393": "Łagowianka",
+  "Q4903947": "Włodzica",
+  "Q6981717": "Zimnica",
+  "Q8040706": "Wyżnica",
+  "Q9373690": "Wietcisa",
+  "Q9374403": "Wilga",
+  "Q9375340": "Wirowa",
+  "Q9375407": "Wissa",
+  "Q9376193": "Woda Ujsolska",
+  "Q9377536": "Wojsławka",
+  "Q9377627": "Wolbórka",
+  "Q9381304": "Wąska",
+  "Q9389573": "Zdynia",
+  "Q9393426": "Złotna",
+  "Q9393882": "Łabna",
+  "Q9393900": "Łabuńka",
+  "Q9394021": "Łasica",
+  "Q9394243": "Łobżonka",
+  "Q9394296": "Łomnica",
+  "Q9394362": "Łososina",
+  "Q9394471": "Łubinka",
+  "Q9394872": "Łużyca",
+  "Q9394887": "Łydynia",
+  "Q9395202": "Łękawka",
+  "Q9396329": "Świdnik",
+  "Q9396574": "Święta",
+  "Q9397147": "Żabniczanka",
+  "Q9397297": "Żebrówka",
+  "Q1653": "Dunaj",
+  "Q166": "Morze Czarne",
+  "Q79082": "Kama",
+  "Q134350": "Cisa",
+  "Q5622": "Niemen",
+  "Q1255924": "Druzno",
+  "Q545": "Morze Bałtyckie",
+  "Q514892": "Nuthe",
+  "Q2026815": "Zatoka Kalamicka",
+  "Q131210": "Dniestr",
+  "Q213367": "Zatoka Gdańska",
+  "Q11726447": "Jezioro Koronowskie",
+  "Q2636342": "Usa",
+  "Q9197874": "Czarna Konecka",
+  "Q4106927": "Wełna (rzeka)",
+  "Q11734803": "Kanał Mosiński",
+  "Q9381393": "Węgierka",
+  "Q11820327": "Podgórna (dopływ Wrzosówki)",
+  "Q9353519": "Słudwia",
+  "Q11838650": "Świślina",
+  "Q9170608": "Biały Dunajec (rzeka)",
+  "Q1254708": "Drawa (dopływ Noteci)",
+  "Q1136609": "Styr",
+  "Q3495285": "Leśna Prawa",
+  "Q11726055": "Jeziorka",
+  "Q12033724": "Ličná",
+  "Q127534351": "Ława",
+  "Q7851787": "Tuja",
+  "Q161385": "Zalew Szczeciński",
+  "Q5611": "Pregoła",
+  "Q207903": "Wilia",
+  "Q1678": "Soława",
+  "Q5605": "Zalew Wiślany",
+  "Q14369": "Inn",
+  "Q1158664": "Dąbie",
+  "Q208302": "Seret",
+  "Q1362517": "Ostrawica",
+  "Q1149245": "Czarna (dopływ Wisły)",
+  "Q207927": "Berezyna",
+  "Q430799": "Muchawiec",
+  "Q642605": "Metuje",
+  "Q2119446": "Zatoka Pucka",
+  "Q5005653": "Błotnica (rzeka)",
+  "Q393107": "Kanał Żerański",
+  "Q5735534": "Leszczka",
+  "Q737728": "Jezioro Orawskie",
+  "Q9393926": "Łada",
+  "Q11734070": "Kamienica Gorczańska",
+  "Q7878338": "Ukleja (rzeka)",
+  "Q11727063": "Jeziorsko",
+  "Q6979210": "Sopot",
+  "Q16579514": "Mrowla",
+  "Q13133120": "Hożanka",
+  "Q9386384": "Zalew Michalicki",
+  "Q25500700": "Peteszka",
+  "Q1644": "Łaba",
+  "Q626": "Wołga",
+  "Q1974485": "Liman Dniestru",
+  "Q40855": "Dniepr",
+  "Q1682": "Hawela",
+  "Q157042": "Prypeć",
+  "Q9378225": "Wrzosówka (dopływ Kamiennej)",
+  "Q330256": "Úpa",
+  "Q4399319": "Rudominka",
+  "Q5484": "Morze Kaspijskie",
+  "Q1693": "Morze Północne",
+  "Q321837": "Zatoka Niemiecka",
+  "Q702691": "Zatoka Helgolandzka",
+  "Q2621029": "Dnieper Estuary",
+  "Q2615808": "Waka",
+  "Q1723040": "Kamienna"
+ },
+ "edges": {
+  "Q13762": "Q148307",
+  "Q140108": "Q148307",
+  "Q148307": "Q552",
+  "Q156237": "Q60055",
+  "Q164033": "Q552",
+  "Q171009": "Q1653",
+  "Q175887": "Q548",
+  "Q182138": "Q1653",
+  "Q188940": "Q166",
+  "Q191752": "Q552",
+  "Q192157": "Q79082",
+  "Q197123": "Q548",
+  "Q201823": "Q552",
+  "Q205040": "Q552",
+  "Q212562": "Q548",
+  "Q216488": "Q548",
+  "Q221200": "Q548",
+  "Q1018673": "Q1455991",
+  "Q1018675": "Q552",
+  "Q1088466": "Q134350",
+  "Q1095661": "Q5622",
+  "Q1116386": "Q552",
+  "Q1130403": "Q548",
+  "Q1144779": "Q156237",
+  "Q1149087": "Q548",
+  "Q1253322": "Q548",
+  "Q1261531": "Q548",
+  "Q1269456": "Q1255924",
+  "Q1281952": "Q577026",
+  "Q1322211": "Q857160",
+  "Q1322502": "Q857160",
+  "Q1327596": "Q548",
+  "Q1331973": "Q552",
+  "Q1333952": "Q60055",
+  "Q1348658": "Q156237",
+  "Q1408190": "Q548",
+  "Q1411894": "Q552",
+  "Q1411962": "Q552",
+  "Q1429579": "Q828869",
+  "Q1433446": "Q1018675",
+  "Q1455991": "Q552",
+  "Q1459336": "Q504582",
+  "Q1475746": "Q548",
+  "Q1476324": "Q216488",
+  "Q1477204": "Q548",
+  "Q1515455": "Q545",
+  "Q1521184": "Q548",
+  "Q1543147": "Q548",
+  "Q1552966": "Q5620",
+  "Q1573744": "Q772970",
+  "Q1574315": "Q552",
+  "Q1581395": "Q216488",
+  "Q1595261": "Q5602",
+  "Q1630608": "Q60055",
+  "Q1633197": "Q1261531",
+  "Q1639422": "Q552",
+  "Q1641953": "Q1720921",
+  "Q1642027": "Q1322502",
+  "Q1644971": "Q60055",
+  "Q1658308": "Q552",
+  "Q1660820": "Q552",
+  "Q1666451": "Q548",
+  "Q1670405": "Q552",
+  "Q1676187": "Q548",
+  "Q1712252": "Q456984",
+  "Q1720921": "Q552",
+  "Q1722452": "Q60055",
+  "Q1747947": "Q1331973",
+  "Q1757249": "Q216488",
+  "Q1761064": "Q1950176",
+  "Q1769885": "Q60055",
+  "Q1774837": "Q552",
+  "Q1777582": "Q201823",
+  "Q1794502": "Q552",
+  "Q1805229": "Q60055",
+  "Q1810813": "Q545",
+  "Q1817810": "Q2012943",
+  "Q1866578": "Q156237",
+  "Q1889871": "Q156237",
+  "Q1950176": "Q2134229",
+  "Q1973608": "Q545",
+  "Q1987434": "Q548",
+  "Q2005504": "Q656640",
+  "Q2011766": "Q2026815",
+  "Q2012943": "Q552",
+  "Q2023557": "Q60055",
+  "Q2032390": "Q60055",
+  "Q2032708": "Q131210",
+  "Q2055907": "Q545",
+  "Q2071851": "Q545",
+  "Q2072664": "Q941710",
+  "Q2090677": "Q5620",
+  "Q2106230": "Q201823",
+  "Q2114389": "Q1411962",
+  "Q2125602": "Q2071851",
+  "Q2134229": "Q213367",
+  "Q2171265": "Q60055",
+  "Q2217129": "Q201823",
+  "Q2292899": "Q1515455",
+  "Q2339683": "Q1455991",
+  "Q2377663": "Q548",
+  "Q2455065": "Q205040",
+  "Q11017177": "Q548",
+  "Q11687900": "Q13479615",
+  "Q11687913": "Q548",
+  "Q11688371": "Q148307",
+  "Q11689008": "Q857160",
+  "Q11689091": "Q2071851",
+  "Q11690543": "Q552",
+  "Q11691919": "Q2125602",
+  "Q11691920": "Q9377627",
+  "Q11691932": "Q1018675",
+  "Q11691991": "Q13762",
+  "Q11692158": "Q1866578",
+  "Q11701215": "Q7998500",
+  "Q11714994": "Q548",
+  "Q11721182": "Q221200",
+  "Q11723255": null,
+  "Q11723754": "Q9394296",
+  "Q11733976": "Q148307",
+  "Q11733978": "Q1455991",
+  "Q11733979": "Q1515455",
+  "Q11734341": "Q201823",
+  "Q11734592": "Q11726447",
+  "Q11734593": "Q1477204",
+  "Q11734594": "Q2636342",
+  "Q11734597": "Q201823",
+  "Q11736711": "Q615272",
+  "Q11740364": "Q657615",
+  "Q11740739": null,
+  "Q11742640": "Q9346411",
+  "Q11743465": "Q201823",
+  "Q11744168": "Q1866578",
+  "Q11744185": "Q927195",
+  "Q11747988": "Q9197874",
+  "Q11748566": "Q164033",
+  "Q11748932": "Q615272",
+  "Q11749020": "Q750418",
+  "Q11749022": "Q552",
+  "Q11749917": null,
+  "Q11749946": "Q615272",
+  "Q11750160": null,
+  "Q11750304": "Q304527",
+  "Q11750696": null,
+  "Q11751267": "Q809673",
+  "Q11754827": "Q148307",
+  "Q11755169": null,
+  "Q11755476": null,
+  "Q11755479": "Q1411894",
+  "Q11762963": "Q1476324",
+  "Q11763047": "Q197123",
+  "Q11763192": null,
+  "Q11763269": "Q750418",
+  "Q11764362": "Q201823",
+  "Q11772131": "Q4106927",
+  "Q11777565": "Q201823",
+  "Q11780367": "Q387327",
+  "Q11780408": "Q1521184",
+  "Q11780424": null,
+  "Q11781464": "Q1130403",
+  "Q11783610": "Q9197890",
+  "Q11784213": "Q1476324",
+  "Q11784217": "Q9274807",
+  "Q11784608": "Q11734803",
+  "Q11785426": "Q9197884",
+  "Q11785427": "Q9381393",
+  "Q11785728": "Q201823",
+  "Q11786044": "Q1973608",
+  "Q11786049": "Q1973608",
+  "Q11786373": "Q656640",
+  "Q11786467": "Q1866578",
+  "Q11786842": "Q756302",
+  "Q11787537": "Q11820327",
+  "Q11787707": "Q552",
+  "Q11787957": "Q771440",
+  "Q11790664": "Q60055",
+  "Q11791141": "Q9353519",
+  "Q11791317": null,
+  "Q11791321": "Q7998500",
+  "Q11791400": "Q840694",
+  "Q11791781": "Q304527",
+  "Q11795105": null,
+  "Q11795645": "Q656640",
+  "Q11795658": "Q840694",
+  "Q11797113": "Q548",
+  "Q11797678": null,
+  "Q11797832": "Q1477204",
+  "Q11797835": "Q201823",
+  "Q11797836": "Q1639422",
+  "Q11799232": "Q809673",
+  "Q11799428": null,
+  "Q11800545": "Q1866578",
+  "Q11801521": "Q552",
+  "Q11801522": "Q304527",
+  "Q11802249": "Q989796",
+  "Q11802323": "Q1253322",
+  "Q11802679": "Q11721182",
+  "Q11818460": "Q2090677",
+  "Q11818461": "Q5620",
+  "Q11818762": "Q9363796",
+  "Q11818897": "Q1429579",
+  "Q11819739": "Q1429579",
+  "Q11821274": "Q11838650",
+  "Q11822325": "Q809673",
+  "Q11824092": "Q9170608",
+  "Q11825047": null,
+  "Q11825492": "Q201823",
+  "Q11828092": "Q640476",
+  "Q11830075": "Q11787957",
+  "Q11830505": "Q548",
+  "Q11830730": "Q548",
+  "Q11832595": "Q1254708",
+  "Q11833288": "Q771440",
+  "Q11835706": "Q5613",
+  "Q11836674": "Q9322717",
+  "Q12145266": "Q1136609",
+  "Q13032180": "Q3495285",
+  "Q13479615": "Q1149087",
+  "Q16481785": "Q1477204",
+  "Q16538326": "Q11820327",
+  "Q16545516": null,
+  "Q16576452": "Q828869",
+  "Q16584242": "Q148307",
+  "Q16590395": null,
+  "Q16597795": "Q1429579",
+  "Q16614960": "Q201823",
+  "Q16855097": "Q60055",
+  "Q18431389": "Q9198147",
+  "Q18434322": "Q840694",
+  "Q18604433": null,
+  "Q20033662": "Q9394362",
+  "Q20033668": "Q9363796",
+  "Q20033701": "Q840694",
+  "Q20033775": "Q9170229",
+  "Q107649312": "Q11726055",
+  "Q108209549": null,
+  "Q109681574": "Q12033724",
+  "Q112748029": "Q857160",
+  "Q125668646": "Q809673",
+  "Q126937114": "Q11784213",
+  "Q127511730": null,
+  "Q127511747": "Q667976",
+  "Q127511764": "Q686094",
+  "Q127511790": "Q127534351",
+  "Q127511795": "Q304527",
+  "Q127511802": "Q201823",
+  "Q127511838": "Q7851787",
+  "Q127512731": "Q11733979",
+  "Q127608935": null,
+  "Q127628248": "Q771440",
+  "Q548": "Q213367",
+  "Q552": "Q161385",
+  "Q5602": "Q552",
+  "Q5613": "Q5611",
+  "Q5620": "Q5611",
+  "Q5625": "Q5613",
+  "Q5629": "Q5622",
+  "Q52341": "Q156237",
+  "Q60055": "Q548",
+  "Q74012": "Q216488",
+  "Q249090": "Q2114389",
+  "Q296662": "Q131210",
+  "Q304527": "Q201823",
+  "Q362276": "Q1261531",
+  "Q362287": "Q548",
+  "Q367775": "Q552",
+  "Q371014": "Q1455991",
+  "Q372805": "Q216488",
+  "Q376000": "Q9197890",
+  "Q384479": "Q548",
+  "Q387135": "Q552",
+  "Q387327": "Q548",
+  "Q392760": "Q207903",
+  "Q393243": "Q927195",
+  "Q453217": "Q5602",
+  "Q454087": "Q1476324",
+  "Q456984": "Q548",
+  "Q504582": "Q545",
+  "Q512484": "Q1678",
+  "Q577026": "Q552",
+  "Q615272": "Q548",
+  "Q639742": "Q216488",
+  "Q640476": "Q548",
+  "Q646358": "Q60055",
+  "Q649012": "Q5620",
+  "Q656640": "Q548",
+  "Q657615": "Q156237",
+  "Q661087": "Q5605",
+  "Q667976": "Q201823",
+  "Q676885": "Q156237",
+  "Q686094": "Q156237",
+  "Q689569": "Q14369",
+  "Q704775": "Q161385",
+  "Q750418": "Q548",
+  "Q752554": "Q5613",
+  "Q752594": "Q1158664",
+  "Q756302": "Q840694",
+  "Q767793": "Q208302",
+  "Q771440": "Q60055",
+  "Q772970": "Q548",
+  "Q776010": "Q13479615",
+  "Q809673": "Q552",
+  "Q822796": "Q5602",
+  "Q828869": "Q201823",
+  "Q833916": "Q548",
+  "Q840694": "Q548",
+  "Q849928": "Q1362517",
+  "Q855902": "Q548",
+  "Q855904": "Q1455991",
+  "Q855909": "Q1455991",
+  "Q857160": "Q60055",
+  "Q878397": "Q5602",
+  "Q924177": "Q828869",
+  "Q925450": "Q156237",
+  "Q927195": "Q548",
+  "Q2457998": "Q148307",
+  "Q2474078": "Q156237",
+  "Q2543257": "Q2055907",
+  "Q2547057": "Q1149245",
+  "Q2555067": "Q1455991",
+  "Q2600881": "Q131210",
+  "Q2617805": "Q216488",
+  "Q2994049": "Q207927",
+  "Q3018454": "Q657615",
+  "Q3472662": "Q3018454",
+  "Q3491828": "Q1644971",
+  "Q3502083": "Q1095661",
+  "Q3579508": "Q3018454",
+  "Q3887051": "Q1018675",
+  "Q3918897": "Q430799",
+  "Q4176549": "Q840694",
+  "Q4252393": "Q1149245",
+  "Q4308476": "Q642605",
+  "Q4309214": "Q131210",
+  "Q4443559": "Q131210",
+  "Q4486885": "Q216488",
+  "Q4903947": "Q371014",
+  "Q4976792": "Q2119446",
+  "Q4977535": "Q2119446",
+  "Q4987041": "Q216488",
+  "Q5197882": "Q201823",
+  "Q5202050": "Q545",
+  "Q5244299": "Q216488",
+  "Q5288949": "Q1630608",
+  "Q5319862": null,
+  "Q5321041": "Q5005653",
+  "Q5590080": "Q552",
+  "Q5590664": "Q221200",
+  "Q5752453": "Q1644971",
+  "Q5756750": null,
+  "Q5875888": "Q216488",
+  "Q6160268": "Q752554",
+  "Q6357406": "Q840694",
+  "Q6659908": "Q980095",
+  "Q6799211": "Q1660820",
+  "Q6799267": "Q387135",
+  "Q6917068": "Q656640",
+  "Q6976632": "Q545",
+  "Q6976919": "Q771440",
+  "Q6977719": "Q5605",
+  "Q6981717": "Q552",
+  "Q7042253": "Q1429579",
+  "Q7179716": "Q3887051",
+  "Q7265145": "Q1644971",
+  "Q7402707": "Q1552966",
+  "Q7511290": "Q175887",
+  "Q7536311": "Q7930252",
+  "Q7664840": "Q1331973",
+  "Q7848996": "Q216488",
+  "Q7861904": "Q552",
+  "Q7930252": "Q1720921",
+  "Q7930805": "Q1720921",
+  "Q7998500": "Q201823",
+  "Q8040706": "Q548",
+  "Q9163814": "Q548",
+  "Q9167393": "Q5605",
+  "Q9170229": "Q840694",
+  "Q9170231": "Q1411962",
+  "Q9170278": null,
+  "Q9170443": "Q4987041",
+  "Q9170451": "Q833916",
+  "Q9174864": "Q9197884",
+  "Q9174871": "Q656640",
+  "Q9179207": "Q548",
+  "Q9180783": "Q1261531",
+  "Q9180954": "Q1521184",
+  "Q9181322": "Q191752",
+  "Q9181642": null,
+  "Q9181787": "Q156237",
+  "Q9181788": "Q552",
+  "Q9182554": "Q6976632",
+  "Q9182745": "Q1130403",
+  "Q9182805": "Q1774837",
+  "Q9192301": "Q11824092",
+  "Q9192507": "Q646358",
+  "Q9197847": "Q393107",
+  "Q9197848": "Q5735534",
+  "Q9197855": "Q9363796",
+  "Q9197884": "Q1521184",
+  "Q9197887": "Q737728",
+  "Q9197890": "Q1149087",
+  "Q9197949": "Q9393926",
+  "Q9198147": "Q840694",
+  "Q9198841": "Q11734070",
+  "Q9202427": null,
+  "Q9208503": null,
+  "Q9212510": "Q750418",
+  "Q9265979": null,
+  "Q9266475": "Q60055",
+  "Q9267985": "Q1130403",
+  "Q9274807": "Q548",
+  "Q9275404": "Q840694",
+  "Q9284161": "Q1429579",
+  "Q9284376": "Q201823",
+  "Q9309987": "Q201823",
+  "Q9322717": "Q221200",
+  "Q9323660": "Q60055",
+  "Q9324212": "Q1261531",
+  "Q9324322": "Q927195",
+  "Q9325211": "Q548",
+  "Q9333077": "Q201823",
+  "Q9333588": "Q548",
+  "Q9334094": "Q2023557",
+  "Q9336320": "Q857160",
+  "Q9337690": "Q1261531",
+  "Q9337737": "Q1253322",
+  "Q9337863": "Q656640",
+  "Q9338184": "Q941710",
+  "Q9345893": "Q9181788",
+  "Q9345894": "Q1660820",
+  "Q9345895": "Q1476324",
+  "Q9346331": "Q1411894",
+  "Q9346409": "Q615272",
+  "Q9346411": "Q201823",
+  "Q9346834": "Q1552966",
+  "Q9347057": "Q1253322",
+  "Q9347446": "Q1973608",
+  "Q9347749": "Q656640",
+  "Q9348691": null,
+  "Q9351509": "Q771440",
+  "Q9352197": "Q148307",
+  "Q9352279": "Q13479615",
+  "Q9352933": "Q7878338",
+  "Q9352937": "Q809673",
+  "Q9353508": "Q552",
+  "Q9361721": "Q304527",
+  "Q9363796": "Q1130403",
+  "Q9363827": "Q548",
+  "Q9364423": "Q156237",
+  "Q9367505": "Q548",
+  "Q9367547": "Q656640",
+  "Q9372829": "Q756302",
+  "Q9373195": "Q1253322",
+  "Q9373690": "Q1408190",
+  "Q9374403": "Q548",
+  "Q9375340": "Q1581395",
+  "Q9375407": "Q857160",
+  "Q9376193": "Q927195",
+  "Q9377536": "Q1130403",
+  "Q9377627": null,
+  "Q9381304": "Q1255924",
+  "Q24944797": "Q9395202",
+  "Q25406354": null,
+  "Q25411751": "Q9393926",
+  "Q25413750": null,
+  "Q25414610": null,
+  "Q25414695": null,
+  "Q25415112": null,
+  "Q25415723": null,
+  "Q28006583": null,
+  "Q28676373": "Q156237",
+  "Q28676837": "Q9352197",
+  "Q30904678": null,
+  "Q30910041": null,
+  "Q30910227": null,
+  "Q30910319": null,
+  "Q30918867": "Q750418",
+  "Q30919008": "Q11727063",
+  "Q32491097": "Q2055907",
+  "Q32539622": "Q9181322",
+  "Q32712754": "Q6979210",
+  "Q32712777": null,
+  "Q32712782": "Q16579514",
+  "Q32712792": "Q60055",
+  "Q32712797": "Q1644971",
+  "Q32712813": "Q1642027",
+  "Q32712944": "Q2457998",
+  "Q32744565": "Q2055907",
+  "Q34900889": "Q221200",
+  "Q35003496": "Q13133120",
+  "Q35255354": "Q304527",
+  "Q35388526": null,
+  "Q35394839": "Q1644971",
+  "Q35425858": "Q9386384",
+  "Q56328765": null,
+  "Q56344387": null,
+  "Q60214049": "Q548",
+  "Q60214059": "Q548",
+  "Q60860364": null,
+  "Q86668196": "Q216488",
+  "Q941710": "Q60055",
+  "Q954273": "Q548",
+  "Q980095": "Q213367",
+  "Q989796": "Q201823",
+  "Q993464": "Q548",
+  "Q9389573": "Q9322717",
+  "Q9393426": "Q148307",
+  "Q9393882": "Q9338184",
+  "Q9393900": "Q1130403",
+  "Q9394021": "Q656640",
+  "Q9394243": "Q828869",
+  "Q9394296": "Q148307",
+  "Q9394362": "Q840694",
+  "Q9394368": "Q9170278",
+  "Q9394471": "Q840694",
+  "Q9394872": "Q304527",
+  "Q9394887": "Q771440",
+  "Q9395202": "Q927195",
+  "Q9396329": "Q148307",
+  "Q9396574": "Q1158664",
+  "Q9397147": "Q927195",
+  "Q9397297": "Q11749020",
+  "Q9397315": "Q201823",
+  "Q9397928": "Q1130403",
+  "Q97215231": "Q25500700",
+  "Q166": null,
+  "Q545": null,
+  "Q1653": "Q166",
+  "Q1678": "Q1644",
+  "Q5605": null,
+  "Q5611": "Q5605",
+  "Q5622": "Q545",
+  "Q14369": "Q1653",
+  "Q79082": "Q626",
+  "Q131210": "Q1974485",
+  "Q134350": "Q1653",
+  "Q161385": null,
+  "Q207903": "Q5622",
+  "Q207927": "Q40855",
+  "Q208302": "Q1653",
+  "Q213367": null,
+  "Q393107": null,
+  "Q430799": "Q156237",
+  "Q514892": "Q1682",
+  "Q642605": "Q1644",
+  "Q737728": null,
+  "Q1136609": "Q157042",
+  "Q1149245": "Q548",
+  "Q1158664": null,
+  "Q1254708": "Q828869",
+  "Q1255924": null,
+  "Q1362517": "Q552",
+  "Q2026815": null,
+  "Q2119446": null,
+  "Q2636342": "Q5622",
+  "Q3495285": "Q1348658",
+  "Q4106927": "Q201823",
+  "Q5005653": "Q545",
+  "Q5735534": "Q1889871",
+  "Q6979210": "Q1581395",
+  "Q7851787": "Q6977719",
+  "Q7878338": "Q504582",
+  "Q9170608": "Q840694",
+  "Q9197874": "Q750418",
+  "Q9353519": "Q656640",
+  "Q9381393": "Q1333952",
+  "Q9386384": null,
+  "Q9393926": "Q1581395",
+  "Q11726055": "Q548",
+  "Q11726447": null,
+  "Q11727063": null,
+  "Q11734070": "Q840694",
+  "Q11734803": null,
+  "Q11820327": "Q9378225",
+  "Q11838650": "Q1477204",
+  "Q12033724": "Q330256",
+  "Q13133120": "Q5622",
+  "Q16579514": "Q1476324",
+  "Q25500700": "Q4399319",
+  "Q127534351": "Q552",
+  "Q626": "Q79082",
+  "Q1644": "Q702691",
+  "Q1682": "Q1644",
+  "Q40855": "Q2621029",
+  "Q157042": "Q40855",
+  "Q330256": "Q1644",
+  "Q1974485": null,
+  "Q4399319": "Q2615808",
+  "Q9378225": "Q1723040",
+  "Q1693": null,
+  "Q5484": null,
+  "Q321837": null,
+  "Q702691": null,
+  "Q1723040": "Q148307",
+  "Q2615808": "Q207903",
+  "Q2621029": null
+ }
+}

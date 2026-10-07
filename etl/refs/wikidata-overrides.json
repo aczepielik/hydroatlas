@@ -1,0 +1,11 @@
+{
+ "match": {},
+ "edges": {
+  "Q9170278": "Q1521184",
+  "Q9377627": "Q750418"
+ },
+ "comments": {
+  "Q9170278": "Biała Nida has no P403 on Wikidata; flows into Nida (Q1521184).",
+  "Q9377627": "Wolbórka has no P403 on Wikidata; flows into Pilica (Q750418)."
+ }
+}

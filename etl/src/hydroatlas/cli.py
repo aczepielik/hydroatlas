@@ -228,19 +228,46 @@ def stubs_cmd() -> None:
 
 
 @main.command()
-def map() -> None:
-    """Render the transit-map index to site/static/img/index-map.svg."""
-    from .topology import write_map
+@click.option("--refresh", is_flag=True,
+              help="Re-fetch the Wikidata P403 snapshot (network) and rewrite refs.")
+def wikidata(refresh: bool) -> None:
+    """Fetch (with --refresh) or load the committed Wikidata hierarchy snapshot."""
+    from .wikidata import SNAPSHOT_PATH, fetch_snapshot, load_snapshot, load_stations, write_snapshot
 
-    dest = write_map()
-    click.echo(f"wrote {dest}")
+    if refresh:
+        names = sorted({s["river"] for s in load_stations()
+                        if not s["river_key"].lower().startswith("jez")})
+        click.echo(f"fetching {len(names)} river names from Wikidata...")
+        snap = fetch_snapshot(names)
+        path = write_snapshot(snap)
+        click.echo(f"wrote {path} ({len(snap['candidates'])} names, "
+                   f"{len(snap['edges'])} edges) — commit it")
+    else:
+        snap = load_snapshot()
+        click.echo(f"loaded {SNAPSHOT_PATH.name} "
+                   f"({len(snap.get('candidates', {}))} names, fetched "
+                   f"{snap.get('fetched', '?')})")
+
+
+@main.command()
+def rivers() -> None:
+    """Render per-river SVG pages, content stubs and site/data/rivers.json."""
+    from .rivermap import command_rivers
+
+    n, unresolved = command_rivers()
+    click.echo(f"wrote {n} river pages to site/content/rzeki + site/static/rzeki")
+    if unresolved:
+        click.echo(f"{len(unresolved)} unresolved (see wikidata-overrides.json): "
+                   + ", ".join(unresolved[:10])
+                   + (" …" if len(unresolved) > 10 else ""))
 
 
 @main.command()
 @click.pass_context
 def build(ctx: click.Context) -> None:
-    """Run the full site build: aggregates, charts, content stubs, map."""
+    """Run the full site build: aggregates, stubs, wikidata, rivers, charts."""
     ctx.invoke(aggregate)
     ctx.invoke(stubs_cmd)
-    ctx.invoke(map)
+    ctx.invoke(wikidata)          # offline: errors if the snapshot is missing
+    ctx.invoke(rivers)
     ctx.invoke(charts)
