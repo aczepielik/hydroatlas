@@ -10,13 +10,18 @@
 {{- if $groups }}
 <section class="hydrological-regime">
   <h2>{{ index $basins $id }}</h2>
-  <div class="river-hubs">
+  <table class="dir-table">
+    <tr>
+      <th>Rzeka</th>
+      <th>Stacje</th>
+    </tr>
     {{- range $groups }}
-    <a class="river-hub-card" href="{{ printf "rzeki/%s/" .key | relURL }}">{{ .name }}
-      <span class="hub-count">{{ len .stations }} st.</span>
-    </a>
+    <tr>
+      <td><a href="{{ printf "rzeki/%s/" .key | relURL }}">{{ .name }}</a></td>
+      <td>{{ len .stations }}</td>
+    </tr>
     {{- end }}
-  </div>
+  </table>
 </section>
 {{- end }}
 {{- end }}

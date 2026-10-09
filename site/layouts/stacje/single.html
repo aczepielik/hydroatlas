@@ -61,7 +61,9 @@
        belong to the station, not to a Q or H view). */ -}}
 <section class="hydrological-regime">
   <h2>Profil stacji i charakterystyka zlewni</h2>
-  <div class="semantic-grid">
+  <div class="station-top">
+    {{- /* One continuous table — splitting it in two produced a doubled
+           border between the segments that read louder than row rules. */ -}}
     <table class="info-table">
       <tr><td>Rzeka</td><td>{{ .Params.river }}</td></tr>
       {{ with $st.catchment_km2 }}<tr><td>Zlewnia</td><td>{{ partial "fmt-num" . }} km²</td></tr>{{ end }}
@@ -72,8 +74,6 @@
       {{- if and $st.lat $st.lon }}
       <tr><td>Współrzędne</td><td>{{ partial "fmt-num" (printf "%.5f" $st.lat) }}° N, {{ partial "fmt-num" (printf "%.5f" $st.lon) }}° E</td></tr>
       {{- end }}
-    </table>
-    <table class="info-table">
       {{ with $st.unit_runoff_dm3s_km2 }}<tr><td>Odpływ jednostkowy (q)</td><td>{{ partial "fmt-num" . }} dm³/s·km²</td></tr>{{ end }}
       {{ with $st.runoff_mm }}<tr><td>Wskaźnik odpływu (H)</td><td>{{ partial "fmt-num" . }} mm</td></tr>{{ end }}
       {{ with $st.network_density_km_km2 }}<tr><td>Gęstość sieci rzecznej</td><td>{{ partial "fmt-num" . }} km/km²</td></tr>{{ end }}
@@ -95,10 +95,10 @@
       <tr><td>Dane H</td><td>brak</td></tr>
       {{- end }}
     </table>
+    {{- if and $st.lat $st.lon }}
+      {{ partial "leaflet-map" (dict "lat" $st.lat "lon" $st.lon) }}
+    {{- end }}
   </div>
-  {{- if and $st.lat $st.lon }}
-    {{ partial "leaflet-map" (dict "lat" $st.lat "lon" $st.lon) }}
-  {{- end }}
 </section>
 
 {{- /* Variant views: each div contains ONLY content derived from its own
@@ -119,9 +119,9 @@
   <h2>Macierz przepływów i statystyki</h2>
   <div class="semantic-grid">
     <div class="flow-matrix">
-      <div class="matrix-cell header-row"></div>
+      <div class="matrix-cell header-row">m³/s</div>
       {{- range $col := slice "N" "S" "W" }}
-      <div class="matrix-cell header-row">{{ $col }}</div>
+      <div class="matrix-cell header-row">{{ $col }}Q</div>
       {{- end }}
       {{- range $row := slice "N" "S" "W" }}
       <div class="matrix-cell header-col">{{ $row }}</div>
@@ -157,12 +157,12 @@
   <h2>Wybrane wskaźniki ekohydrologiczne (IHA)</h2>
   <div class="semantic-grid">
     <div>
-      <h3>Przepływy miesięczne (średnie)</h3>
+      <h3>Przepływy miesięczne (średnie) [m³/s]</h3>
       {{ partial "monthly-table" (dict "values" $monthly) }}
     </div>
     <div class="iha-right-col">
       <div>
-        <h3>Ekstrema roczne</h3>
+        <h3>Ekstrema roczne [m³/s]</h3>
         {{- $ae := $v.annual_extremes }}
         <table class="info-table iha-table">
           <tr>
@@ -184,15 +184,15 @@
         {{- $dy := $v.dynamics }}
         <table class="info-table iha-table">
           <tr>
-            <td>Min/Max dz</td><td>{{ partial "pair" (dict "a" $dy.min_daily "b" $dy.max_daily) }}</td>
-            <td>Rise/Fall</td><td>{{ partial "pair" (dict "a" $dy.rise "b" $dy.fall) }}</td>
+            <td>Min/Max dz [m³/s]</td><td>{{ partial "pair" (dict "a" $dy.min_daily "b" $dy.max_daily) }}</td>
+            <td>Rise/Fall [m³/s/dobę]</td><td>{{ partial "pair" (dict "a" $dy.rise "b" $dy.fall) }}</td>
           </tr>
           <tr>
-            <td>High/Low pul</td><td>{{ partial "pair" (dict "a" $dy.high_pulses "b" $dy.low_pulses) }}</td>
-            <td>Reversals</td><td>{{ partial "fmt-num" $dy.reversals }}</td>
+            <td>High/Low pul [/rok]</td><td>{{ partial "pair" (dict "a" $dy.high_pulses "b" $dy.low_pulses) }}</td>
+            <td>Reversals [/rok]</td><td>{{ partial "fmt-num" $dy.reversals }}</td>
           </tr>
           <tr>
-            <td>High/Low dur</td><td>{{ partial "pair" (dict "a" $dy.high_dur "b" $dy.low_dur) }}</td>
+            <td>High/Low dur [dni]</td><td>{{ partial "pair" (dict "a" $dy.high_dur "b" $dy.low_dur) }}</td>
             <td>Baseflow</td><td>{{ partial "fmt-num" $dy.baseflow_ratio }}</td>
           </tr>
         </table>

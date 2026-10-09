@@ -378,6 +378,24 @@ body[data-active-variant="h_cal"] [data-variant-block="h_cal"] {
 display: block;
 }
 
+/* station view: profile table on the left, map on the right */
+.station-top {
+display: grid;
+grid-template-columns: minmax(0, 1fr) 360px;
+gap: 30px;
+align-items: stretch;
+}
+
+.station-top .station-map {
+height: auto;
+min-height: 320px;
+margin-top: 0;
+}
+
+@media (max-width: 860px) {
+  .station-top { grid-template-columns: 1fr; }
+}
+
 /* leaflet map on the station page */
 .station-map {
 height: 240px;
@@ -387,43 +405,22 @@ border-radius: 6px;
 background: #eef2f6;
 }
 
-/* home page hub cards */
-.river-hubs {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-gap: 20px;
-}
-
-.river-hub-card {
-display: block;
-background: white;
-border: 1px solid #e3e7ec;
-border-radius: 8px;
-padding: 30px 20px;
-text-align: center;
-font-size: 1.1rem;
-font-weight: 600;
-color: #1a4e8a;
-text-decoration: none;
-}
-
-.river-hub-card:hover {
-border-color: #1a4e8a;
-}
-
-.hub-count {
-display: block;
-font-size: 0.75rem;
-font-weight: 400;
-color: #64748b;
-margin-top: 4px;
-}
-
-/* inlined per-river SVG schematics */
+/* inlined per-river SVG schematics (fixed pixel width, scrolls
+   horizontally when a dense schematic needs more room than fits) */
 .map-frame {
 background: white;
 border: 1px solid #e3e7ec;
 border-radius: 8px;
 padding: 12px;
 overflow-x: auto;
+}
+
+/* dry, encyclopedic links in page content */
+main a {
+color: #1a4e8a;
+text-decoration: none;
+}
+
+main a:hover {
+text-decoration: underline;
 }

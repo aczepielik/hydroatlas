@@ -7,6 +7,30 @@
 {{- $river := dict -}}
 {{- range $rivers }}{{ if eq .key $key }}{{ $river = . }}{{ end }}{{ end }}
 
+{{- if eq $key "przymorza" }}
+{{- /* Coastal rivers with no resolvable parent: a plain table, not a
+       fake schematic (they share no common stem to draw). */ -}}
+<section class="hydrological-regime">
+  <h2>Rzeki</h2>
+  {{- $rows := slice -}}
+  {{- range $rivers }}
+    {{- if and (eq .basin "przymorza") (not .parent) }}{{ $rows = $rows | append . }}{{ end }}
+  {{- end }}
+  {{- $rows = sort $rows "name" -}}
+  <table class="dir-table">
+    <tr>
+      <th>Rzeka</th>
+      <th>Stacje</th>
+    </tr>
+    {{- range $rows }}
+    <tr>
+      <td><a href="{{ printf "rzeki/%s/" .key | relURL }}">{{ .name }}</a></td>
+      <td>{{ len .stations }}</td>
+    </tr>
+    {{- end }}
+  </table>
+</section>
+{{- else }}
 <section class="hydrological-regime">
   <h2>Sieć rzeki</h2>
   {{- $svg := printf "static/rzeki/%s.svg" $key -}}
@@ -17,14 +41,10 @@
   {{- else }}
   <p class="section-note">Brak schematu rzeki.</p>
   {{- end }}
-  {{- $parent := $river.parent -}}
-  {{- with $parent }}
-  <p class="section-note">Rzeka wpada do:
-    {{- range $rivers }}{{ if and (eq .name $parent) (ne .key $key) }} <a href="{{ printf "rzeki/%s/" .key | relURL }}">{{ .name }}</a>{{ end }}{{ end -}}
-  </p>
-  {{- end }}
 </section>
+{{- end }}
 
+{{- if ne $key "przymorza" }}
 <section class="hydrological-regime">
   <h2>Stacje na rzece</h2>
   {{- with $river.stations }}
@@ -46,4 +66,5 @@
   <p class="section-note">Brak stacji dla tej rzeki.</p>
   {{- end }}
 </section>
+{{- end }}
 {{ end }}

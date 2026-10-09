@@ -1,21 +1,20 @@
 {{ define "title" }}{{ .Site.Title }}{{ end }}
 
 {{ define "main" }}
-{{- /* Topology hub links; per-river SVGs land in WP7 (see /rzeki/). */ -}}
 <section class="hydrological-regime">
   <h2>Sieć rzek</h2>
-  <div class="river-hubs">
-    <a class="river-hub-card" href="{{ "rzeki/wisla/" | relURL }}">Wisła</a>
-    <a class="river-hub-card" href="{{ "rzeki/odra/" | relURL }}">Odra</a>
-    <a class="river-hub-card" href="{{ "rzeki/przymorza/" | relURL }}">Rzeki Przymorza</a>
-  </div>
+  <ul>
+    <li><a href="{{ "rzeki/wisla/" | relURL }}">Wisła</a></li>
+    <li><a href="{{ "rzeki/odra/" | relURL }}">Odra</a></li>
+    <li><a href="{{ "rzeki/przymorza/" | relURL }}">Rzeki Przymorza</a></li>
+  </ul>
 </section>
 <section class="hydrological-regime">
   <h2>Indeksy</h2>
-  <div class="river-hubs">
-    <a class="river-hub-card" href="{{ "indeks/" | relURL }}">Indeks stacji</a>
-    <a class="river-hub-card" href="{{ "jeziora/" | relURL }}">Jeziora</a>
-    <a class="river-hub-card" href="{{ "rzeki/" | relURL }}">Wszystkie rzeki</a>
-  </div>
+  <ul>
+    <li><a href="{{ "indeks/" | relURL }}">Indeks stacji</a></li>
+    <li><a href="{{ "jeziora/" | relURL }}">Jeziora</a></li>
+    <li><a href="{{ "rzeki/" | relURL }}">Wszystkie rzeki</a></li>
+  </ul>
 </section>
 {{ end }}
