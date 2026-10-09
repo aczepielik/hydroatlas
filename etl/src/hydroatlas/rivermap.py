@@ -1,12 +1,22 @@
 """Per-river schematic pages: one SVG per river (transit-map style).
 
-Not a geographic projection — a horizontal stem with the river's stations
-as nodes along it, and direct tributaries as 45° stubs that link to the
-tributary's own page (plain <a> navigation, no JS).  Top-level pages:
-the Wisła and Odra group pages double as basin hubs (stem + stubs for
-their children plus basin orphans); /rzeki/przymorza/ is a synthetic hub
-listing the coastal rivers as stub rows.  Everything else is a plain
-river page: stem + stations + child stubs.
+Not a geographic projection — a horizontal stem (source left, mouth
+right) with the river's stations as nodes along it, direct tributaries
+as 45° stubs angling *upstream* (to the left of their confluence) that
+link to the tributary's own page, and the receiving waterbody (parent
+river or basin hub) as an outflow stub past the mouth end.  Plain <a>
+navigation, no JS.
+
+Top-level pages: the Wisła and Odra group pages double as basin hubs
+(stem + stubs for their children plus basin orphans); /rzeki/przymorza/
+is a plain HTML table of coastal rivers (template-side, no SVG).
+Everything else is a plain river page: stem + stations + child stubs +
+parent stub.
+
+Labels are placed with width-aware collision checks; if anything would
+overlap, the canvas grows (fixed pixel width, horizontal scroll in
+.map-frame) and placement is retried, so no label is silently dropped
+while space could still be made.
 
 Confluence estimate: the child's lowest-km station with coordinates is
 projected onto the parent's km-ordered station polyline; when either
@@ -23,7 +33,7 @@ from .paths import site_dir
 from .wikidata import load_snapshot, load_stations, resolve
 
 W = 880
-X0, X1 = 70.0, 810.0
+X0 = 70.0
 LINE = "#1a4e8a"
 ACCENT = "#64748b"
 PAPER = "#ffffff"
@@ -31,9 +41,28 @@ RESERVED_KEYS = {"przymorza"}
 # Fixed URLs for the two top-level basin hubs (their groups merge two
 # river_keys each, so the canonical key would otherwise be arbitrary).
 HUB_KEYS = {"Wisła": "wisla", "Odra": "odra"}
+BASINS = {"wisla": "Wisła", "odra": "Odra", "przymorza": "Rzeki Przymorza"}
+# Station fractions are padded away from the stem ends so the line
+# visibly continues past the first station (source) and the last (mouth).
+PAD0, PAD1 = 0.07, 0.93
+# Vertical layout, relative to the stem: station label rows (near-up,
+# far-up, near-dn, far-dn) and tributary-stub label rows, kept in
+# separate bands so the two kinds never collide.  Stubs get four depths
+# per side (rows 0,2,4,6 up / 1,3,5,7 down) so congested stretches can
+# spill to a further row instead of losing the label.
+STATION_ROW_Y = (-16.0, -34.0, 26.0, 44.0)
+STUB_DEPTHS = (44.0, 66.0, 88.0, 110.0)
+STUB_ROW_Y = (-50.0, 58.0, -72.0, 80.0, -94.0, 102.0, -116.0, 124.0)
+STUB_ROWS_UP = (0, 2, 4, 6)
+STUB_ROWS_DN = (1, 3, 5, 7)
+HALO = 'stroke="#ffffff" stroke-width="3" paint-order="stroke"'
 
 
 # ------------------------------------------------------------ geometry
+
+def _pad(f: float) -> float:
+    return PAD0 + (PAD1 - PAD0) * f
+
 
 def _fraction_by_km(km: list[float]) -> list[float]:
     """Source (max km) at left, mouth (min km) at right — the usual
@@ -41,8 +70,10 @@ def _fraction_by_km(km: list[float]) -> list[float]:
     lo, hi = min(km), max(km)
     if hi <= lo:
         n = len(km)
-        return [0.5 + (i - (n - 1) / 2) * 0.06 for i in range(n)]
-    return [(hi - k) / (hi - lo) for k in km]
+        raw = [0.5 + (i - (n - 1) / 2) * 0.06 for i in range(n)]
+    else:
+        raw = [(hi - k) / (hi - lo) for k in km]
+    return [_pad(f) for f in raw]
 
 
 def _project(lat: float, lon: float, poly: list[tuple[float, float, float]]) -> float | None:
@@ -96,7 +127,7 @@ def layout_stations(records: list[dict]) -> list[tuple[dict, float]]:
     # registry order preserved among the leftovers.
     leftover = [r for r in records if r["id"] not in fractions]
     for i, rec in enumerate(leftover):
-        fractions[rec["id"]] = (i + 1) / (len(leftover) + 1)
+        fractions[rec["id"]] = _pad((i + 1) / (len(leftover) + 1))
 
     ordered = sorted(records, key=lambda r: (fractions[r["id"]], r["id"]))
     return [(r, fractions[r["id"]]) for r in ordered]
@@ -104,21 +135,24 @@ def layout_stations(records: list[dict]) -> list[tuple[dict, float]]:
 
 def _child_confluence_x(
     child_recs: list[dict],
-    parent_recs: list[dict],
+    poly: list[tuple[float, float, float]],
     sibling_i: int,
     sibling_n: int,
+    x0: float,
+    x1: float,
 ) -> float:
     """X coordinate where the child's stub leaves the parent's stem."""
-    poly = [
-        (r["lat"], r["lon"], f)
-        for r, f in layout_stations(parent_recs)
-        if r.get("lat") and r.get("lon")
-    ]
-    probe = next((r for r in child_recs if r.get("lat") and r.get("lon")), None)
+    # The child's downstream-most station with coordinates is the one
+    # nearest its mouth, i.e. nearest the confluence.
+    with_xy = [r for r in child_recs if r.get("lat") and r.get("lon")]
+    with_km = [r for r in with_xy if r.get("km") is not None]
+    probe = min(with_km, key=lambda r: r["km"]) if with_km else (
+        with_xy[0] if with_xy else None
+    )
     frac = _project(probe["lat"], probe["lon"], poly) if probe else None
     if frac is None:
         frac = 0.08 + 0.84 * (sibling_i + 1) / (sibling_n + 1)
-    return X0 + max(0.0, min(1.0, frac)) * (X1 - X0)
+    return x0 + max(0.0, min(1.0, frac)) * (x1 - x0)
 
 
 # ------------------------------------------------------------- records
@@ -144,116 +178,166 @@ def _esc(text: str) -> str:
     )
 
 
+def _text_w(text: str, font: float, italic: bool = False) -> float:
+    """Approximate rendered label width (Roboto average advance)."""
+    w = 0.58 * font * len(str(text))
+    return w * 1.04 if italic else w
+
+
+class _LabelRows:
+    """Width-aware label placement across a fixed set of rows."""
+
+    def __init__(self, gap: float = 10.0) -> None:
+        self.rows: list[list[tuple[float, float]]] = []
+        self.gap = gap
+
+    def place(self, rows: tuple[int, ...], x0: float, x1: float) -> int | None:
+        """Claim the first row in ``rows`` where [x0, x1] is free."""
+        for row in rows:
+            while len(self.rows) <= row:
+                self.rows.append([])
+            if all(x1 + self.gap <= a or b + self.gap <= x0 for a, b in self.rows[row]):
+                self.rows[row].append((x0, x1))
+                return row
+        return None
+
+
 def _stem_svg(
-    group: dict, stub_groups: list[dict], groups: dict, height: int = 300
+    group: dict,
+    stub_groups: list[dict],
+    groups: dict,
+    parent: tuple[str, str] | None = None,
+    height: int = 300,
 ) -> str:
+    """Render the schematic, growing the canvas until every label fits.
+
+    ``parent`` is the (key, name) of the receiving waterbody shown as an
+    outflow stub past the mouth end of the stem.
+    """
     records = _records(group, groups)
     layout = layout_stations(records)
-    n = len(layout)
-    font = 11 if n <= 18 else 9
+    font = 11 if len(layout) <= 18 else 9
+    right_margin = 46.0
+    if parent:
+        right_margin = _text_w(parent[1], 11, italic=True) + 56.0
+
+    width = float(W)
+    svg = ""
+    for _ in range(8):
+        svg, dropped = _render_stem(
+            group, stub_groups, groups, layout, font, parent, right_margin, height, width
+        )
+        if dropped == 0 or width >= 4200:
+            break
+        width = min(width * 1.5, 4400.0)
+    return svg
+
+
+def _render_stem(
+    group: dict,
+    stub_groups: list[dict],
+    groups: dict,
+    layout: list[tuple[dict, float]],
+    font: int,
+    parent: tuple[str, str] | None,
+    right_margin: float,
+    height: int,
+    width: float,
+) -> tuple[str, int]:
+    """One placement pass; returns (svg, number of labels that did not fit)."""
+    x0, x1 = X0, width - right_margin
     stem_y = height / 2.0
+    poly = [
+        (r["lat"], r["lon"], f) for r, f in layout if r.get("lat") and r.get("lon")
+    ]
+    st_rows, stub_rows = _LabelRows(), _LabelRows(gap=12.0)
+    dropped = 0
 
     parts = [
-        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {height}" '
-        f'font-family="Roboto, system-ui, sans-serif" width="100%">',
-        f'<rect width="{W}" height="{height}" fill="{PAPER}"/>',
-        f'<line x1="{X0}" y1="{stem_y}" x2="{X1}" y2="{stem_y}" '
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width:.0f} {height}" '
+        f'font-family="Roboto, system-ui, sans-serif" width="{width:.0f}">',
+        f'<rect width="{width:.0f}" height="{height}" fill="{PAPER}"/>',
+        f'<line x1="{x0}" y1="{stem_y}" x2="{x1:.1f}" y2="{stem_y}" '
         f'stroke="{LINE}" stroke-width="3"/>',
     ]
 
-    # Tributary stubs (45°, alternating above / below), labels link out.
-    # Two depths per side + min-gap skipping keep dense hubs readable.
-    stub_tier_d = (44.0, 66.0, 44.0, 66.0)  # up-near, up-far, dn-near, dn-far
-    stub_last_x = [-1e9] * 4
+    # Tributary stubs: 45°, angling upstream (left of the confluence),
+    # alternating above / below across four depths; labels width-checked.
     for i, child in enumerate(stub_groups):
         child_recs = _records(child, groups)
-        cx = _child_confluence_x(child_recs, records, i, len(stub_groups))
-        tier = i % 4
-        up = tier < 2
-        d = stub_tier_d[tier]
-        ex = cx + d
+        cx = _child_confluence_x(child_recs, poly, i, len(stub_groups), x0, x1)
+        tier = i % 8
+        up = tier % 2 == 0
+        d = STUB_DEPTHS[tier // 2]
+        ex = cx - d
         ey = stem_y - d if up else stem_y + d
-        label_y = ey + (-6 if up else 14)
+        label = f'{child["name"]} ▸'
+        w = _text_w(label, 11, italic=True)
+        anchor_x = ex - 5.0
+        if anchor_x - w >= 4.0:
+            # preferred: left of the stub end (outside the fork)
+            tx, text_anchor, ix0, ix1 = anchor_x, "end", anchor_x - w, anchor_x
+        elif ex + 5.0 + w <= width - 4.0:
+            # left would clip the canvas — flip to the right of the end
+            tx, text_anchor, ix0, ix1 = ex + 5.0, "start", ex + 5.0, ex + 5.0 + w
+        else:
+            # both sides clipped — pin to the canvas edge, keep labelled
+            tx, text_anchor, ix0, ix1 = 4.0, "start", 4.0, 4.0 + w
+        side_rows = STUB_ROWS_UP if up else STUB_ROWS_DN
+        row = stub_rows.place(side_rows, ix0, ix1)
         parts.append(
             f'<a href="/rzeki/{child["key"]}/">'
             f'<title>{_esc(child["name"])}</title>'
             f'<path d="M {cx:.1f} {stem_y} L {ex:.1f} {ey:.1f}" '
             f'stroke="{ACCENT}" stroke-width="2" fill="none"/>'
         )
-        if ex + 5 - stub_last_x[tier] >= 70.0:
-            stub_last_x[tier] = ex + 5
-            parts.append(
-                f'<text x="{ex + 5:.1f}" y="{label_y:.1f}" '
-                f'text-anchor="start" font-style="italic" font-size="11" '
-                f'fill="{LINE}">{_esc(child["name"])} ▸</text></a>'
-            )
-        else:
+        if row is None:
+            dropped += 1
             parts.append("</a>")
+        else:
+            parts.append(
+                f'<text x="{tx:.1f}" y="{stem_y + STUB_ROW_Y[row]:.1f}" '
+                f'text-anchor="{text_anchor}" font-style="italic" font-size="11" '
+                f'fill="{LINE}" {HALO}>{_esc(label)}</text></a>'
+            )
 
-    # Station nodes; labels cycle through four tiers (near/far × above/
-    # below) and are skipped when a tier gets too dense — the node keeps
-    # a hover tooltip.
-    tier_y = (-16.0, 26.0, -34.0, 44.0)
-    tier_last_x = [-1e9] * len(tier_y)
-    min_gap = 60.0 if font >= 11 else 46.0
-    for i, (rec, frac) in enumerate(layout):
-        x = X0 + frac * (X1 - X0)
-        tier = i % len(tier_y)
+    # Station nodes; labels go in the first row (near-first) with room.
+    row_order = (0, 2, 1, 3)
+    for rec, frac in layout:
+        x = x0 + frac * (x1 - x0)
+        w = _text_w(rec["name"], font)
+        row = st_rows.place(row_order, x - w / 2.0, x + w / 2.0)
         parts.append(
             f'<a href="/stacje/{rec["id"]}/">'
             f'<title>{_esc(rec["name"])}</title>'
             f'<circle cx="{x:.1f}" cy="{stem_y}" r="5" fill="{PAPER}" '
             f'stroke="{LINE}" stroke-width="2.5"/>'
         )
-        if x - tier_last_x[tier] >= min_gap:
-            tier_last_x[tier] = x
-            parts.append(
-                f'<text x="{x:.1f}" y="{stem_y + tier_y[tier]:.1f}" '
-                f'text-anchor="middle" font-size="{font}" '
-                f'fill="#1e293b">{_esc(rec["name"])}</text></a>'
-            )
-        else:
+        if row is None:
+            dropped += 1
             parts.append("</a>")
+        else:
+            parts.append(
+                f'<text x="{x:.1f}" y="{stem_y + STATION_ROW_Y[row]:.1f}" '
+                f'text-anchor="middle" font-size="{font}" '
+                f'fill="#1e293b" {HALO}>{_esc(rec["name"])}</text></a>'
+            )
 
-    parts.append("</svg>")
-    return "".join(parts)
-
-
-def _przymorza_svg(children: list[dict]) -> str:
-    """Synthetic hub: rows of stubs, one per coastal river."""
-    rows = [children[i : i + 8] for i in range(0, len(children), 8)] or [[]]
-    row_h = 70.0
-    height = 40 + row_h * len(rows)
-    parts = [
-        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {height:.0f}" '
-        f'font-family="Roboto, system-ui, sans-serif" width="100%">',
-        f'<rect width="{W}" height="{height:.0f}" fill="{PAPER}"/>',
-    ]
-    for ri, row in enumerate(rows):
-        y = 45 + ri * row_h
+    # Outflow stub: the stem continues into the receiving waterbody.
+    if parent:
+        key, name = parent
         parts.append(
-            f'<line x1="{X0}" y1="{y}" x2="{X1}" y2="{y}" '
-            f'stroke="{LINE}" stroke-width="3"/>'
+            f'<a href="/rzeki/{key}/">'
+            f'<title>{_esc(name)}</title>'
+            f'<path d="M {x1:.1f} {stem_y} L {x1 + 22:.1f} {stem_y}" '
+            f'stroke="{LINE}" stroke-width="3" fill="none"/>'
+            f'<text x="{x1 + 28:.1f}" y="{stem_y + 4:.1f}" text-anchor="start" '
+            f'font-style="italic" font-size="11" fill="{LINE}">'
+            f'{_esc(name)} ▸</text></a>'
         )
-        if ri == 0:
-            parts.append(
-                f'<text x="{X0}" y="{y - 10}" font-size="12" '
-                f'font-weight="600" fill="{ACCENT}">Rzeki Przymorza</text>'
-            )
-        for i, g in enumerate(row):
-            cx = X0 + (X1 - X0) * (i + 0.5) / len(row)
-            up = i % 2 == 0
-            ey = y - 26 if up else y + 26
-            parts.append(
-                f'<a href="/rzeki/{g["key"]}/">'
-                f'<path d="M {cx:.1f} {y} L {cx:.1f} {ey}" stroke="{ACCENT}" '
-                f'stroke-width="2" fill="none"/>'
-                f'<text x="{cx:.1f}" y="{ey + (-6 if up else 14):.1f}" '
-                f'text-anchor="middle" font-style="italic" font-size="11" '
-                f'fill="{LINE}">{_esc(g["name"])}</text></a>'
-            )
+
     parts.append("</svg>")
-    return "".join(parts)
+    return "".join(parts), dropped
 
 
 # ---------------------------------------------------------- hub children
@@ -269,7 +353,7 @@ def hub_children(hub: dict, groups: dict) -> list[dict]:
             continue
         if g["basin"] != hub["basin"]:
             continue
-        if g["parent"] == hub["name"] or g["parent"] is None:
+        if g["parent"] == hub["gid"] or g["parent"] is None:
             out.append(g)
     out.sort(key=lambda g: (-len(g["stations"]), g["name"]))
     return out
@@ -321,6 +405,19 @@ def write_rivers(stations: list[dict], snap: dict) -> dict:
             if c in groups and renderable(groups[c])
         ]
 
+    def parent_stub(g: dict) -> tuple[str, str] | None:
+        """Receiving waterbody for the mouth-end outflow stub: the parent
+        river when it is a renderable group, else the basin hub (never
+        the page itself)."""
+        if g["parent"] and g["parent"] in groups:
+            p = groups[g["parent"]]
+            if renderable(p) and p["key"] != g["key"]:
+                return (p["key"], p["name"])
+        hub_key = g["basin"]
+        if hub_key in BASINS and hub_key != g["key"]:
+            return (hub_key, BASINS[hub_key])
+        return None
+
     site = site_dir()
     svg_dir = site / "static" / "rzeki"
     content = site / "content" / "rzeki"
@@ -340,19 +437,15 @@ def write_rivers(stations: list[dict], snap: dict) -> dict:
         )
         height = 300 if len(g["stations"]) <= 30 else 340
         (svg_dir / f"{g['key']}.svg").write_text(
-            _stem_svg(g, stubs, groups, height), encoding="utf-8"
+            _stem_svg(g, stubs, groups, parent_stub(g), height), encoding="utf-8"
         )
         (content / f"{g['key']}.md").write_text(
             _stub(g["key"], g["name"]), encoding="utf-8"
         )
 
-    # Synthetic przymorza hub: coastal rivers with no resolvable parent
-    # group (their chains end at the sea, not at Wisła/Odra).
-    przymorza = sorted(
-        (g for g in public_groups if g["basin"] == "przymorza" and g["parent"] is None),
-        key=lambda g: (-len(g["stations"]), g["name"]),
-    )
-    (svg_dir / "przymorza.svg").write_text(_przymorza_svg(przymorza), encoding="utf-8")
+    # /rzeki/przymorza/ is a plain HTML table in the template (coastal
+    # rivers with no resolvable parent group — chains ending at the sea,
+    # not at Wisła/Odra); no SVG is generated for it.
     (content / "przymorza.md").write_text(
         _stub("przymorza", "Rzeki Przymorza"), encoding="utf-8"
     )
@@ -365,12 +458,16 @@ def write_rivers(stations: list[dict], snap: dict) -> dict:
             _records(g, groups),
             key=lambda r: (r.get("km") is None, r.get("km") or 0, r["name"]),
         )
+        # g["parent"] is an internal gid; export the display name.
+        parent_name = (
+            groups[g["parent"]]["name"] if g["parent"] in groups else None
+        )
         light.append(
             {
                 "name": g["name"],
                 "key": g["key"],
                 "basin": g["basin"],
-                "parent": g["parent"],
+                "parent": parent_name,
                 "children": [
                     groups[c]["key"]
                     for c in g["children"]
@@ -389,7 +486,7 @@ def write_rivers(stations: list[dict], snap: dict) -> dict:
         )
     data = {
         "generated": snap.get("fetched"),
-        "basins": {"wisla": "Wisła", "odra": "Odra", "przymorza": "Rzeki Przymorza"},
+        "basins": BASINS,
         "rivers": light,
     }
     (site / "data" / "rivers.json").write_text(

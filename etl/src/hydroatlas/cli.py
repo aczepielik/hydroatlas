@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
+from pathlib import Path
 
 import click
 
@@ -164,40 +166,116 @@ def aggregate(stations: tuple[str, ...]) -> None:
 
 
 def _chart_job(job: tuple[str, str, str]):
+    """Render one station; never raises — a failure is returned as data
+    so one bad station cannot abort the whole pool run."""
     from .charts import generate_station
     from .paths import clean_dir
     from .store import read_clean
 
     sid, _, dest = job
-    df = read_clean(clean_dir() / f"{sid}.csv.gz")
-    return sid, generate_station(df, sid, __import__("pathlib").Path(dest))
+    try:
+        written = generate_station(read_clean(clean_dir() / f"{sid}.csv.gz"),
+                                   sid, Path(dest))
+        return sid, written, None
+    except Exception as exc:  # noqa: BLE001 — reported, then retried next run
+        return sid, [], f"{type(exc).__name__}: {exc}"
+
+
+def _charts_fingerprint() -> str:
+    """Source hash of the chart pipeline; a change invalidates checkpoints."""
+    from . import aggregates, charts
+
+    h = hashlib.sha256()
+    for mod in (charts, aggregates):
+        h.update(Path(mod.__file__).read_bytes())
+    return h.hexdigest()
+
+
+def _checkpoint_write(path: Path, fingerprint: str, done: set[str]) -> None:
+    payload = json.dumps({"fingerprint": fingerprint, "done": sorted(done)})
+    tmp = path.with_suffix(".tmp")
+    tmp.write_text(payload, encoding="utf-8")
+    tmp.replace(path)
 
 
 @main.command()
 @click.option("--station", "stations", multiple=True, help="Station id (repeatable). Default: all.")
 @click.option("--workers", type=int, default=None, help="Parallel workers (default: CPU count).")
-def charts(stations: tuple[str, ...], workers: int | None) -> None:
-    """Render static SVG charts to site/static/charts/."""
+@click.option("--restart", is_flag=True,
+              help="Ignore the checkpoint and re-render every station.")
+def charts(stations: tuple[str, ...], workers: int | None, restart: bool) -> None:
+    """Render static SVG charts to site/static/charts/.
+
+    Progress is checkpointed to site/.charts-checkpoint.json after every
+    station: an interrupted run resumes where it stopped (as long as the
+    chart source is unchanged — editing charts.py invalidates the
+    checkpoint automatically).
+    """
     import multiprocessing as mp
 
     from .paths import clean_dir, site_dir
 
     dest = site_dir() / "static" / "charts"
+    ck_path = site_dir() / ".charts-checkpoint.json"
+    fingerprint = _charts_fingerprint()
+
+    if restart:
+        ck_path.unlink(missing_ok=True)
+    done: set[str] = set()
+    if ck_path.is_file():
+        try:
+            ck = json.loads(ck_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            ck = {}
+        if ck.get("fingerprint") == fingerprint:
+            done = set(ck.get("done", []))
+        else:
+            ck_path.unlink(missing_ok=True)
+    if done:
+        click.echo(f"resume: {len(done)} stations already rendered, skipping")
+
     paths = (
         [clean_dir() / f"{sid}.csv.gz" for sid in stations]
         if stations
         else sorted(clean_dir().glob("*.csv.gz"))
     )
-    jobs = [(p.name.removesuffix(".csv.gz"), str(p), str(dest)) for p in paths]
+    jobs = [
+        (p.name.removesuffix(".csv.gz"), str(p), str(dest))
+        for p in paths
+        if p.name.removesuffix(".csv.gz") not in done
+    ]
+    if not jobs:
+        click.echo("all stations rendered (checkpoint up to date)")
+        return
+
     total = 0
     empty = 0
+    failed: list[tuple[str, str]] = []
     with mp.Pool(workers or mp.cpu_count()) as pool:
-        for i, (sid, written) in enumerate(pool.imap_unordered(_chart_job, jobs, chunksize=4), 1):
-            total += len(written)
-            empty += 1 if not written else 0
+        for i, (sid, written, error) in enumerate(
+            pool.imap_unordered(_chart_job, jobs, chunksize=2), 1
+        ):
+            if error:
+                failed.append((sid, error))
+            else:
+                done.add(sid)
+                total += len(written)
+                empty += 1 if not written else 0
+            _checkpoint_write(ck_path, fingerprint, done)
             if i % 200 == 0:
                 click.echo(f"  {i}/{len(jobs)} stations...")
-    click.echo(f"rendered {total} charts for {len(jobs)} stations ({empty} without charts)")
+
+    click.echo(
+        f"rendered {total} charts for {len(done)} stations "
+        f"({empty} without charts, {len(failed)} failed)"
+    )
+    for sid, error in failed[:10]:
+        click.echo(f"  {sid}: {error}")
+    if failed and len(failed) > 10:
+        click.echo(f"  … and {len(failed) - 10} more")
+    if not failed and not stations:
+        # Full run finished cleanly — drop the checkpoint.
+        ck_path.unlink(missing_ok=True)
 
 
 @main.command("stubs")
@@ -225,6 +303,32 @@ def stubs_cmd() -> None:
         if path.name not in keep:
             path.unlink()
     click.echo(f"wrote {len(keep)} content stubs")
+
+
+@main.command()
+@click.option("--refresh", is_flag=True,
+              help="Re-fetch the prev/next station graph (network).")
+def connections(refresh: bool) -> None:
+    """Write refs/imgw-connections.json (hydroUp/hydroDown station graph).
+
+    This is the exact river-course topology from hydro.imgw.pl; resolve()
+    uses it to split same-named but geographically distinct rivers.
+    """
+    from .ingest.api import fetch_connections
+    from .paths import refs_dir, site_dir
+
+    dest = refs_dir() / "imgw-connections.json"
+    if not refresh and dest.exists():
+        click.echo(f"loaded {dest.name} (use --refresh to re-fetch)")
+        return
+    stations = json.loads(
+        (site_dir() / "data" / "stations.json").read_text(encoding="utf-8")
+    )
+    ids = [s["id"] for s in stations
+           if not s["river_key"].lower().startswith("jez")]
+    out = fetch_connections(dest, ids)
+    linked = sum(1 for r in out.values() if r["up"] or r["down"])
+    click.echo(f"wrote {dest}: {len(out)} stations, {linked} with neighbours")
 
 
 @main.command()
@@ -265,9 +369,10 @@ def rivers() -> None:
 @main.command()
 @click.pass_context
 def build(ctx: click.Context) -> None:
-    """Run the full site build: aggregates, stubs, wikidata, rivers, charts."""
+    """Run the full site build: aggregates, stubs, connections, wikidata, rivers, charts."""
     ctx.invoke(aggregate)
     ctx.invoke(stubs_cmd)
+    ctx.invoke(connections)       # offline if refs/imgw-connections.json exists
     ctx.invoke(wikidata)          # offline: errors if the snapshot is missing
     ctx.invoke(rivers)
     ctx.invoke(charts)

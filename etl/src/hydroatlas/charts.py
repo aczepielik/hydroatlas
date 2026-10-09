@@ -23,6 +23,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 from matplotlib.colors import LogNorm  # noqa: E402
+from matplotlib.ticker import FuncFormatter, LogLocator, NullFormatter  # noqa: E402
 
 from .aggregates import variant_frames  # noqa: E402
 
@@ -38,6 +39,22 @@ H_CHARTS = ("raster", "spectrogram", "timing", "boxplots")
 # leap hydro years shift March..September by one day — fine for ticks).
 HY_MONTH_STARTS = [1, 32, 62, 93, 124, 152, 183, 213, 244, 274, 305, 335]
 HY_MONTH_LABELS = ["X", "XI", "XII", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"]
+# Calendar months re-ordered to the hydrological year (Oct .. Sep).
+HY_MONTH_ORDER = [10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+
+def _plain(value: float) -> str:
+    """Decimal tick label — never 1e-4 style notation."""
+    if value == 0:
+        return "0"
+    if 1e-4 <= abs(value) < 1e5:
+        return f"{value:g}"
+    s = f"{value:.12f}".rstrip("0").rstrip(".")
+    return s if s not in ("", "-") else "0"
+
+
+def _decimal_axis(axis) -> None:
+    axis.set_major_formatter(FuncFormatter(lambda v, _pos: _plain(v)))
 
 
 def _style() -> None:
@@ -80,7 +97,7 @@ def _hy_dayofyear(index: pd.DatetimeIndex) -> np.ndarray:
     return (index - starts).days.to_numpy() + 1
 
 
-def chart_raster(df: pd.DataFrame, path: Path) -> None:
+def chart_raster(df: pd.DataFrame, path: Path, unit: str = "") -> None:
     hy = np.where(df.index.month >= 10, df.index.year + 1, df.index.year)
     doy = _hy_dayofyear(df.index)
     table = df["v"].groupby([hy, doy]).mean().unstack()
@@ -113,33 +130,45 @@ def chart_raster(df: pd.DataFrame, path: Path) -> None:
     ax.set_ylabel("rok hydrologiczny")
     ax.set_xticks(HY_MONTH_STARTS)
     ax.set_xticklabels(HY_MONTH_LABELS)
-    fig.colorbar(im, ax=ax, pad=0.02)
+    cb = fig.colorbar(im, ax=ax, pad=0.02)
+    # Decimal labels only: majors on 1/2/3/5 decades, minors unlabeled
+    # (the default log minor formatter draws 4×10²-style mathtext).
+    if norm is not None:
+        cb.locator = LogLocator(base=10, subs=(1.0, 2.0, 3.0, 5.0))
+    cb.formatter = FuncFormatter(lambda v, _pos: _plain(v))
+    cb.minorformatter = NullFormatter()
+    cb.update_ticks()
+    if unit:
+        cb.set_label(unit)
     _save(fig, path)
 
 
-def chart_fdc(df: pd.DataFrame, path: Path) -> None:
+def chart_fdc(df: pd.DataFrame, path: Path, unit: str = "") -> None:
     values = np.sort(df["v"].to_numpy())[::-1]
     exceedance = 100.0 * np.arange(1, len(values) + 1) / len(values)
     fig, ax = plt.subplots(figsize=(4.6, 3.0))
     ax.plot(exceedance, values, color=LINE, linewidth=1.2)
     ax.set_xlabel("prawdopodobieństwo przekroczenia [%]")
-    ax.set_ylabel("przepływ")
+    ax.set_ylabel(f"przepływ [{unit}]" if unit else "przepływ")
+    _decimal_axis(ax.yaxis)
     _save(fig, path)
 
 
-def chart_parde(df: pd.DataFrame, path: Path) -> None:
+def chart_parde(df: pd.DataFrame, path: Path, unit: str = "") -> None:
+    # Hydrological year: months ordered Oct .. Sep.
     monthly = df["v"].groupby(df.index.month).mean()
     ratio = monthly / df["v"].mean()
+    values = [ratio.get(m, np.nan) for m in HY_MONTH_ORDER]
     fig, ax = plt.subplots(figsize=(4.6, 3.0))
-    ax.bar(range(1, 13), ratio.reindex(range(1, 13)), color=LINE, width=0.7)
+    ax.bar(range(1, 13), values, color=LINE, width=0.7)
     ax.axhline(1.0, color=ACCENT, linewidth=0.8, linestyle="--")
     ax.set_xticks(range(1, 13))
-    ax.set_xticklabels(["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"])
+    ax.set_xticklabels(HY_MONTH_LABELS)
     ax.set_ylabel("Q / Qśr")
     _save(fig, path)
 
 
-def chart_spectrogram(df: pd.DataFrame, path: Path) -> None:
+def chart_spectrogram(df: pd.DataFrame, path: Path, unit: str = "") -> None:
     series = df["v"].copy()
     # Fill interior gaps so the STFT sees an evenly spaced series (visual only).
     full = series.asfreq("D")
@@ -166,7 +195,7 @@ def chart_spectrogram(df: pd.DataFrame, path: Path) -> None:
     _save(fig, path)
 
 
-def chart_timing(df: pd.DataFrame, path: Path) -> None:
+def chart_timing(df: pd.DataFrame, path: Path, unit: str = "") -> None:
     hy = np.where(df.index.month >= 10, df.index.year + 1, df.index.year)
     doy = _hy_dayofyear(df.index)
     tmp = pd.DataFrame({"v": df["v"].to_numpy(), "hy": hy, "doy": doy})
@@ -199,16 +228,18 @@ def chart_timing(df: pd.DataFrame, path: Path) -> None:
     _save(fig, path)
 
 
-def chart_boxplots(df: pd.DataFrame, path: Path) -> None:
-    groups = [df.loc[df.index.month == m, "v"].to_numpy() for m in range(1, 13)]
+def chart_boxplots(df: pd.DataFrame, path: Path, unit: str = "") -> None:
+    # Hydrological year: months ordered Oct .. Sep.
+    groups = [df.loc[df.index.month == m, "v"].to_numpy() for m in HY_MONTH_ORDER]
     fig, ax = plt.subplots(figsize=(4.6, 3.0))
     ax.boxplot(
         [g for g in groups if len(g)],
-        tick_labels=["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"],
+        tick_labels=HY_MONTH_LABELS,
         showfliers=False,
         widths=0.6,
     )
-    ax.set_ylabel("wartość")
+    ax.set_ylabel(f"wartość [{unit}]" if unit else "wartość")
+    _decimal_axis(ax.yaxis)
     _save(fig, path)
 
 
@@ -245,6 +276,7 @@ def generate_station(df: pd.DataFrame, sid: str, dest_root: Path) -> list[str]:
 
     for name, wdf in frames.items():
         column = "discharge_m3s" if name[0] == "q" else "stage_cm"
+        unit = "m³/s" if name[0] == "q" else "cm"
         source = _clean(wdf["date"], wdf[column])
         if len(source) < MIN_CHART_DAYS:
             continue
@@ -252,7 +284,7 @@ def generate_station(df: pd.DataFrame, sid: str, dest_root: Path) -> list[str]:
         for chart_name in names:
             path = out_dir / name / f"{chart_name}.svg"
             try:
-                _CHARTS[chart_name](source, path)
+                _CHARTS[chart_name](source, path, unit)
             except Exception:
                 if path.exists():
                     path.unlink()
