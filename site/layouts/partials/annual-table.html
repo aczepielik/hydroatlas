@@ -1,0 +1,20 @@
+{{- /* Annual discharge series: rows = [{hy, mean, min, max, n}] sorted by
+       hydrological year; partial years included (that is what n is for).
+       Input: list of rows. Output: table markup (info-table conventions). */ -}}
+{{- $rows := . -}}
+<table class="info-table annual-table">
+  <thead>
+    <tr><th>Rok</th><th>Qśr [m³/s]</th><th>Qmin</th><th>Qmax</th><th>n dni</th></tr>
+  </thead>
+  <tbody>
+    {{- range $rows }}
+    <tr>
+      <td>{{ .hy }}</td>
+      <td>{{ partial "fmt-num" .mean }}</td>
+      <td>{{ partial "fmt-num" .min }}</td>
+      <td>{{ partial "fmt-num" .max }}</td>
+      <td>{{ partial "fmt-num" .n }}</td>
+    </tr>
+    {{- end }}
+  </tbody>
+</table>

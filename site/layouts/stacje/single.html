@@ -9,6 +9,9 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 {{- end }}
 <script defer src="{{ "js/version-menu.js" | relURL }}"></script>
+{{- /* Per-station inline variant CSS: enumerates the keys actually present
+        (breaks-split stations have q_max_1… instead of pooled q_max). */ -}}
+<style>{{- range $v, $_ := $ctx.variants }}body[data-active-variant="{{ $v }}"] [data-variant-block="{{ $v }}"]{display:block;}{{ end -}}</style>
 {{ end }}
 
 {{ define "bodyattrs" }}{{ $ctx := partial "station-context" . }} data-active-variant="{{ $ctx.default }}" data-default-variant="{{ $ctx.default }}"{{ end }}
@@ -21,26 +24,22 @@
 <details class="version-menu">
   <summary>Wersja: <span class="variant-label">{{ index $ctx.labels $ctx.default }}</span></summary>
   <div class="variant-panel">
-  {{- if or (isset $variants "q_max") (isset $variants "q_cal") }}
+  {{- if $ctx.qorder }}
   <div class="variant-group">
     <div class="variant-group-title">Q — przepływ</div>
     <ul>
-      {{- range $v := slice "q_max" "q_cal" }}
-      {{- if isset $variants $v }}
+      {{- range $v := $ctx.qorder }}
       <li><a href="?var={{ $v }}" data-variant="{{ $v }}">{{ index $ctx.labels $v }}</a></li>
-      {{- end }}
       {{- end }}
     </ul>
   </div>
   {{- end }}
-  {{- if or (isset $variants "h_max") (isset $variants "h_cal") }}
+  {{- if $ctx.horder }}
   <div class="variant-group">
     <div class="variant-group-title">H — stan</div>
     <ul>
-      {{- range $v := slice "h_max" "h_cal" }}
-      {{- if isset $variants $v }}
+      {{- range $v := $ctx.horder }}
       <li><a href="?var={{ $v }}" data-variant="{{ $v }}">{{ index $ctx.labels $v }}</a></li>
-      {{- end }}
       {{- end }}
     </ul>
   </div>
@@ -55,6 +54,10 @@
 {{- $id := $ctx.id -}}
 {{- $st := $ctx.st -}}
 {{- $variants := $ctx.variants -}}
+{{- /* River name → page key map (names are globally unique; keys are
+       rewritten by rivermap, so only names are safe join keys). */ -}}
+{{- $riv := .Params.river -}}
+{{- $rmap := dict -}}{{- range (hugo.Data.rivers).rivers -}}{{- $rmap = merge $rmap (dict .name .key) -}}{{- end -}}
 
 {{- /* Section 1: profile, catchment characteristics, data availability
        (variant-independent: coordinates, km and both Q/H availability
@@ -65,7 +68,8 @@
     {{- /* One continuous table — splitting it in two produced a doubled
            border between the segments that read louder than row rules. */ -}}
     <table class="info-table">
-      <tr><td>Rzeka</td><td>{{ .Params.river }}</td></tr>
+      <tr><td>Rzeka</td><td>{{ with index $rmap $riv }}<a href="{{ printf "rzeki/%s/" . | relURL }}">{{ $riv }}</a>{{ else }}{{ $riv }}{{ end }}</td></tr>
+      {{ with $st.voivodeship }}<tr><td>Województwo</td><td>{{ . }}</td></tr>{{ end }}
       {{ with $st.catchment_km2 }}<tr><td>Zlewnia</td><td>{{ partial "fmt-num" . }} km²</td></tr>{{ end }}
       {{ with $st.regime }}<tr><td>Reżim</td><td>{{ . }}</td></tr>{{ end }}
       {{ with $st.station_class }}<tr><td>Typ stacji</td><td>{{ . }} rzędu</td></tr>{{ end }}
@@ -75,7 +79,8 @@
       <tr><td>Współrzędne</td><td>{{ partial "fmt-num" (printf "%.5f" $st.lat) }}° N, {{ partial "fmt-num" (printf "%.5f" $st.lon) }}° E</td></tr>
       {{- end }}
       {{ with $st.unit_runoff_dm3s_km2 }}<tr><td>Odpływ jednostkowy (q)</td><td>{{ partial "fmt-num" . }} dm³/s·km²</td></tr>{{ end }}
-      {{ with $st.runoff_mm }}<tr><td>Wskaźnik odpływu (H)</td><td>{{ partial "fmt-num" . }} mm</td></tr>{{ end }}
+      {{ with $st.runoff_mm }}<tr><td title="średnia roczna głębokość odpływu z zlewni">Wysokość odpływu rocznego</td><td>{{ partial "fmt-num" . }} mm</td></tr>{{ end }}
+      {{ with $st.pz_m_nap }}<tr><td title="Rzędną P.z. wodowskazu odniesiono do NAP (Normaal Amsterdams Peil), do 0,01 m">P.z. (NAP)</td><td>{{ partial "fmt-num" . }} m</td></tr>{{ end }}
       {{ with $st.network_density_km_km2 }}<tr><td>Gęstość sieci rzecznej</td><td>{{ partial "fmt-num" . }} km/km²</td></tr>{{ end }}
       {{ with $st.river_length_km }}<tr><td>Długość rzeki</td><td>{{ partial "fmt-num" . }} km</td></tr>{{ end }}
       {{- /* Always both availability rows — never only one of Q/H. */ -}}
@@ -99,12 +104,19 @@
       {{ partial "leaflet-map" (dict "lat" $st.lat "lon" $st.lon) }}
     {{- end }}
   </div>
+  {{- with $st.uwagi }}
+  <div class="uwagi-block">
+    <h3>Uwagi</h3>
+    <ul>{{ range . }}<li>{{ . }}</li>{{ end }}</ul>
+  </div>
+  {{- end }}
 </section>
 
 {{- /* Variant views: each div contains ONLY content derived from its own
        variable (Q/H manifest — see ETL docstring). Blocks are hidden via
        body[data-active-variant]; version-menu.js switches the attribute. */ -}}
-{{- range $vname := slice "q_max" "q_cal" "h_max" "h_cal" }}
+{{- /* Split-max stations render q_max_1…/h_max_1… (no pooled key). */ -}}
+{{- range $vname := $ctx.order }}
 {{- with index $variants $vname }}
 {{- $v := . -}}
 {{- $isQ := hasPrefix $vname "q" -}}
@@ -112,41 +124,76 @@
 
 {{- if $isQ }}
 
-{{- /* Q: characteristic flow matrix + summary statistics */ -}}
+{{- /* Q: characteristic flow matrix (4×4, ≥20 years) + summary statistics.
+        The stats table is deliberately OUTSIDE `with $matrix`: with the
+        ≥20-year floor a thin station would otherwise lose BFI/Colwell/etc. */ -}}
 {{- $matrix := $v.flow_matrix -}}
-{{- with $matrix }}
 <section class="hydrological-stats">
-  <h2>Macierz przepływów i statystyki</h2>
+  <h2>{{ if $matrix }}Macierz przepływów i statystyki{{ else }}Statystyki przepływu{{ end }}</h2>
   <div class="semantic-grid">
-    <div class="flow-matrix">
-      <div class="matrix-cell header-row">m³/s</div>
-      {{- range $col := slice "N" "S" "W" }}
-      <div class="matrix-cell header-row">{{ $col }}Q</div>
-      {{- end }}
-      {{- range $row := slice "N" "S" "W" }}
-      <div class="matrix-cell header-col">{{ $row }}</div>
-      {{- range $col := slice "N" "S" "W" }}
-      <div class="matrix-cell">{{ partial "fmt-num" (index $matrix (printf "%s%sQ" $row $col)) }}</div>
-      {{- end }}
-      {{- end }}
+    {{- with $matrix }}
+    <div>
+      <div class="flow-matrix">
+        <div class="matrix-cell header-row">m³/s</div>
+        {{- range $col := slice "N" "S" "Z" "W" }}
+        <div class="matrix-cell header-row">{{ $col }}Q</div>
+        {{- end }}
+        {{- range $row := slice "N" "S" "Z" "W" }}
+        <div class="matrix-cell header-col">{{ $row }}</div>
+        {{- range $col := slice "N" "S" "Z" "W" }}
+        {{- $key := printf "%s%sQ" $row $col }}
+        <div class="matrix-cell">{{ partial "fmt-num" (index $matrix.cells $key) }}<span class="cell-key">{{ $key }}</span></div>
+        {{- end }}
+        {{- end }}
+      </div>
+      <p class="section-note">Macierz przepływów charakterystycznych 4×4 (I i II rzędu, w tym ZQ – przepływ zwyczajny); okres <b>{{ .period.start }}–{{ .period.end }}</b> ({{ .period.years }} lat, każde ≥300 dni); wielolecie = ≥20 lat (art. 270 ust. 6).</p>
     </div>
-    <table class="info-table">
-      {{- with $v.stats }}
-      <tr><td>Baseflow Index (BFI)</td><td>{{ partial "fmt-num" .bfi }}</td></tr>
-      <tr><td>Autokorelacja (lag-1)</td><td>{{ partial "fmt-num" .lag1 }}</td></tr>
-      <tr><td>Wskaźnik Flashiness</td><td>{{ partial "fmt-num" .flashiness }}</td></tr>
-      <tr><td>Współczynnik zmienności (CV)</td><td>{{ partial "fmt-num" .cv }}</td></tr>
-      <tr><td>Współczynnik odpływu (Q/P)</td><td>{{ partial "fmt-num" .qp }}</td></tr>
-      <tr><td>Colwell (P / C / M)</td><td>
-        {{- if .colwell -}}
-          {{ partial "fmt-num" .colwell.p }} /
-          {{ partial "fmt-num" .colwell.c }} /
-          {{ partial "fmt-num" .colwell.m }}
-        {{- else }}—{{ end -}}
-      </td></tr>
-      {{- end }}
-    </table>
+    {{- end }}
+    <div>
+      <table class="info-table">
+        {{- with $v.stats }}
+        <tr><td title="Eckhardt: α=0,925, BFmax=0,8; BFI = ΣBF/ΣQ">Wskaźnik przepływu podstawowego (BFI)</td><td>{{ partial "fmt-num" .bfi }}</td></tr>
+        {{- $br := $v.dynamics.baseflow_ratio }}
+        <tr><td title="filtr Eckhardta; tylko dni z Q > 0">Udział dni z przepływem podstawowym (BF/Q ≥ 0,9)</td><td>{{ if eq (printf "%v" $br) "<nil>" }}—{{ else }}{{ partial "fmt-num" (math.Round (mul $br 100)) }} %{{ end }}</td></tr>
+        <tr><td title="korelacja kolejnych obserwacji ważnych — dni przerw pominięte (przybliżenie)">Autokorelacja (lag-1)</td><td>{{ partial "fmt-num" .lag1 }}</td></tr>
+        <tr><td title="Σ|ΔQ|/ΣQ na parach dni kolejnych">Wskaźnik Flashiness (Richardsa–Bakera)</td><td>{{ partial "fmt-num" .flashiness }}</td></tr>
+        <tr><td title="odch. standardowe / średnia">Współczynnik zmienności (CV)</td><td>{{ partial "fmt-num" .cv }}</td></tr>
+        <tr><td title="odpływ roczny [mm] / opad roczny [mm]; wymaga zlewni A i opadu P">Współczynnik odpływu (Q/P)</td><td>{{ partial "fmt-num" .qp }}</td></tr>
+        <tr><td title="P = C + M (Colwell 1974): P sezonowość, C stałość, M mobilność">Colwell (P / C / M)</td><td>
+          {{- if .colwell -}}
+            {{ partial "fmt-num" .colwell.p }} /
+            {{ partial "fmt-num" .colwell.c }} /
+            {{ partial "fmt-num" .colwell.m }}
+          {{- else }}—{{ end -}}
+        </td></tr>
+        <tr><td title="przepływ nieprzekraczany w 95% dni; na osi FDC (przekroczenia) = 5%">Q95 (prawd. nieosiągnięcia)</td><td>{{ partial "fmt-num" .q95_nieosiag }}</td></tr>
+        <tr><td title="przepływ nieprzekraczany w 90% dni; na osi FDC (przekroczenia) = 10%">Q90 (prawd. nieosiągnięcia)</td><td>{{ partial "fmt-num" .q90_nieosiag }}</td></tr>
+        {{- end }}
+        {{- with $matrix }}
+        <tr><td title="średnia rocznych minimów I rzędu z okresu macierzy; art. 270 ust. 6 (wielolecie); art. 403 ust. 7: przepływ nienaruszalny = 50% SNQ">SNQ — średni niski przepływ</td><td>{{ partial "fmt-num" (index .cells "SNQ") }}</td></tr>
+        {{- end }}
+        {{- with $v.dynamics }}
+        <tr><td title="min/max klimatologicznej serii średnich dobowych (uśrednienie dla każdej daty roku)">Min/Max śr. dobowej [m³/s]</td><td>{{ partial "pair" (dict "a" .min_daily "b" .max_daily) }}</td></tr>
+        {{- end }}
+      </table>
+      <p class="section-note">Colwell: stany 0 (bez przepływu) / ≤Q95 / ≤Qśr / ≤Q10 / >Q10; Q95 i Q10 wg prawdopodobieństwa nieosiągnięcia; progi liczone dla okresu wariantu.</p>
+    </div>
   </div>
+</section>
+
+{{- /* Q: annual series + trend (Theil–Sen / Mann–Kendall) */ -}}
+{{- with $v.annual }}
+<section class="hydrological-stats">
+  <h2>Przepływy roczne i trend</h2>
+  {{- with .trend }}
+  <p class="section-note">Trend (Theil–Sen) rocznego przepływu średniego: {{ partial "fmt-num" .slope }} m³/s/rok; Mann–Kendall z = {{ partial "fmt-num" .mk_z }}, p = {{ partial "fmt-num" .mk_p }} (n = {{ partial "fmt-num" .n_years }} lat)</p>
+  {{- else }}
+  <p class="section-note">Trend liczony od co najmniej 10 lat kompletnych (≥300 dni).</p>
+  {{- end }}
+  <details>
+    <summary>Pokaż tabelę roczną ({{ len .rows }} lat)</summary>
+    {{ partial "annual-table" .rows }}
+  </details>
 </section>
 {{- end }}
 
@@ -157,7 +204,7 @@
   <h2>Wybrane wskaźniki ekohydrologiczne (IHA)</h2>
   <div class="semantic-grid">
     <div>
-      <h3>Przepływy miesięczne (średnie) [m³/s]</h3>
+      <h3>Przepływy miesięczne (średnie) [m³/s] (układ XI–X)</h3>
       {{ partial "monthly-table" (dict "values" $monthly) }}
     </div>
     <div class="iha-right-col">
@@ -175,25 +222,24 @@
           </tr>
           <tr>
             <td>7-d min/max</td><td>{{ partial "pair" (dict "a" $ae.min7 "b" $ae.max7) }}</td>
-            <td>Zero-flow</td><td>{{ partial "fmt-num" $ae.zero_flow_days }}</td>
+            <td>Dni bez przepływu</td><td>{{ partial "fmt-num" $ae.zero_flow_days }}</td>
           </tr>
         </table>
       </div>
       <div>
         <h3>Dynamika i impulsy</h3>
         {{- $dy := $v.dynamics }}
+        {{- /* Rise/fall stay signed in JSON; spadki printed as magnitude. */ -}}
+        {{- $fall := $dy.fall -}}
+        {{- if and $fall (lt $fall 0) }}{{ $fall = sub 0 $fall }}{{ end }}
         <table class="info-table iha-table">
           <tr>
-            <td>Min/Max dz [m³/s]</td><td>{{ partial "pair" (dict "a" $dy.min_daily "b" $dy.max_daily) }}</td>
-            <td>Rise/Fall [m³/s/dobę]</td><td>{{ partial "pair" (dict "a" $dy.rise "b" $dy.fall) }}</td>
+            <td title="średnia zmiana Q między dniami kolejnymi; spadki podane jako wartość bezwzględna">Wzrosty / spadki [m³/s/dobę]</td><td>{{ partial "pair" (dict "a" $dy.rise "b" $fall) }}</td>
+            <td title="IHA (Richter): okresy Q > Q75 / Q < Q25, średnia roczna">Pulsy wysokie / niskie [/rok]</td><td>{{ partial "pair" (dict "a" $dy.high_pulses "b" $dy.low_pulses) }}</td>
           </tr>
           <tr>
-            <td>High/Low pul [/rok]</td><td>{{ partial "pair" (dict "a" $dy.high_pulses "b" $dy.low_pulses) }}</td>
-            <td>Reversals [/rok]</td><td>{{ partial "fmt-num" $dy.reversals }}</td>
-          </tr>
-          <tr>
-            <td>High/Low dur [dni]</td><td>{{ partial "pair" (dict "a" $dy.high_dur "b" $dy.low_dur) }}</td>
-            <td>Baseflow</td><td>{{ partial "fmt-num" $dy.baseflow_ratio }}</td>
+            <td title="średnia długość ciągów powyżej Q75 / poniżej Q25">Czas trwania pulsów [dni]</td><td>{{ partial "pair" (dict "a" $dy.high_dur "b" $dy.low_dur) }}</td>
+            <td title="IHA grupa 5: zmiany znaku ΔQ dziennie, średnia roczna">Zmiany kierunku przepływu [/rok]</td><td>{{ partial "fmt-num" $dy.reversals }}</td>
           </tr>
         </table>
       </div>
@@ -210,7 +256,7 @@
   <h2>Charakterystyka stanu wody (H)</h2>
   <div class="semantic-grid">
     <div class="stretch-col">
-      <h3>Średnie miesięczne stany (cm)</h3>
+      <h3>Średnie miesięczne stany (cm) (układ XI–X)</h3>
       {{ partial "monthly-table" (dict "values" .monthly_means_cm) }}
     </div>
     <table class="info-table">
@@ -234,11 +280,12 @@
 {{- /* Charts: only files that exist for this variant and variable. */ -}}
 {{- $specs := slice
   (dict "file" "raster" "alt" "Raster Hydrograph" "capQ" "2D Hydrogram" "capH" "Raster stanu wody")
-  (dict "file" "fdc" "alt" "FDC" "capQ" "Krzywa czasu trwania" "capH" "Krzywa czasu trwania stanu")
+  (dict "file" "fdc" "alt" "FDC" "capQ" "Krzywa czasu trwania (prawdopodobieństwo przekroczenia)" "capH" "Krzywa czasu trwania stanu")
   (dict "file" "parde" "alt" "Pardé" "capQ" "Wsp. Pardégo" "capH" "Sezonowość stanu")
   (dict "file" "spectrogram" "alt" "Spectrogram" "capQ" "Analiza okresowości" "capH" "Analiza okresowości (H)")
   (dict "file" "timing" "alt" "Timing" "capQ" "Terminy ekstremów" "capH" "Terminy ekstremów (H)")
   (dict "file" "boxplots" "alt" "Boxplots" "capQ" "Miesięczna zmienność" "capH" "Miesięczna zmienność (H)")
+  (dict "file" "annual" "alt" "Przepływy roczne" "capQ" "Przepływy roczne i trend (Theil–Sen)" "capH" "")
 -}}
 {{- $any := false -}}
 {{- range $specs -}}

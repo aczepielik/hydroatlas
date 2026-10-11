@@ -1,6 +1,11 @@
 {{- /* Shared per-station lookup for stacje/single.html defines (which are
        separate template scopes and cannot share file-level variables).
-       Returns dict: id, st, variants, labels, default. */ -}}
+       Segment detection: variant keys matching ^[qh]_max_[0-9]+$ (the
+       breaks-split max windows), collected per variable and sorted as
+       strings (assumption: <= 9 segments per station).
+       Returns dict: id, st, variants, labels, order, qorder, horder,
+       default.  Labels are data-driven: segment labels come from each
+       variant's period block — never hardcoded dates. */ -}}
 {{- $id := .File.ContentBaseName -}}
 {{- $sts := where hugo.Data.stations "id" $id -}}
 {{- $st := dict -}}
@@ -8,13 +13,62 @@
 {{- $all := hugo.Data.aggregates | default dict -}}
 {{- $agg := index $all $id | default dict -}}
 {{- $variants := $agg.variants | default dict -}}
+{{- $qsegs := slice -}}
+{{- $hsegs := slice -}}
+{{- range $k, $_ := $variants -}}
+  {{- if findRE "^[qh]_max_[0-9]+$" $k -}}
+    {{- if hasPrefix $k "q" -}}
+      {{- $qsegs = $qsegs | append $k -}}
+    {{- else -}}
+      {{- $hsegs = $hsegs | append $k -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $qsegs = sort $qsegs -}}
+{{- $hsegs = sort $hsegs -}}
+{{- /* order: Q segments else pooled q_max, then q_cal, then H segments
+       else pooled h_max, then h_cal — filtered to present keys. */ -}}
+{{- $order := slice -}}
+{{- if $qsegs -}}
+  {{- range $qsegs }}{{- $order = $order | append . -}}{{- end -}}
+{{- else if isset $variants "q_max" -}}
+  {{- $order = $order | append "q_max" -}}
+{{- end -}}
+{{- if isset $variants "q_cal" -}}{{- $order = $order | append "q_cal" -}}{{- end -}}
+{{- if $hsegs -}}
+  {{- range $hsegs }}{{- $order = $order | append . -}}{{- end -}}
+{{- else if isset $variants "h_max" -}}
+  {{- $order = $order | append "h_max" -}}
+{{- end -}}
+{{- if isset $variants "h_cal" -}}{{- $order = $order | append "h_cal" -}}{{- end -}}
+{{- $qorder := slice -}}
+{{- $horder := slice -}}
+{{- range $order -}}
+  {{- if hasPrefix . "q" -}}{{- $qorder = $qorder | append . -}}{{- else -}}{{- $horder = $horder | append . -}}{{- end -}}
+{{- end -}}
 {{- $labels := dict
       "q_max" "Q – maks. seria"
       "q_cal" "Q – 1991–2020"
       "h_max" "H – maks. seria"
       "h_cal" "H – 1991–2020" -}}
-{{- $default := "" -}}
-{{- range $cand := slice "q_max" "h_max" "q_cal" "h_cal" -}}
-  {{- if and (not $default) (isset $variants $cand) -}}{{- $default = $cand -}}{{- end -}}
+{{- range $k := $qsegs -}}
+  {{- $n := index (findRE "[0-9]+$" $k) 0 -}}
+  {{- $v := index $variants $k -}}
+  {{- with $v.period -}}
+    {{- $labels = merge $labels (dict $k (printf "Q – seria %s (%v–%v)" $n .start .end)) -}}
+  {{- else -}}
+    {{- $labels = merge $labels (dict $k (printf "Q – seria %s" $n)) -}}
+  {{- end -}}
 {{- end -}}
-{{ return (dict "id" $id "st" $st "variants" $variants "labels" $labels "default" $default) }}
+{{- range $k := $hsegs -}}
+  {{- $n := index (findRE "[0-9]+$" $k) 0 -}}
+  {{- $v := index $variants $k -}}
+  {{- with $v.period -}}
+    {{- $labels = merge $labels (dict $k (printf "H – seria %s (%v–%v)" $n .start .end)) -}}
+  {{- else -}}
+    {{- $labels = merge $labels (dict $k (printf "H – seria %s" $n)) -}}
+  {{- end -}}
+{{- end -}}
+{{- $default := "" -}}
+{{- with $order }}{{- $default = index . 0 -}}{{- end -}}
+{{ return (dict "id" $id "st" $st "variants" $variants "labels" $labels "order" $order "qorder" $qorder "horder" $horder "default" $default) }}
