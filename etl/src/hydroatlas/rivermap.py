@@ -13,10 +13,14 @@ is a plain HTML table of coastal rivers (template-side, no SVG).
 Everything else is a plain river page: stem + stations + child stubs +
 parent stub.
 
-Labels are placed with width-aware collision checks; if anything would
-overlap, the canvas grows (fixed pixel width, horizontal scroll in
-.map-frame) and placement is retried, so no label is silently dropped
-while space could still be made.
+Labels are placed with width-aware collision checks plus obstacle
+avoidance: all stub line segments are computed before placement, and a
+label row is rejected when its padded box would be crossed by a stub
+line (stub labels also dodge station label boxes).  The canvas grows
+(fixed pixel width, horizontal scroll in .map-frame) and placement is
+retried both when a label finds no free row and when too many labels
+remain crossed (MAX_CROSSINGS), so no label is silently dropped while
+space could still be made.
 
 Confluence estimate: the child's lowest-km station with coordinates is
 projected onto the parent's km-ordered station polyline; when either
@@ -46,16 +50,23 @@ BASINS = {"wisla": "Wisła", "odra": "Odra", "przymorza": "Rzeki Przymorza"}
 # visibly continues past the first station (source) and the last (mouth).
 PAD0, PAD1 = 0.07, 0.93
 # Vertical layout, relative to the stem: station label rows (near-up,
-# far-up, near-dn, far-dn) and tributary-stub label rows, kept in
-# separate bands so the two kinds never collide.  Stubs get four depths
-# per side (rows 0,2,4,6 up / 1,3,5,7 down) so congested stretches can
-# spill to a further row instead of losing the label.
-STATION_ROW_Y = (-16.0, -34.0, 26.0, 44.0)
+# mid-up, far-up / near-dn, mid-dn, far-dn) and tributary-stub label
+# rows, kept in separate bands so the two kinds never collide.  Station
+# rows come in three per side so a stretch where stub lines cross both
+# near rows still has a clear far row; stub rows sit beyond them and
+# get four depths per side (rows 0,2,4,6 up / 1,3,5,7 down) so
+# congested stretches can spill further out instead of losing the label.
+STATION_ROW_Y = (-16.0, -34.0, -52.0, 26.0, 44.0, 62.0)
 STUB_DEPTHS = (44.0, 66.0, 88.0, 110.0)
-STUB_ROW_Y = (-50.0, 58.0, -72.0, 80.0, -94.0, 102.0, -116.0, 124.0)
+STUB_ROW_Y = (-72.0, 82.0, -94.0, 104.0, -116.0, 126.0, -138.0, 146.0)
 STUB_ROWS_UP = (0, 2, 4, 6)
 STUB_ROWS_DN = (1, 3, 5, 7)
 HALO = 'stroke="#ffffff" stroke-width="3" paint-order="stroke"'
+# Placement tolerates this many labels still crossed by a stub line
+# before it grows the canvas: the densest clusters (e.g. the Wisła
+# source stretch) cannot be made fully clean at any practical width,
+# and growing further only adds horizontal scroll.
+MAX_CROSSINGS = 4
 
 
 # ------------------------------------------------------------ geometry
@@ -179,9 +190,73 @@ def _esc(text: str) -> str:
 
 
 def _text_w(text: str, font: float, italic: bool = False) -> float:
-    """Approximate rendered label width (Roboto average advance)."""
-    w = 0.58 * font * len(str(text))
+    """Approximate rendered label width.
+
+    0.60 × font × len is measured against the fallback fonts the SVGs
+    actually render with (Noto Sans in Inkscape, DejaVu Sans in some
+    browsers — Roboto is not CDN-loaded): worst-case DejaVu advance for
+    the Wisła station names is ~1.07 × the old 0.58 factor, which made
+    same-row labels collide in wider fallbacks.
+    """
+    w = 0.60 * font * len(str(text))
     return w * 1.04 if italic else w
+
+
+# Label boxes are inflated by this margin so text does not graze
+# obstacle lines; ascent/descent match the measured glyph bands.
+_PAD = 3.0
+
+
+def _label_box(
+    x0: float, x1: float, baseline: float, font: float
+) -> tuple[float, float, float, float]:
+    """Padded AABB of a label laid out between x0..x1 on ``baseline``."""
+    return (x0 - _PAD, baseline - 0.85 * font - _PAD,
+            x1 + _PAD, baseline + 0.30 * font + _PAD)
+
+
+def _seg_box_cost(
+    ax: float, ay: float, bx: float, by: float,
+    box: tuple[float, float, float, float],
+) -> tuple[int, float]:
+    """(violations, overlap length) of segment a→b through a label box.
+
+    Liang–Barsky clip of the segment against the box; a hit counts as
+    one violation and reports how much of the segment lies inside, so
+    equal-violation rows prefer the crossing with least ink overlap.
+    """
+    x0, y0, x1, y1 = box
+    dx, dy = bx - ax, by - ay
+    t0, t1 = 0.0, 1.0
+    for p, q in ((-dx, ax - x0), (dx, x1 - ax), (-dy, ay - y0), (dy, y1 - ay)):
+        if p == 0.0:
+            if q < 0.0:
+                return (0, 0.0)
+        else:
+            r = q / p
+            if p < 0.0:
+                if r > t1:
+                    return (0, 0.0)
+                t0 = max(t0, r)
+            else:
+                if r < t0:
+                    return (0, 0.0)
+                t1 = min(t1, r)
+    if t0 > t1:
+        return (0, 0.0)
+    return (1, (t1 - t0) * ((dx * dx + dy * dy) ** 0.5))
+
+
+def _rects_overlap(
+    a: tuple[float, float, float, float],
+    b: tuple[float, float, float, float],
+) -> tuple[int, float]:
+    """(violations, overlap area) of two label boxes."""
+    x0, y0 = max(a[0], b[0]), max(a[1], b[1])
+    x1, y1 = min(a[2], b[2]), min(a[3], b[3])
+    if x0 >= x1 or y0 >= y1:
+        return (0, 0.0)
+    return (1, (x1 - x0) * (y1 - y0))
 
 
 class _LabelRows:
@@ -191,15 +266,38 @@ class _LabelRows:
         self.rows: list[list[tuple[float, float]]] = []
         self.gap = gap
 
-    def place(self, rows: tuple[int, ...], x0: float, x1: float) -> int | None:
-        """Claim the first row in ``rows`` where [x0, x1] is free."""
+    def place(
+        self,
+        rows: tuple[int, ...],
+        x0: float,
+        x1: float,
+        cost=None,
+    ) -> int | None:
+        """Claim a free row for [x0, x1] — the first row in ``rows``
+        without a label collision.  With ``cost`` (a callable mapping a
+        row to a (violations, magnitude) tuple for lines/boxes crossing
+        the candidate), the free row with the fewest violations wins;
+        ties keep the earlier, preferred row.  Returns None only when
+        every row is label-blocked."""
+        best_row: int | None = None
+        best_cost: tuple[int, float] = (0, 0.0)
         for row in rows:
             while len(self.rows) <= row:
                 self.rows.append([])
-            if all(x1 + self.gap <= a or b + self.gap <= x0 for a, b in self.rows[row]):
-                self.rows[row].append((x0, x1))
-                return row
-        return None
+            if any(
+                not (x1 + self.gap <= a or b + self.gap <= x0)
+                for a, b in self.rows[row]
+            ):
+                continue
+            c = (0, 0.0) if cost is None else cost(row)
+            if best_row is None or c < best_cost:
+                best_row, best_cost = row, c
+            if best_cost == (0, 0.0):
+                break
+        if best_row is None:
+            return None
+        self.rows[best_row].append((x0, x1))
+        return best_row
 
 
 def _stem_svg(
@@ -209,7 +307,8 @@ def _stem_svg(
     parent: tuple[str, str] | None = None,
     height: int = 300,
 ) -> str:
-    """Render the schematic, growing the canvas until every label fits.
+    """Render the schematic, growing the canvas until every label fits
+    and few enough labels are still crossed by stub lines.
 
     ``parent`` is the (key, name) of the receiving waterbody shown as an
     outflow stub past the mouth end of the stem.
@@ -224,10 +323,10 @@ def _stem_svg(
     width = float(W)
     svg = ""
     for _ in range(8):
-        svg, dropped = _render_stem(
+        svg, dropped, crossings = _render_stem(
             group, stub_groups, groups, layout, font, parent, right_margin, height, width
         )
-        if dropped == 0 or width >= 4200:
+        if (dropped == 0 and crossings <= MAX_CROSSINGS) or width >= 4200:
             break
         width = min(width * 1.5, 4400.0)
     return svg
@@ -243,8 +342,9 @@ def _render_stem(
     right_margin: float,
     height: int,
     width: float,
-) -> tuple[str, int]:
-    """One placement pass; returns (svg, number of labels that did not fit)."""
+) -> tuple[str, int, int]:
+    """One placement pass; returns (svg, labels that did not fit,
+    labels still crossed by a stub line / colliding with a station)."""
     x0, x1 = X0, width - right_margin
     stem_y = height / 2.0
     poly = [
@@ -252,7 +352,113 @@ def _render_stem(
     ]
     st_rows, stub_rows = _LabelRows(), _LabelRows(gap=12.0)
     dropped = 0
+    crossings = 0
 
+    # Geometry pass: every tributary stub segment (confluence → deep
+    # end) is known before any label is placed, so labels can avoid
+    # the lines that will be drawn through their rows.
+    stubs: list[dict] = []
+    for i, child in enumerate(stub_groups):
+        child_recs = _records(child, groups)
+        cx = _child_confluence_x(child_recs, poly, i, len(stub_groups), x0, x1)
+        tier = i % 8
+        up = tier % 2 == 0
+        d = STUB_DEPTHS[tier // 2]
+        ex = cx - d
+        ey = stem_y - d if up else stem_y + d
+        stubs.append(
+            {"child": child, "cx": cx, "ex": ex, "ey": ey, "up": up,
+             "label": f'{child["name"]} ▸', "row": None}
+        )
+    segs = [(s["cx"], stem_y, s["ex"], s["ey"]) for s in stubs]
+
+    # Station labels: first row in preference order that no stub line
+    # crosses; if every row is crossed, the least-crossed one (better
+    # than dropping the label).  Drawn after placement below.  Order:
+    # near-up, near-dn, mid-up, mid-dn, far-up, far-dn.
+    row_order = (0, 3, 1, 4, 2, 5)
+    stations: list[tuple[dict, float, float, float, int | None]] = []
+    for rec, frac in layout:
+        x = x0 + frac * (x1 - x0)
+        w = _text_w(rec["name"], font)
+
+        def station_cost(row: int, x: float = x, w: float = w) -> tuple[int, float]:
+            box = _label_box(x - w / 2.0, x + w / 2.0,
+                             stem_y + STATION_ROW_Y[row], font)
+            total = (0, 0.0)
+            for seg in segs:
+                h = _seg_box_cost(*seg, box)
+                total = (total[0] + h[0], total[1] + h[1])
+            return total
+
+        row = st_rows.place(row_order, x - w / 2.0, x + w / 2.0, station_cost)
+        if row is not None and station_cost(row) != (0, 0.0):
+            crossings += 1
+        stations.append((rec, frac, x, w, row))
+
+    station_boxes = [
+        _label_box(x - w / 2.0, x + w / 2.0,
+                   stem_y + STATION_ROW_Y[row], font)
+        for _, _, x, w, row in stations
+        if row is not None
+    ]
+
+    # Stub labels: avoid *other* stub lines (own line may graze its
+    # anchor side) and every station label box.
+    for i, s in enumerate(stubs):
+        label = s["label"]
+        w = _text_w(label, 11, italic=True)
+        # Candidate anchors in preference order: left of the stub end
+        # (outside the fork), right of the end, canvas-edge pin.  Each
+        # is tried until one lands in a free row — flipping the side
+        # rescues labels whose preferred side has no room left instead
+        # of growing the canvas.
+        cands: list[tuple[float, str, float, float]] = []
+        anchor_x = s["ex"] - 5.0
+        if anchor_x - w >= 4.0:
+            # preferred: left of the stub end (outside the fork)
+            cands.append((anchor_x, "end", anchor_x - w, anchor_x))
+        if s["ex"] + 5.0 + w <= width - 4.0:
+            # right of the end — used when left clips or has no free row
+            cands.append(
+                (s["ex"] + 5.0, "start", s["ex"] + 5.0, s["ex"] + 5.0 + w)
+            )
+        # canvas-edge pin as the last resort (the only option when both
+        # sides clip); may repeat an earlier range, which is harmless
+        cands.append((4.0, "start", 4.0, 4.0 + w))
+        side_rows = STUB_ROWS_UP if s["up"] else STUB_ROWS_DN
+
+        def stub_cost(
+            row: int, i: int, ix0: float, ix1: float
+        ) -> tuple[int, float]:
+            box = _label_box(ix0, ix1, stem_y + STUB_ROW_Y[row], 11)
+            total = (0, 0.0)
+            for j, seg in enumerate(segs):
+                if j == i:
+                    continue
+                h = _seg_box_cost(*seg, box)
+                total = (total[0] + h[0], total[1] + h[1])
+            for b in station_boxes:
+                h = _rects_overlap(box, b)
+                total = (total[0] + h[0], total[1] + h[1])
+            return total
+
+        row = None
+        for tx, text_anchor, ix0, ix1 in cands:
+            row = stub_rows.place(
+                side_rows, ix0, ix1,
+                lambda r, i=i, ix0=ix0, ix1=ix1: stub_cost(r, i, ix0, ix1),
+            )
+            if row is not None:
+                s["tx"], s["text_anchor"] = tx, text_anchor
+                if stub_cost(row, i, ix0, ix1) != (0, 0.0):
+                    crossings += 1
+                break
+        s["row"] = row
+        if row is None:
+            dropped += 1
+
+    # Draw pass: stem, stub lines + labels, station nodes + labels.
     parts = [
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width:.0f} {height}" '
         f'font-family="Roboto, system-ui, sans-serif" width="{width:.0f}">',
@@ -263,50 +469,25 @@ def _render_stem(
 
     # Tributary stubs: 45°, angling upstream (left of the confluence),
     # alternating above / below across four depths; labels width-checked.
-    for i, child in enumerate(stub_groups):
-        child_recs = _records(child, groups)
-        cx = _child_confluence_x(child_recs, poly, i, len(stub_groups), x0, x1)
-        tier = i % 8
-        up = tier % 2 == 0
-        d = STUB_DEPTHS[tier // 2]
-        ex = cx - d
-        ey = stem_y - d if up else stem_y + d
-        label = f'{child["name"]} ▸'
-        w = _text_w(label, 11, italic=True)
-        anchor_x = ex - 5.0
-        if anchor_x - w >= 4.0:
-            # preferred: left of the stub end (outside the fork)
-            tx, text_anchor, ix0, ix1 = anchor_x, "end", anchor_x - w, anchor_x
-        elif ex + 5.0 + w <= width - 4.0:
-            # left would clip the canvas — flip to the right of the end
-            tx, text_anchor, ix0, ix1 = ex + 5.0, "start", ex + 5.0, ex + 5.0 + w
-        else:
-            # both sides clipped — pin to the canvas edge, keep labelled
-            tx, text_anchor, ix0, ix1 = 4.0, "start", 4.0, 4.0 + w
-        side_rows = STUB_ROWS_UP if up else STUB_ROWS_DN
-        row = stub_rows.place(side_rows, ix0, ix1)
+    for s in stubs:
+        child = s["child"]
         parts.append(
             f'<a href="/rzeki/{child["key"]}/">'
             f'<title>{_esc(child["name"])}</title>'
-            f'<path d="M {cx:.1f} {stem_y} L {ex:.1f} {ey:.1f}" '
+            f'<path d="M {s["cx"]:.1f} {stem_y} L {s["ex"]:.1f} {s["ey"]:.1f}" '
             f'stroke="{ACCENT}" stroke-width="2" fill="none"/>'
         )
-        if row is None:
-            dropped += 1
+        if s["row"] is None:
             parts.append("</a>")
         else:
             parts.append(
-                f'<text x="{tx:.1f}" y="{stem_y + STUB_ROW_Y[row]:.1f}" '
-                f'text-anchor="{text_anchor}" font-style="italic" font-size="11" '
-                f'fill="{LINE}" {HALO}>{_esc(label)}</text></a>'
+                f'<text x="{s["tx"]:.1f}" y="{stem_y + STUB_ROW_Y[s["row"]]:.1f}" '
+                f'text-anchor="{s["text_anchor"]}" font-style="italic" '
+                f'font-size="11" fill="{LINE}" {HALO}>{_esc(s["label"])}</text></a>'
             )
 
     # Station nodes; labels go in the first row (near-first) with room.
-    row_order = (0, 2, 1, 3)
-    for rec, frac in layout:
-        x = x0 + frac * (x1 - x0)
-        w = _text_w(rec["name"], font)
-        row = st_rows.place(row_order, x - w / 2.0, x + w / 2.0)
+    for rec, frac, x, w, row in stations:
         parts.append(
             f'<a href="/stacje/{rec["id"]}/">'
             f'<title>{_esc(rec["name"])}</title>'
@@ -337,7 +518,7 @@ def _render_stem(
         )
 
     parts.append("</svg>")
-    return "".join(parts), dropped
+    return "".join(parts), dropped, crossings
 
 
 # ---------------------------------------------------------- hub children
