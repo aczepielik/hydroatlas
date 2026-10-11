@@ -1,13 +1,17 @@
-{{- /* One row-pair table of monthly means: values is a 12-element list. */ -}}
+{{- /* One row-pair table of monthly means: values is a 12-element calendar-ordered
+       list (Sty…Gru); rendered in hydrological order XI…X. */ -}}
 {{- $values := .values -}}
-{{- $months := slice "Sty" "Lut" "Mar" "Kwi" "Maj" "Cze" "Lip" "Sie" "Wrz" "Paź" "Lis" "Gru" -}}
+{{- $months := slice "Lis" "Gru" "Sty" "Lut" "Mar" "Kwi" "Maj" "Cze" "Lip" "Sie" "Wrz" "Paź" -}}
+{{- $order := slice 10 11 0 1 2 3 4 5 6 7 8 9 -}}
 <table class="info-table iha-table">
   {{- range $i := seq 6 }}
+  {{- $k := sub $i 1 -}}
+  {{- $k2 := add $i 5 -}}
   <tr>
-    <td>{{ index $months (sub $i 1) }}</td>
-    <td>{{ partial "fmt-num" (index $values (sub $i 1)) }}</td>
-    <td>{{ index $months (add $i 5) }}</td>
-    <td>{{ partial "fmt-num" (index $values (add $i 5)) }}</td>
+    <td>{{ index $months $k }}</td>
+    <td>{{ partial "fmt-num" (index $values (index $order $k)) }}</td>
+    <td>{{ index $months $k2 }}</td>
+    <td>{{ partial "fmt-num" (index $values (index $order $k2)) }}</td>
   </tr>
   {{- end }}
 </table>

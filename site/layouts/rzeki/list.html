@@ -17,7 +17,7 @@
     </tr>
     {{- range $groups }}
     <tr>
-      <td><a href="{{ printf "rzeki/%s/" .key | relURL }}">{{ .name }}</a></td>
+      <td><a href="{{ printf "rzeki/%s/" .key | relURL }}">{{ .name }}{{ with .parent }} (dopływ {{ . }}){{ end }}</a></td>
       <td>{{ len .stations }}</td>
     </tr>
     {{- end }}
@@ -36,7 +36,7 @@
     <tr><th>Rzeka</th><th>Stacje</th></tr>
     {{- range $unknown }}
     <tr>
-      <td><a href="{{ printf "rzeki/%s/" .key | relURL }}">{{ .name }}</a></td>
+      <td><a href="{{ printf "rzeki/%s/" .key | relURL }}">{{ .name }}{{ with .parent }} (dopływ {{ . }}){{ end }}</a></td>
       <td>{{ len .stations }}</td>
     </tr>
     {{- end }}

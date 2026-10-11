@@ -1,3 +1,4 @@
+baseURL = "https://aczepielik.github.io/hydroatlas/"
 locale = "pl"
 title = "Atlas Rzek Polski"
 disableKinds = ["taxonomy", "term", "RSS"]
