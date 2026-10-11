@@ -25,22 +25,22 @@ import pandas as pd  # noqa: E402
 from matplotlib.colors import LogNorm  # noqa: E402
 from matplotlib.ticker import FuncFormatter, LogLocator, NullFormatter  # noqa: E402
 
-from .aggregates import variant_frames  # noqa: E402
+from .aggregates import MIN_YEAR_DAYS, hydro_year, theil_sen, variant_frames  # noqa: E402
 
 MIN_CHART_DAYS = 2 * 365
 LINE = "#1a4e8a"
 ACCENT = "#64748b"
 GRID = "#e2e8f0"
 
-Q_CHARTS = ("raster", "fdc", "parde", "spectrogram", "timing", "boxplots")
+Q_CHARTS = ("raster", "fdc", "parde", "spectrogram", "timing", "boxplots", "annual")
 H_CHARTS = ("raster", "spectrogram", "timing", "boxplots")
 
-# Hydrological-year month starts (Oct 1 = day 1; non-leap positions,
-# leap hydro years shift March..September by one day — fine for ticks).
-HY_MONTH_STARTS = [1, 32, 62, 93, 124, 152, 183, 213, 244, 274, 305, 335]
-HY_MONTH_LABELS = ["X", "XI", "XII", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"]
-# Calendar months re-ordered to the hydrological year (Oct .. Sep).
-HY_MONTH_ORDER = [10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+# Hydrological-year month starts (Nov 1 = day 1; non-leap positions,
+# leap hydro years shift March..October by one day — fine for ticks).
+HY_MONTH_STARTS = [1, 31, 62, 93, 121, 152, 182, 213, 243, 274, 305, 335]
+HY_MONTH_LABELS = ["XI", "XII", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"]
+# Calendar months re-ordered to the hydrological year (Nov .. Oct).
+HY_MONTH_ORDER = [11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 
 def _plain(value: float) -> str:
@@ -91,14 +91,14 @@ def _clean(dates: pd.Series, values: pd.Series) -> pd.DataFrame:
 
 
 def _hy_dayofyear(index: pd.DatetimeIndex) -> np.ndarray:
-    """Day within the hydrological year (Oct 1 = 1 .. Sep 30 = 365/366)."""
-    start_years = np.where(index.month >= 10, index.year, index.year - 1)
-    starts = pd.DatetimeIndex(pd.Index(start_years).astype(str) + "-10-01")
+    """Day within the hydrological year (Nov 1 = 1 .. Oct 31 = 365/366)."""
+    start_years = np.where(index.month >= 11, index.year, index.year - 1)
+    starts = pd.DatetimeIndex(pd.Index(start_years).astype(str) + "-11-01")
     return (index - starts).days.to_numpy() + 1
 
 
 def chart_raster(df: pd.DataFrame, path: Path, unit: str = "") -> None:
-    hy = np.where(df.index.month >= 10, df.index.year + 1, df.index.year)
+    hy = np.where(df.index.month >= 11, df.index.year + 1, df.index.year)
     doy = _hy_dayofyear(df.index)
     table = df["v"].groupby([hy, doy]).mean().unstack()
     cmap = plt.get_cmap("Blues").copy()
@@ -118,10 +118,13 @@ def chart_raster(df: pd.DataFrame, path: Path, unit: str = "") -> None:
             masked = np.ma.masked_where(~np.isfinite(arr) | (arr <= 0), arr)
     fig, ax = plt.subplots(figsize=(4.6, 3.2))
     ax.grid(False)
+    # origin="lower" draws row 0 (earliest hydro year) at the bottom; with the
+    # extent min-0.5 .. max+0.5 this matches chart_timing (oldest years below).
     im = ax.imshow(
         masked,
         aspect="auto",
-        extent=[1, 366, table.index.max() + 0.5, table.index.min() - 0.5],
+        origin="lower",
+        extent=[1, 366, table.index.min() - 0.5, table.index.max() + 0.5],
         cmap=cmap,
         norm=norm,
         interpolation="nearest",
@@ -155,7 +158,7 @@ def chart_fdc(df: pd.DataFrame, path: Path, unit: str = "") -> None:
 
 
 def chart_parde(df: pd.DataFrame, path: Path, unit: str = "") -> None:
-    # Hydrological year: months ordered Oct .. Sep.
+    # Hydrological year: months ordered Nov .. Oct.
     monthly = df["v"].groupby(df.index.month).mean()
     ratio = monthly / df["v"].mean()
     values = [ratio.get(m, np.nan) for m in HY_MONTH_ORDER]
@@ -191,12 +194,23 @@ def chart_spectrogram(df: pd.DataFrame, path: Path, unit: str = "") -> None:
     ax.set_ylabel("okres [dni]")
     ax.set_yticks([1 / 365, 1 / 90, 1 / 30, 1 / 7])
     ax.set_yticklabels(["365", "90", "30", "7"])
-    ax.set_xlabel("czas [dni od początku serii]")
+    # x stays in day-samples; place hydro-year ticks at each 1 Nov of the range.
+    t0, t1 = series.index[0], series.index[-1]
+    novs = pd.date_range(start=t0, end=t1, freq="YS-NOV")
+    if len(novs) > 12:
+        need = -(-len(novs) // 12)
+        step = next((v for v in (1, 2, 5, 10, 20, 50) if v >= need), max(1, need))
+        novs = novs[::step]
+    if len(novs):
+        ax.set_xticks([(ts - t0).days for ts in novs])
+        # 1 Nov of calendar year Y opens hydro year Y+1.
+        ax.set_xticklabels([str(ts.year + 1) for ts in novs])
+    ax.set_xlabel("rok hydrologiczny")
     _save(fig, path)
 
 
 def chart_timing(df: pd.DataFrame, path: Path, unit: str = "") -> None:
-    hy = np.where(df.index.month >= 10, df.index.year + 1, df.index.year)
+    hy = np.where(df.index.month >= 11, df.index.year + 1, df.index.year)
     doy = _hy_dayofyear(df.index)
     tmp = pd.DataFrame({"v": df["v"].to_numpy(), "hy": hy, "doy": doy})
     rows = []
@@ -229,16 +243,43 @@ def chart_timing(df: pd.DataFrame, path: Path, unit: str = "") -> None:
 
 
 def chart_boxplots(df: pd.DataFrame, path: Path, unit: str = "") -> None:
-    # Hydrological year: months ordered Oct .. Sep.
+    # Hydrological year: months ordered Nov .. Oct.
     groups = [df.loc[df.index.month == m, "v"].to_numpy() for m in HY_MONTH_ORDER]
     fig, ax = plt.subplots(figsize=(4.6, 3.0))
     ax.boxplot(
         [g for g in groups if len(g)],
         tick_labels=HY_MONTH_LABELS,
-        showfliers=False,
         widths=0.6,
     )
     ax.set_ylabel(f"wartość [{unit}]" if unit else "wartość")
+    _decimal_axis(ax.yaxis)
+    _save(fig, path)
+
+
+def chart_annual(df: pd.DataFrame, path: Path, unit: str = "") -> None:
+    # Complete hydrological years only (n >= MIN_YEAR_DAYS); at least 3
+    # needed for a sensible series — otherwise return without a file
+    # (the template's fileExists gate hides the chart).
+    hy = hydro_year(pd.Series(df.index))
+    grouped = df["v"].groupby(hy).agg(["count", "mean"])
+    grouped = grouped[grouped["count"] >= MIN_YEAR_DAYS]
+    if len(grouped) < 3:
+        return
+    years = grouped.index.to_numpy(dtype=float)
+    means = grouped["mean"].to_numpy(dtype=float)
+    fig, ax = plt.subplots(figsize=(4.6, 3.0))
+    ax.plot(years, means, color=LINE, linewidth=1.0, marker="o", markersize=3)
+    if len(years) >= 10:
+        slope, intercept = theil_sen(years, means)
+        ax.plot(
+            years,
+            slope * years + intercept,
+            color=ACCENT,
+            linewidth=1.0,
+            linestyle="--",
+        )
+    ax.set_xlabel("rok hydrologiczny")
+    ax.set_ylabel(f"Qśr roczny [{unit}]" if unit else "Qśr roczny")
     _decimal_axis(ax.yaxis)
     _save(fig, path)
 
@@ -250,19 +291,23 @@ _CHARTS = {
     "spectrogram": chart_spectrogram,
     "timing": chart_timing,
     "boxplots": chart_boxplots,
+    "annual": chart_annual,
 }
 
 
-def generate_station(df: pd.DataFrame, sid: str, dest_root: Path) -> list[str]:
+def generate_station(df: pd.DataFrame, sid: str, dest_root: Path,
+                     breaks=()) -> list[str]:
     """Render charts for every gate-passing variant; return written names.
 
     The variable is fixed per variant (Q variants -> discharge only,
     H variants -> stage only); charts are never substituted across
-    variables.  Stale outputs (legacy flat files, removed variants) are
-    cleaned up.
+    variables.  ``breaks`` (metadata ``breaks`` dates) splits the max
+    windows into segment variants — passed through to variant_frames so
+    chart dirs match the aggregate keys.  Stale outputs (legacy flat
+    files, removed/renamed variants) are cleaned up.
     """
     _style()
-    frames = variant_frames(df)
+    frames = variant_frames(df, breaks)
     out_dir = dest_root / sid
     written = []
 

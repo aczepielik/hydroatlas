@@ -170,12 +170,15 @@ def _chart_job(job: tuple[str, str, str]):
     so one bad station cannot abort the whole pool run."""
     from .charts import generate_station
     from .paths import clean_dir
+    from .registry import load_curated
     from .store import read_clean
 
     sid, _, dest = job
     try:
+        meta = ((load_curated().get("metadata") or {}).get(sid)) or {}
         written = generate_station(read_clean(clean_dir() / f"{sid}.csv.gz"),
-                                   sid, Path(dest))
+                                   sid, Path(dest),
+                                   breaks=meta.get("breaks") or ())
         return sid, written, None
     except Exception as exc:  # noqa: BLE001 — reported, then retried next run
         return sid, [], f"{type(exc).__name__}: {exc}"
