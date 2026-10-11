@@ -6,6 +6,12 @@
 # `name`/`river` override data-derived values when set; otherwise the
 # registry uses the IMGW snapshot (active stations) or the archive/list
 # spelling (historical ones).
+#
+# Optional per-station metadata fields (`metadata:` section below):
+#   pz_m_nap:  rzędna zera wodowskazu [m n.p.t. (NAP)], 0.01 m  (Rocznik wykaz stacji, col. 8)
+#   uwagi:     list of strings — Wykaz uwag (sposób prowadzenia pomiarów, antropopresja)
+#   breaks:    list of ISO dates "YYYY-MM-DD"; the date is the FIRST day of the
+#              new segment; `max` variants are split into segments at these dates
 basin: Wisła
 stations:
   # --- Wisła main stem, downstream order ---
@@ -86,3 +92,6 @@ metadata:
     network_density_km_km2: null
     river_length_km: null
     annual_precip_mm: null
+    pz_m_nap: null
+    uwagi: []
+    breaks: []

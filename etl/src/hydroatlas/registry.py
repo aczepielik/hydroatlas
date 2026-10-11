@@ -6,6 +6,7 @@ import csv
 import io
 import json
 import re
+from functools import lru_cache
 from pathlib import Path
 
 import yaml
@@ -16,6 +17,8 @@ from .store import read_clean
 _SEGMENT_RE = re.compile(r"\s*\(\d+\)$")
 
 
+# Cached: read-only callers; the chart worker pool re-reads it per job.
+@lru_cache(maxsize=None)
 def load_curated() -> dict:
     path = refs_dir() / "stations-meta.yaml"
     return yaml.safe_load(path.read_text(encoding="utf-8"))
@@ -139,6 +142,8 @@ def build_registry(snapshot: dict[str, dict] | None = None) -> list[dict]:
             "network_density_km_km2": meta.get("network_density_km_km2"),
             "river_length_km": meta.get("river_length_km"),
             "annual_precip_mm": meta.get("annual_precip_mm"),
+            "pz_m_nap": meta.get("pz_m_nap"),
+            "uwagi": meta.get("uwagi"),
             "data": availability(sid),
             "map": sid in curated_by_id,
             "status": "active" if sid in snapshot else "historical",
